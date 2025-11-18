@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.4
+    hooks:
+      - id: go-mod-tidy
+
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.6.1
+    hooks:
+      - id: golangci-lint-full

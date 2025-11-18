@@ -1,0 +1,13 @@
+version: "2"
+linters:
+  settings:
+    staticcheck:
+      checks:
+        - all
+formatters:
+  enable:
+    - golines
+  settings:
+    golines:
+      max-len: 120
+      tab-len: 4

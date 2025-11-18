@@ -1,0 +1,135 @@
+package main
+
+import (
+	"net"
+	"sync"
+	"time"
+
+	"golang.org/x/net/icmp"
+	"golang.org/x/net/ipv4"
+)
+
+const (
+	protocolICMP = 1
+	maxWorkers   = 25
+	pingTimeout  = 500 * time.Millisecond
+)
+
+// PingResult contains the result of a ping operation
+type PingResult struct {
+	Location *Location
+	Latency  *float64
+}
+
+// PingLocations pings all locations concurrently and updates their latency values
+func PingLocations(locations []Location) ([]Location, error) {
+	workChan := make(chan *Location, len(locations))
+	resultChan := make(chan PingResult, len(locations))
+
+	// Start worker pool
+	var wg sync.WaitGroup
+	for range maxWorkers {
+		wg.Go(func() {
+			pingWorker(workChan, resultChan)
+		})
+	}
+
+	// Send locations to workers
+	for i := range locations {
+		workChan <- &locations[i]
+	}
+	close(workChan)
+
+	// Wait for all workers to finish
+	go func() {
+		wg.Wait()
+		close(resultChan)
+	}()
+
+	// Collect results
+	results := make([]Location, 0, len(locations))
+	for result := range resultChan {
+		result.Location.Latency = result.Latency
+		results = append(results, *result.Location)
+	}
+
+	return results, nil
+}
+
+// pingWorker processes locations from the work channel
+func pingWorker(workChan <-chan *Location, resultChan chan<- PingResult) {
+	for loc := range workChan {
+		latency := ping(loc.IPv4Address)
+		resultChan <- PingResult{
+			Location: loc,
+			Latency:  latency,
+		}
+	}
+}
+
+// ping sends an ICMP echo request with its own dedicated socket
+func ping(ipAddr string) *float64 {
+	// Create dedicated ICMP connection for this ping
+	// Uses unprivileged SOCK_DGRAM which works on macOS by default
+	// and on Linux with net.ipv4.ping_group_range configured
+	conn, err := icmp.ListenPacket("udp4", "0.0.0.0")
+	if err != nil {
+		return nil
+	}
+	defer func() { _ = conn.Close() }()
+
+	// Create ICMP echo request
+	msg := icmp.Message{
+		Type: ipv4.ICMPTypeEcho,
+		Code: 0,
+		Body: &icmp.Echo{
+			ID:   1, // ID doesn't matter for SOCK_DGRAM, kernel manages it
+			Seq:  1,
+			Data: []byte("mullvad-compass"),
+		},
+	}
+
+	msgBytes, err := msg.Marshal(nil)
+	if err != nil {
+		return nil
+	}
+
+	// Resolve destination
+	dst, err := net.ResolveUDPAddr("udp4", ipAddr+":0")
+	if err != nil {
+		return nil
+	}
+
+	// Send ping
+	start := time.Now()
+	_, err = conn.WriteTo(msgBytes, dst)
+	if err != nil {
+		return nil
+	}
+
+	// Set read deadline for timeout
+	_ = conn.SetReadDeadline(time.Now().Add(pingTimeout))
+
+	// Wait for reply
+	reply := make([]byte, 1500)
+	n, _, err := conn.ReadFrom(reply)
+	if err != nil {
+		return nil // Timeout or error
+	}
+
+	// Calculate latency
+	latencyMs := float64(time.Since(start).Microseconds()) / 1000.0
+
+	// Parse reply to verify it's valid
+	parsedMsg, err := icmp.ParseMessage(protocolICMP, reply[:n])
+	if err != nil {
+		return nil
+	}
+
+	// Verify it's an echo reply
+	if parsedMsg.Type != ipv4.ICMPTypeEchoReply {
+		return nil
+	}
+
+	return &latencyMs
+}
