@@ -1,0 +1,162 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+
+env:
+  GO_VERSION: 1.25.x
+  MULLVAD_COMPASS_BUILD_ARTIFACTS_DIR: dist
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v9.0.0
+
+  test:
+    name: Test (${{ matrix.privilege-level }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - privilege-level: "no-privileges"
+            description: "No ICMP privileges (restrictive ping_group_range)"
+            setup-privileges: "false"
+            use-sudo: "false"
+
+          - privilege-level: "udp-icmp"
+            description: "UDP ICMP via ping_group_range"
+            setup-privileges: "true"
+            use-sudo: "false"
+
+          - privilege-level: "raw-icmp"
+            description: "Raw ICMP via CAP_NET_RAW"
+            setup-privileges: "false"
+            use-sudo: "true"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Check initial ping_group_range configuration
+        run: |
+          echo "=== Initial System Configuration ==="
+          echo "ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
+          echo "Current user: $(id)"
+          echo "=================================="
+
+      - name: Configure ping_group_range for UDP ICMP
+        if: matrix.setup-privileges == 'true'
+        run: |
+          echo "Configuring ping_group_range to allow all users..."
+          sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
+          echo "New ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
+
+      - name: Run tests without sudo
+        if: matrix.use-sudo == 'false'
+        run: make test-ci
+
+      - name: Run tests with sudo (for raw ICMP)
+        if: matrix.use-sudo == 'true'
+        run: sudo make test-ci
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: ${{ matrix.privilege-level }}
+          name: coverage-${{ matrix.privilege-level }}
+
+  release:
+    name: Build ${{ matrix.goos }}-${{ matrix.goarch }}
+    runs-on: ${{ matrix.os }}
+    if: startsWith(github.ref, 'refs/tags/')
+
+    needs:
+      - lint
+      - test
+
+    permissions:
+      contents: write
+
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            os: ubuntu-latest
+
+          - goos: linux
+            goarch: arm64
+            os: ubuntu-latest
+
+          - goos: darwin
+            goarch: amd64
+            os: macos-latest
+
+          - goos: darwin
+            goarch: arm64
+            os: macos-latest
+
+          - goos: windows
+            goarch: amd64
+            os: windows-latest
+
+          - goos: windows
+            goarch: arm64
+            os: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Get version from tag
+        id: version
+        shell: bash
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          MULLVAD_COMPASS_EXECUTABLE_FILENAME: mullvad-compass-${{ matrix.goos }}-${{ matrix.goarch }}
+          MULLVAD_COMPASS_VERSION: ${{ steps.version.outputs.version }}
+        run: make build
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/mullvad-compass-${{ matrix.goos }}-${{ matrix.goarch }}*
+          generate_release_notes: true
