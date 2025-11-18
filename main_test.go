@@ -343,6 +343,42 @@ func TestE2E_ErrorHandling(t *testing.T) {
 			t.Errorf("Expected relays.json error, got: %v", err)
 		}
 	})
+
+	t.Run("Connected to Mullvad VPN warning", func(t *testing.T) {
+		var output bytes.Buffer
+
+		deps := Dependencies{
+			GetUserLocation: func() (*UserLocation, error) {
+				return &UserLocation{
+					Latitude:      59.329323,
+					Longitude:     18.068581,
+					Country:       "Sweden",
+					City:          "Stockholm",
+					MullvadExitIP: true,
+				}, nil
+			},
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
+				t.Error("PingLocations should not be called when connected to Mullvad VPN")
+				return locs, nil
+			},
+			GetRelaysPath: func() (string, error) {
+				return "testdata/relays.json", nil
+			},
+			Stdout: &output,
+		}
+
+		args := []string{"-m", "500"}
+		err := run(args, deps)
+
+		if err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+		if !strings.Contains(result, "connected to Mullvad VPN") {
+			t.Error("Output should warn about being connected to Mullvad VPN")
+		}
+	})
 }
 
 func TestE2E_FlagParsing(t *testing.T) {
@@ -505,6 +541,147 @@ func TestE2E_Integration(t *testing.T) {
 			if strings.Contains(line, "openvpn") {
 				t.Error("Should not contain openvpn servers")
 			}
+		}
+	})
+
+	t.Run("WhereAmI flag shows location with long form not on Mullvad", func(t *testing.T) {
+		var output bytes.Buffer
+
+		deps := Dependencies{
+			GetUserLocation: func() (*UserLocation, error) {
+				return &UserLocation{
+					IP:            "203.0.113.42",
+					Latitude:      41.327953,
+					Longitude:     19.819025,
+					Country:       "Albania",
+					City:          "Tirana",
+					MullvadExitIP: false,
+				}, nil
+			},
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
+				t.Error("PingLocations should not be called with --where-am-i flag")
+				return locs, nil
+			},
+			GetRelaysPath: func() (string, error) {
+				t.Error("GetRelaysPath should not be called with --where-am-i flag")
+				return "", nil
+			},
+			Stdout: &output,
+		}
+
+		args := []string{"--where-am-i"}
+		err := run(args, deps)
+		if err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+
+		// Should contain location information
+		if !strings.Contains(result, "203.0.113.42") {
+			t.Error("Output should contain IP address")
+		}
+		if !strings.Contains(result, "Tirana") {
+			t.Error("Output should contain city name")
+		}
+		if !strings.Contains(result, "Albania") {
+			t.Error("Output should contain country name")
+		}
+		if !strings.Contains(result, "41.327953") {
+			t.Error("Output should contain latitude")
+		}
+		if !strings.Contains(result, "19.819025") {
+			t.Error("Output should contain longitude")
+		}
+		if !strings.Contains(result, "Connected to Mullvad VPN: No") {
+			t.Error("Output should indicate not connected to Mullvad VPN")
+		}
+	})
+
+	t.Run("WhereAmI flag shows Mullvad connection status when connected", func(t *testing.T) {
+		var output bytes.Buffer
+
+		deps := Dependencies{
+			GetUserLocation: func() (*UserLocation, error) {
+				return &UserLocation{
+					IP:            "185.65.135.42",
+					Latitude:      59.329323,
+					Longitude:     18.068581,
+					Country:       "Sweden",
+					City:          "Stockholm",
+					MullvadExitIP: true,
+				}, nil
+			},
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
+				t.Error("PingLocations should not be called with --where-am-i flag")
+				return locs, nil
+			},
+			GetRelaysPath: func() (string, error) {
+				t.Error("GetRelaysPath should not be called with --where-am-i flag")
+				return "", nil
+			},
+			Stdout: &output,
+		}
+
+		args := []string{"--where-am-i"}
+		err := run(args, deps)
+		if err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+
+		if !strings.Contains(result, "185.65.135.42") {
+			t.Error("Output should contain IP address")
+		}
+		if !strings.Contains(result, "Connected to Mullvad VPN: Yes") {
+			t.Error("Output should indicate connected to Mullvad VPN")
+		}
+	})
+
+	t.Run("WhereAmI flag shows location with short form", func(t *testing.T) {
+		var output bytes.Buffer
+
+		deps := Dependencies{
+			GetUserLocation: func() (*UserLocation, error) {
+				return &UserLocation{
+					Latitude:  52.520008,
+					Longitude: 13.404954,
+					Country:   "Germany",
+					City:      "Berlin",
+				}, nil
+			},
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
+				t.Error("PingLocations should not be called with -i flag")
+				return locs, nil
+			},
+			GetRelaysPath: func() (string, error) {
+				t.Error("GetRelaysPath should not be called with -i flag")
+				return "", nil
+			},
+			Stdout: &output,
+		}
+
+		args := []string{"-i"}
+		err := run(args, deps)
+		if err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+
+		// Should contain location information
+		if !strings.Contains(result, "Berlin") {
+			t.Error("Output should contain city name")
+		}
+		if !strings.Contains(result, "Germany") {
+			t.Error("Output should contain country name")
+		}
+		if !strings.Contains(result, "52.520008") {
+			t.Error("Output should contain latitude")
+		}
+		if !strings.Contains(result, "13.404954") {
+			t.Error("Output should contain longitude")
 		}
 	})
 }

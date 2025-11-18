@@ -15,10 +15,12 @@ var apiClient = &http.Client{
 
 // UserLocation represents the response from Mullvad's location API
 type UserLocation struct {
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Country   string  `json:"country"`
-	City      string  `json:"city"`
+	IP            string  `json:"ip"`
+	Latitude      float64 `json:"latitude"`
+	Longitude     float64 `json:"longitude"`
+	Country       string  `json:"country"`
+	City          string  `json:"city"`
+	MullvadExitIP bool    `json:"mullvad_exit_ip"`
 }
 
 // GetUserLocation fetches the user's current geographic location from Mullvad API

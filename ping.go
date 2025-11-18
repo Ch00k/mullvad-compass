@@ -137,26 +137,42 @@ func ping(ipAddr string, timeout time.Duration) *float64 {
 	// Set read deadline for timeout
 	_ = conn.SetReadDeadline(time.Now().Add(timeout))
 
-	// Wait for reply
+	// Wait for reply - may need to read multiple packets if intermediate routers respond
 	reply := make([]byte, 1500)
-	n, _, err := conn.ReadFrom(reply)
-	if err != nil {
-		return nil // Timeout or error
+	for {
+		n, peer, err := conn.ReadFrom(reply)
+		if err != nil {
+			return nil // Timeout or error
+		}
+
+		// Parse reply to verify it's valid
+		parsedMsg, err := icmp.ParseMessage(protocolICMP, reply[:n])
+		if err != nil {
+			continue // Invalid message, keep reading
+		}
+
+		// Verify it's an echo reply
+		if parsedMsg.Type != ipv4.ICMPTypeEchoReply {
+			continue // Not an echo reply, keep reading
+		}
+
+		// Verify the reply came from the IP we pinged
+		var peerIP string
+		switch addr := peer.(type) {
+		case *net.UDPAddr:
+			peerIP = addr.IP.String()
+		case *net.IPAddr:
+			peerIP = addr.IP.String()
+		default:
+			continue // Unknown address type, keep reading
+		}
+
+		if peerIP != ipAddr {
+			continue // Reply from wrong IP (intermediate router), keep reading
+		}
+
+		// Valid reply from correct IP
+		latencyMs := float64(time.Since(start).Microseconds()) / 1000.0
+		return &latencyMs
 	}
-
-	// Calculate latency
-	latencyMs := float64(time.Since(start).Microseconds()) / 1000.0
-
-	// Parse reply to verify it's valid
-	parsedMsg, err := icmp.ParseMessage(protocolICMP, reply[:n])
-	if err != nil {
-		return nil
-	}
-
-	// Verify it's an echo reply
-	if parsedMsg.Type != ipv4.ICMPTypeEchoReply {
-		return nil
-	}
-
-	return &latencyMs
 }
