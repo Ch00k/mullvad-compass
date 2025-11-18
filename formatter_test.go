@@ -253,6 +253,12 @@ func TestPadRight(t *testing.T) {
 			width:    0,
 			expected: "test",
 		},
+		{
+			name:     "String with unicode characters",
+			input:    "Malmö",
+			width:    10,
+			expected: "Malmö     ",
+		},
 	}
 
 	for _, tt := range tests {

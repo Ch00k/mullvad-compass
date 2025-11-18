@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"unicode/utf8"
 )
 
 // FormatTable formats locations as a table string
@@ -42,12 +43,13 @@ func FormatTable(locations []Location) string {
 	// Calculate column widths
 	widths := make([]int, len(headers))
 	for i, header := range headers {
-		widths[i] = len(header)
+		widths[i] = utf8.RuneCountInString(header)
 	}
 	for _, row := range rows {
 		for i, cell := range row {
-			if len(cell) > widths[i] {
-				widths[i] = len(cell)
+			cellWidth := utf8.RuneCountInString(cell)
+			if cellWidth > widths[i] {
+				widths[i] = cellWidth
 			}
 		}
 	}
@@ -86,10 +88,11 @@ func FormatTable(locations []Location) string {
 
 // padRight pads a string with spaces on the right to reach the specified width
 func padRight(s string, width int) string {
-	if len(s) >= width {
+	runeCount := utf8.RuneCountInString(s)
+	if runeCount >= width {
 		return s
 	}
-	return s + strings.Repeat(" ", width-len(s))
+	return s + strings.Repeat(" ", width-runeCount)
 }
 
 // formatDistance formats a distance value for display
