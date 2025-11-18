@@ -1,0 +1,19 @@
+version: "2"
+linters:
+  enable:
+    - revive
+    - gocritic
+    - unparam
+    - prealloc
+  settings:
+    staticcheck:
+      checks:
+        - all
+formatters:
+  enable:
+    - gofumpt
+    - golines
+  settings:
+    golines:
+      max-len: 120
+      tab-len: 4
