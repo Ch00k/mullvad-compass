@@ -11,8 +11,6 @@ import (
 
 const (
 	protocolICMP = 1
-	maxWorkers   = 25
-	pingTimeout  = 500 * time.Millisecond
 )
 
 // PingResult contains the result of a ping operation
@@ -22,25 +20,31 @@ type PingResult struct {
 }
 
 // PingLocations pings all locations concurrently and updates their latency values
-func PingLocations(locations []Location) ([]Location, error) {
+func PingLocations(locations []Location, timeout, workers int) ([]Location, error) {
 	workChan := make(chan *Location, len(locations))
 	resultChan := make(chan PingResult, len(locations))
 
+	to := time.Duration(timeout) * time.Millisecond
+
 	// Start worker pool
 	var wg sync.WaitGroup
-	for range maxWorkers {
-		wg.Go(func() {
-			pingWorker(workChan, resultChan)
-		})
+	for i := 0; i < workers; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			pingWorker(workChan, resultChan, to)
+		}()
 	}
 
-	// Send locations to workers
-	for i := range locations {
-		workChan <- &locations[i]
-	}
-	close(workChan)
+	// Send locations to workers in a separate goroutine
+	go func() {
+		for i := range locations {
+			workChan <- &locations[i]
+		}
+		close(workChan)
+	}()
 
-	// Wait for all workers to finish
+	// Wait for all workers to finish, then close results channel
 	go func() {
 		wg.Wait()
 		close(resultChan)
@@ -57,9 +61,9 @@ func PingLocations(locations []Location) ([]Location, error) {
 }
 
 // pingWorker processes locations from the work channel
-func pingWorker(workChan <-chan *Location, resultChan chan<- PingResult) {
+func pingWorker(workChan <-chan *Location, resultChan chan<- PingResult, timeout time.Duration) {
 	for loc := range workChan {
-		latency := ping(loc.IPv4Address)
+		latency := ping(loc.IPv4Address, timeout)
 		resultChan <- PingResult{
 			Location: loc,
 			Latency:  latency,
@@ -67,12 +71,25 @@ func pingWorker(workChan <-chan *Location, resultChan chan<- PingResult) {
 	}
 }
 
+// listenICMP tries to create an ICMP connection, attempting raw ICMP first, then UDP fallback
+func listenICMP() (*icmp.PacketConn, string, error) {
+	// Try raw ICMP first (requires privileges but gives more accurate results)
+	if c, err := icmp.ListenPacket("ip4:icmp", "0.0.0.0"); err == nil {
+		return c, "ip4:icmp", nil
+	}
+
+	// Fallback to UDP datagram (unprivileged on macOS and Linux with net.ipv4.ping_group_range)
+	c, err := icmp.ListenPacket("udp4", "0.0.0.0")
+	if err != nil {
+		return nil, "", err
+	}
+	return c, "udp4", nil
+}
+
 // ping sends an ICMP echo request with its own dedicated socket
-func ping(ipAddr string) *float64 {
+func ping(ipAddr string, timeout time.Duration) *float64 {
 	// Create dedicated ICMP connection for this ping
-	// Uses unprivileged SOCK_DGRAM which works on macOS by default
-	// and on Linux with net.ipv4.ping_group_range configured
-	conn, err := icmp.ListenPacket("udp4", "0.0.0.0")
+	conn, network, err := listenICMP()
 	if err != nil {
 		return nil
 	}
@@ -95,9 +112,19 @@ func ping(ipAddr string) *float64 {
 	}
 
 	// Resolve destination
-	dst, err := net.ResolveUDPAddr("udp4", ipAddr+":0")
-	if err != nil {
-		return nil
+	var dst net.Addr
+	if network == "udp4" {
+		addr, err := net.ResolveUDPAddr("udp4", ipAddr+":0")
+		if err != nil {
+			return nil
+		}
+		dst = addr
+	} else {
+		addr, err := net.ResolveIPAddr("ip4", ipAddr)
+		if err != nil {
+			return nil
+		}
+		dst = addr
 	}
 
 	// Send ping
@@ -108,7 +135,7 @@ func ping(ipAddr string) *float64 {
 	}
 
 	// Set read deadline for timeout
-	_ = conn.SetReadDeadline(time.Now().Add(pingTimeout))
+	_ = conn.SetReadDeadline(time.Now().Add(timeout))
 
 	// Wait for reply
 	reply := make([]byte, 1500)

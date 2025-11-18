@@ -206,9 +206,9 @@ func TestFormatTable(t *testing.T) {
 		headerParts := strings.Fields(lines[0])
 		dataParts := strings.Fields(lines[2])
 
-		// Should have 7 columns
-		if len(headerParts) != 7 {
-			t.Errorf("Expected 7 header columns, got %d", len(headerParts))
+		// Should have 9 header fields (7 columns, but "Distance (km)" and "Latency (ms)" are 2 fields each)
+		if len(headerParts) != 9 {
+			t.Errorf("Expected 9 header fields, got %d", len(headerParts))
 		}
 		if len(dataParts) != 7 {
 			t.Errorf("Expected 7 data columns, got %d", len(dataParts))

@@ -65,7 +65,11 @@ func GetRelaysFilePath() (string, error) {
 	case "darwin":
 		basePath = filepath.Join("/Library/Caches/mullvad-vpn", "relays.json")
 	case "windows":
-		basePath = filepath.Join("C:/ProgramData/Mullvad VPN/cache", "relays.json")
+		programData := os.Getenv("ProgramData")
+		if programData == "" {
+			programData = "C:\\ProgramData"
+		}
+		basePath = filepath.Join(programData, "Mullvad VPN", "cache", "relays.json")
 	default:
 		return "", fmt.Errorf("unsupported platform: %s", runtime.GOOS)
 	}
@@ -103,6 +107,11 @@ func GetLocations(relays *RelaysFile, serverType string) ([]Location, error) {
 				relayType, err := determineRelayType(relay.EndpointData)
 				if err != nil {
 					continue // Skip relays we can't parse
+				}
+
+				// Skip inactive relays
+				if !relay.Active {
+					continue
 				}
 
 				// Filter by server type if specified

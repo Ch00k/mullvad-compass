@@ -6,8 +6,13 @@ import (
 )
 
 func TestPingLocations(t *testing.T) {
+	const (
+		defaultTimeout = 500
+		defaultWorkers = 25
+	)
+
 	t.Run("Empty locations", func(t *testing.T) {
-		result, err := PingLocations([]Location{})
+		result, err := PingLocations([]Location{}, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -26,7 +31,7 @@ func TestPingLocations(t *testing.T) {
 			},
 		}
 
-		result, err := PingLocations(locations)
+		result, err := PingLocations(locations, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -64,7 +69,7 @@ func TestPingLocations(t *testing.T) {
 			},
 		}
 
-		result, err := PingLocations(locations)
+		result, err := PingLocations(locations, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -94,7 +99,7 @@ func TestPingLocations(t *testing.T) {
 			},
 		}
 
-		result, err := PingLocations(locations)
+		result, err := PingLocations(locations, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -118,7 +123,7 @@ func TestPingLocations(t *testing.T) {
 			},
 		}
 
-		result, err := PingLocations(locations)
+		result, err := PingLocations(locations, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -138,7 +143,7 @@ func TestPingLocations(t *testing.T) {
 
 	t.Run("Concurrent ping respects worker pool size", func(t *testing.T) {
 		// Create more locations than worker pool size
-		locations := make([]Location, maxWorkers*2)
+		locations := make([]Location, defaultWorkers*2)
 		for i := range locations {
 			locations[i] = Location{
 				IPv4Address: "127.0.0.1",
@@ -149,7 +154,7 @@ func TestPingLocations(t *testing.T) {
 		}
 
 		start := time.Now()
-		result, err := PingLocations(locations)
+		result, err := PingLocations(locations, defaultTimeout, defaultWorkers)
 		if err != nil {
 			t.Fatalf("Unexpected error: %v", err)
 		}
@@ -161,7 +166,8 @@ func TestPingLocations(t *testing.T) {
 
 		// With concurrency, should complete faster than sequential pings
 		// Even if some fail, total time should be reasonable
-		maxExpectedDuration := pingTimeout * time.Duration(len(locations)/maxWorkers+2)
+		pingTimeout := time.Duration(defaultTimeout) * time.Millisecond
+		maxExpectedDuration := pingTimeout * time.Duration(len(locations)/defaultWorkers+2)
 		if duration > maxExpectedDuration {
 			t.Logf("Warning: Pinging took longer than expected: %v (max expected: %v)", duration, maxExpectedDuration)
 		}
@@ -186,7 +192,8 @@ func TestPingWorker(t *testing.T) {
 		workChan <- loc2
 		close(workChan)
 
-		go pingWorker(workChan, resultChan)
+		pingTimeout := 500 * time.Millisecond
+		go pingWorker(workChan, resultChan, pingTimeout)
 
 		// Collect results with timeout
 		timeout := time.After(5 * time.Second)
@@ -230,10 +237,12 @@ func TestPingWorker(t *testing.T) {
 }
 
 func TestPing(t *testing.T) {
+	const testTimeout = 500 * time.Millisecond
+
 	t.Run("Ping localhost", func(t *testing.T) {
 		// This test may fail if running without proper permissions
 		// or if ICMP is blocked by firewall
-		result := ping("127.0.0.1")
+		result := ping("127.0.0.1", testTimeout)
 
 		// We can't assert result is non-nil because it requires privileges
 		// Just verify the function completes without panic
@@ -251,7 +260,7 @@ func TestPing(t *testing.T) {
 	})
 
 	t.Run("Ping invalid IP", func(t *testing.T) {
-		result := ping("256.256.256.256")
+		result := ping("256.256.256.256", testTimeout)
 		if result != nil {
 			t.Error("Expected nil for invalid IP address")
 		}
@@ -259,7 +268,7 @@ func TestPing(t *testing.T) {
 
 	t.Run("Ping unreachable IP", func(t *testing.T) {
 		// Using TEST-NET-1 address that should be unreachable
-		result := ping("192.0.2.1")
+		result := ping("192.0.2.1", testTimeout)
 		// Should timeout and return nil
 		if result != nil {
 			t.Logf("Warning: Expected nil for unreachable IP, got latency: %.2f ms", *result)
@@ -268,14 +277,14 @@ func TestPing(t *testing.T) {
 
 	t.Run("Ping respects timeout", func(t *testing.T) {
 		start := time.Now()
-		result := ping("192.0.2.1") // Unreachable IP
+		result := ping("192.0.2.1", testTimeout) // Unreachable IP
 		duration := time.Since(start)
 
-		// Should timeout around pingTimeout (1 second)
+		// Should timeout around testTimeout
 		// Allow some overhead for processing
-		maxDuration := pingTimeout + 500*time.Millisecond
+		maxDuration := testTimeout + 500*time.Millisecond
 		if duration > maxDuration {
-			t.Errorf("Ping took too long: %v (expected ~%v)", duration, pingTimeout)
+			t.Errorf("Ping took too long: %v (expected ~%v)", duration, testTimeout)
 		}
 
 		if result != nil {
