@@ -98,7 +98,7 @@ func TestGetLocations(t *testing.T) {
 	}
 
 	t.Run("All locations", func(t *testing.T) {
-		locations, err := GetLocations(relays, "")
+		locations, err := GetLocations(relays, "", "")
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -116,7 +116,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by wireguard", func(t *testing.T) {
-		locations, err := GetLocations(relays, "wireguard")
+		locations, err := GetLocations(relays, "wireguard", "")
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -129,7 +129,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by openvpn", func(t *testing.T) {
-		locations, err := GetLocations(relays, "openvpn")
+		locations, err := GetLocations(relays, "openvpn", "")
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -142,7 +142,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Verify location fields", func(t *testing.T) {
-		locations, err := GetLocations(relays, "")
+		locations, err := GetLocations(relays, "", "")
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -166,6 +166,178 @@ func TestGetLocations(t *testing.T) {
 		}
 		if loc.Type == "" {
 			t.Error("Type is empty")
+		}
+	})
+
+	t.Run("Exclude relays with include_in_country=false", func(t *testing.T) {
+		// Create test data with include_in_country field
+		testRelays := &RelaysFile{
+			Countries: []Country{
+				{
+					Name: "Test Country",
+					Code: "tc",
+					Cities: []City{
+						{
+							Name:      "Test City",
+							Code:      "test",
+							Latitude:  50.0,
+							Longitude: 10.0,
+							Relays: []Relay{
+								{
+									Hostname:         "included-server",
+									IPv4AddrIn:       "1.1.1.1",
+									Active:           true,
+									Owned:            true,
+									Provider:         "test",
+									IncludeInCountry: true,
+									EndpointData:     json.RawMessage(`"openvpn"`),
+									Location: RelayLocation{
+										Country:   "Test Country",
+										City:      "Test City",
+										Latitude:  50.0,
+										Longitude: 10.0,
+									},
+								},
+								{
+									Hostname:         "excluded-server",
+									IPv4AddrIn:       "2.2.2.2",
+									Active:           true,
+									Owned:            true,
+									Provider:         "test",
+									IncludeInCountry: false,
+									EndpointData:     json.RawMessage(`"openvpn"`),
+									Location: RelayLocation{
+										Country:   "Test Country",
+										City:      "Test City",
+										Latitude:  50.0,
+										Longitude: 10.0,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+
+		locations, err := GetLocations(testRelays, "", "")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		// Should only have the included server
+		if len(locations) != 1 {
+			t.Errorf("Expected 1 location, got %d", len(locations))
+		}
+
+		if len(locations) > 0 && locations[0].Hostname != "included-server" {
+			t.Errorf("Expected included-server, got %s", locations[0].Hostname)
+		}
+
+		// Verify excluded server is not in results
+		for _, loc := range locations {
+			if loc.Hostname == "excluded-server" {
+				t.Error("Found excluded-server which should have been filtered out")
+			}
+		}
+	})
+
+	t.Run("Filter by DAITA obfuscation", func(t *testing.T) {
+		locations, err := GetLocations(relays, "", "daita")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) == 0 {
+			t.Skip("No DAITA servers found in test data")
+		}
+
+		// All returned servers should be wireguard with DAITA
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Found non-wireguard server with DAITA filter: %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Filter by LWO obfuscation", func(t *testing.T) {
+		locations, err := GetLocations(relays, "", "lwo")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) == 0 {
+			t.Skip("No LWO servers found in test data")
+		}
+
+		// All returned servers should be wireguard with LWO
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Found non-wireguard server with LWO filter: %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Filter by QUIC obfuscation", func(t *testing.T) {
+		locations, err := GetLocations(relays, "", "quic")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) == 0 {
+			t.Skip("No QUIC servers found in test data")
+		}
+
+		// All returned servers should be wireguard with QUIC
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Found non-wireguard server with QUIC filter: %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Filter by Shadowsocks obfuscation", func(t *testing.T) {
+		locations, err := GetLocations(relays, "", "shadowsocks")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) == 0 {
+			t.Skip("No Shadowsocks servers found in test data")
+		}
+
+		// All returned servers should be wireguard with Shadowsocks
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Found non-wireguard server with Shadowsocks filter: %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Obfuscation filter with wireguard type", func(t *testing.T) {
+		locations, err := GetLocations(relays, "wireguard", "daita")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		// All should be wireguard
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Found non-wireguard server: %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Obfuscation filter with openvpn type returns empty", func(t *testing.T) {
+		locationsWithObf, err := GetLocations(relays, "openvpn", "daita")
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		// Should return 0 results (obfuscation forces wireguard, but serverType wants openvpn)
+		if len(locationsWithObf) != 0 {
+			t.Errorf("Expected 0 locations when filtering openvpn with wireguard obfuscation, got %d",
+				len(locationsWithObf))
 		}
 	})
 }

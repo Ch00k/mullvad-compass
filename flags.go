@@ -8,14 +8,15 @@ import (
 )
 
 type config struct {
-	serverType   string
-	maxDistance  float64
-	relaysPath   string
-	showHelp     bool
-	showVersion  bool
-	showWhereAmI bool
-	timeout      int
-	workers      int
+	serverType           string
+	wireguardObfuscation string
+	maxDistance          float64
+	relaysPath           string
+	showHelp             bool
+	showVersion          bool
+	showWhereAmI         bool
+	timeout              int
+	workers              int
 }
 
 // parseFlags parses command-line arguments manually to support GNU-style long flags
@@ -52,6 +53,20 @@ func parseFlags(args []string) (*config, error) {
 				return nil, fmt.Errorf("invalid server type: %s (must be 'openvpn' or 'wireguard')", serverType)
 			}
 			cfg.serverType = serverType
+
+		case arg == "-o" || arg == "--wireguard-obfuscation":
+			if i+1 >= len(args) {
+				return nil, fmt.Errorf("%s requires an argument", arg)
+			}
+			i++
+			obfuscation := args[i]
+			if obfuscation != "daita" && obfuscation != "lwo" && obfuscation != "quic" && obfuscation != "shadowsocks" {
+				return nil, fmt.Errorf(
+					"invalid wireguard obfuscation: %s (must be 'daita', 'lwo', 'quic', or 'shadowsocks')",
+					obfuscation,
+				)
+			}
+			cfg.wireguardObfuscation = obfuscation
 
 		case arg == "-m" || arg == "--max-distance":
 			if i+1 >= len(args) {
@@ -122,18 +137,21 @@ USAGE:
     mullvad-compass [OPTIONS]
 
 OPTIONS:
-    -s, --server-type TYPE      Filter by server type (openvpn or wireguard)
-    -m, --max-distance DIST     Maximum distance in km from your location (default: 500)
-    -r, --relays-file PATH      Path to relays.json file (auto-detected if not specified)
-    -t, --timeout MS            Ping timeout in milliseconds (default: 500, range: 100-5000)
-    -w, --workers COUNT         Number of concurrent ping workers (default: 25, range: 1-200)
-    -i, --where-am-i            Display your current location and exit
-    -h, --help                  Show this help message
-    -v, --version               Show version information
+    -s, --server-type TYPE            Filter by server type (openvpn or wireguard)
+    -o, --wireguard-obfuscation TYPE  Filter WireGuard servers by obfuscation (daita, lwo, quic, shadowsocks)
+    -m, --max-distance DIST           Maximum distance in km from your location (default: 500)
+    -r, --relays-file PATH            Path to relays.json file (auto-detected if not specified)
+    -t, --timeout MS                  Ping timeout in milliseconds (default: 500, range: 100-5000)
+    -w, --workers COUNT               Number of concurrent ping workers (default: 25, range: 1-200)
+    -i, --where-am-i                  Display your current location and exit
+    -h, --help                        Show this help message
+    -v, --version                     Show version information
 
 EXAMPLES:
     mullvad-compass
     mullvad-compass -s wireguard -m 300
+    mullvad-compass --server-type wireguard --wireguard-obfuscation daita
+    mullvad-compass -o quic -m 500
     mullvad-compass --server-type openvpn --max-distance 1000
     mullvad-compass --relays-file /path/to/relays.json
     mullvad-compass --where-am-i

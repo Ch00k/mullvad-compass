@@ -91,8 +91,8 @@ func run(args []string, deps Dependencies) error {
 		return err
 	}
 
-	// Get locations from relays file, optionally filtered by type
-	locations, err := GetLocations(relays, config.serverType)
+	// Get locations from relays file, optionally filtered by type and obfuscation
+	locations, err := GetLocations(relays, config.serverType, config.wireguardObfuscation)
 	if err != nil {
 		return err
 	}

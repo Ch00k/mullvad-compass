@@ -31,13 +31,14 @@ type City struct {
 
 // Relay represents a single VPN server
 type Relay struct {
-	Hostname     string          `json:"hostname"`
-	IPv4AddrIn   string          `json:"ipv4_addr_in"`
-	Active       bool            `json:"active"`
-	Owned        bool            `json:"owned"`
-	Provider     string          `json:"provider"`
-	EndpointData json.RawMessage `json:"endpoint_data"`
-	Location     RelayLocation   `json:"location"`
+	Hostname         string          `json:"hostname"`
+	IPv4AddrIn       string          `json:"ipv4_addr_in"`
+	Active           bool            `json:"active"`
+	Owned            bool            `json:"owned"`
+	Provider         string          `json:"provider"`
+	IncludeInCountry bool            `json:"include_in_country"`
+	EndpointData     json.RawMessage `json:"endpoint_data"`
+	Location         RelayLocation   `json:"location"`
 }
 
 // RelayLocation contains the geographic information for a relay
@@ -51,7 +52,11 @@ type RelayLocation struct {
 // WireguardEndpoint represents the wireguard endpoint data structure
 type WireguardEndpoint struct {
 	Wireguard struct {
-		PublicKey string `json:"public_key"`
+		PublicKey              string    `json:"public_key"`
+		Daita                  bool      `json:"daita"`
+		Lwo                    bool      `json:"lwo"`
+		Quic                   *struct{} `json:"quic"`
+		ShadowsocksExtraAddrIn []string  `json:"shadowsocks_extra_addr_in"`
 	} `json:"wireguard"`
 }
 
@@ -96,8 +101,8 @@ func ParseRelaysFile(path string) (*RelaysFile, error) {
 	return &relays, nil
 }
 
-// GetLocations extracts Location objects from the relays file, optionally filtered by server type
-func GetLocations(relays *RelaysFile, serverType string) ([]Location, error) {
+// GetLocations extracts Location objects from the relays file, optionally filtered by server type and wireguard obfuscation
+func GetLocations(relays *RelaysFile, serverType string, wireguardObfuscation string) ([]Location, error) {
 	var locations []Location
 
 	for _, country := range relays.Countries {
@@ -114,13 +119,31 @@ func GetLocations(relays *RelaysFile, serverType string) ([]Location, error) {
 					continue
 				}
 
-				// Filter by server type if specified
-				if serverType != "" && relayType != serverType {
+				// Skip relays excluded from country
+				if !relay.IncludeInCountry {
 					continue
 				}
 
 				// Skip bridge servers
 				if relayType == "bridge" {
+					continue
+				}
+
+				// Filter by wireguard obfuscation if specified
+				// When obfuscation is specified, only include wireguard servers that match
+				// This implicitly filters to wireguard only, even if serverType is not specified
+				if wireguardObfuscation != "" {
+					if relayType != "wireguard" {
+						continue // Skip non-wireguard servers when obfuscation filter is set
+					}
+					if !matchesObfuscation(relay.EndpointData, wireguardObfuscation) {
+						continue // Skip wireguard servers that don't match the obfuscation
+					}
+				}
+
+				// Filter by server type if specified
+				// This is checked after obfuscation to allow --server-type openvpn --wireguard-obfuscation to return empty
+				if serverType != "" && relayType != serverType {
 					continue
 				}
 
@@ -162,4 +185,25 @@ func determineRelayType(endpointData json.RawMessage) (string, error) {
 	}
 
 	return "", fmt.Errorf("unknown endpoint_data format")
+}
+
+// matchesObfuscation checks if a wireguard endpoint matches the specified obfuscation type
+func matchesObfuscation(endpointData json.RawMessage, obfuscationType string) bool {
+	var endpoint WireguardEndpoint
+	if err := json.Unmarshal(endpointData, &endpoint); err != nil {
+		return false
+	}
+
+	switch obfuscationType {
+	case "daita":
+		return endpoint.Wireguard.Daita
+	case "lwo":
+		return endpoint.Wireguard.Lwo
+	case "quic":
+		return endpoint.Wireguard.Quic != nil
+	case "shadowsocks":
+		return len(endpoint.Wireguard.ShadowsocksExtraAddrIn) > 0
+	default:
+		return false
+	}
 }
