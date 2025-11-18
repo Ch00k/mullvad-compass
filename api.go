@@ -9,6 +9,10 @@ import (
 
 const mullvadAPIURL = "https://am.i.mullvad.net/json"
 
+var apiClient = &http.Client{
+	Timeout: 10 * time.Second,
+}
+
 // UserLocation represents the response from Mullvad's location API
 type UserLocation struct {
 	Latitude  float64 `json:"latitude"`
@@ -19,11 +23,7 @@ type UserLocation struct {
 
 // GetUserLocation fetches the user's current geographic location from Mullvad API
 func GetUserLocation() (*UserLocation, error) {
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
-
-	resp, err := client.Get(mullvadAPIURL)
+	resp, err := apiClient.Get(mullvadAPIURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch user location: %w", err)
 	}

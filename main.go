@@ -8,12 +8,12 @@ import (
 	"strings"
 )
 
-const version = "0.0.1"
+var Version = "0.0.1"
 
 // Dependencies encapsulates external dependencies for testing
 type Dependencies struct {
 	GetUserLocation func() (*UserLocation, error)
-	PingLocations   func([]Location) ([]Location, error)
+	PingLocations   func([]Location, int, int) ([]Location, error)
 	GetRelaysPath   func() (string, error)
 	Stdout          io.Writer
 }
@@ -40,6 +40,18 @@ func run(args []string, deps Dependencies) error {
 	config, err := parseFlags(args)
 	if err != nil {
 		return err
+	}
+
+	// Handle help flag
+	if config.showHelp {
+		printUsage(deps.Stdout)
+		return nil
+	}
+
+	// Handle version flag
+	if config.showVersion {
+		_, _ = fmt.Fprintf(deps.Stdout, "mullvad-compass %s\n", Version)
+		return nil
 	}
 
 	// Get relays file path (use provided path or platform-specific default)
@@ -83,7 +95,7 @@ func run(args []string, deps Dependencies) error {
 	}
 
 	// Ping locations
-	locations, err = deps.PingLocations(locations)
+	locations, err = deps.PingLocations(locations, config.timeout, config.workers)
 	if err != nil {
 		return err
 	}
@@ -99,12 +111,18 @@ type config struct {
 	serverType  string
 	maxDistance float64
 	relaysPath  string
+	showHelp    bool
+	showVersion bool
+	timeout     int
+	workers     int
 }
 
 // parseFlags parses command-line arguments manually to support GNU-style long flags
 func parseFlags(args []string) (*config, error) {
 	cfg := &config{
 		maxDistance: 500.0,
+		timeout:     500,
+		workers:     25,
 	}
 
 	for i := 0; i < len(args); i++ {
@@ -112,12 +130,12 @@ func parseFlags(args []string) (*config, error) {
 
 		switch {
 		case arg == "-h" || arg == "--help":
-			printUsage()
-			os.Exit(0)
+			cfg.showHelp = true
+			return cfg, nil
 
 		case arg == "-v" || arg == "--version":
-			fmt.Printf("mullvad-compass %s\n", version)
-			os.Exit(0)
+			cfg.showVersion = true
+			return cfg, nil
 
 		case arg == "-s" || arg == "--server-type":
 			if i+1 >= len(args) {
@@ -151,6 +169,34 @@ func parseFlags(args []string) (*config, error) {
 			i++
 			cfg.relaysPath = args[i]
 
+		case arg == "-t" || arg == "--timeout":
+			if i+1 >= len(args) {
+				return nil, fmt.Errorf("%s requires an argument", arg)
+			}
+			i++
+			timeout, err := strconv.Atoi(args[i])
+			if err != nil {
+				return nil, fmt.Errorf("invalid timeout value: %s", args[i])
+			}
+			if timeout < 100 || timeout > 5000 {
+				return nil, fmt.Errorf("timeout must be between 100 and 5000")
+			}
+			cfg.timeout = timeout
+
+		case arg == "-w" || arg == "--workers":
+			if i+1 >= len(args) {
+				return nil, fmt.Errorf("%s requires an argument", arg)
+			}
+			i++
+			workers, err := strconv.Atoi(args[i])
+			if err != nil {
+				return nil, fmt.Errorf("invalid workers value: %s", args[i])
+			}
+			if workers < 1 || workers > 200 {
+				return nil, fmt.Errorf("workers must be between 1 and 200")
+			}
+			cfg.workers = workers
+
 		case strings.HasPrefix(arg, "-"):
 			return nil, fmt.Errorf("unknown flag: %s", arg)
 
@@ -162,8 +208,8 @@ func parseFlags(args []string) (*config, error) {
 	return cfg, nil
 }
 
-func printUsage() {
-	fmt.Printf(`mullvad-compass %s
+func printUsage(w io.Writer) {
+	_, _ = fmt.Fprintf(w, `mullvad-compass %s
 
 Find Mullvad VPN servers with the lowest latency at your current location.
 
@@ -174,6 +220,8 @@ OPTIONS:
     -s, --server-type TYPE      Filter by server type (openvpn or wireguard)
     -m, --max-distance DIST     Maximum distance in km from your location (default: 500)
     -r, --relays-file PATH      Path to relays.json file (auto-detected if not specified)
+    -t, --timeout MS            Ping timeout in milliseconds (default: 500, range: 100-5000)
+    -w, --workers COUNT         Number of concurrent ping workers (default: 25, range: 1-200)
     -h, --help                  Show this help message
     -v, --version               Show version information
 
@@ -187,5 +235,5 @@ NOTE:
     This tool requires CAP_NET_RAW capability or root privileges to send ICMP packets.
     On Linux, you can grant the capability with:
         sudo setcap cap_net_raw+ep /path/to/mullvad-compass
-`, version)
+`, Version)
 }

@@ -13,19 +13,36 @@ func FormatTable(locations []Location) string {
 		return ""
 	}
 
-	// Sort by latency (nil values last)
-	sort.Slice(locations, func(i, j int) bool {
-		if locations[i].Latency == nil {
+	// Sort by latency (nil values last), with stable tie-breakers
+	sort.SliceStable(locations, func(i, j int) bool {
+		li, lj := locations[i].Latency, locations[j].Latency
+
+		// Primary: Latency (nil last)
+		if li == nil && lj != nil {
 			return false
 		}
-		if locations[j].Latency == nil {
+		if li != nil && lj == nil {
 			return true
 		}
-		return *locations[i].Latency < *locations[j].Latency
+		if li != nil && lj != nil && *li != *lj {
+			return *li < *lj
+		}
+
+		// Tie-breaker: Distance
+		di, dj := locations[i].DistanceFromMyLocation, locations[j].DistanceFromMyLocation
+		if di != nil && dj != nil && *di != *dj {
+			return *di < *dj
+		}
+
+		// Final tie-breaker: Country then City
+		if locations[i].Country != locations[j].Country {
+			return locations[i].Country < locations[j].Country
+		}
+		return locations[i].City < locations[j].City
 	})
 
 	// Build table data
-	headers := []string{"Country", "City", "Type", "IP", "Hostname", "Distance", "Latency"}
+	headers := []string{"Country", "City", "Type", "IP", "Hostname", "Distance (km)", "Latency (ms)"}
 	rows := make([][]string, len(locations))
 
 	for i, loc := range locations {

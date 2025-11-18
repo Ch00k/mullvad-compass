@@ -20,7 +20,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					City:      "Tirana",
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				// Mock ping results - set latency for all locations
 				for i := range locs {
 					latency := float64(10.0 + float64(i)*5.0) // 10ms, 15ms, 20ms, etc.
@@ -69,7 +69,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					Longitude: 13.404954,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				for i := range locs {
 					latency := 15.0
 					locs[i].Latency = &latency
@@ -106,7 +106,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					Longitude: 0.0,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -137,7 +137,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					Longitude: 10.0,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				for i := range locs {
 					latency := 20.0
 					locs[i].Latency = &latency
@@ -172,7 +172,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					Longitude: 10.0,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				// Set different latencies in reverse order
 				for i := range locs {
 					latency := float64(100 - i*10) // 100ms, 90ms, 80ms, etc.
@@ -209,7 +209,7 @@ func TestE2E_FullFlow(t *testing.T) {
 					Longitude: 10.0,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				// Set some locations with nil latency (timeout)
 				for i := range locs {
 					if i%2 == 0 {
@@ -248,7 +248,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 			GetUserLocation: func() (*UserLocation, error) {
 				return nil, fmt.Errorf("API connection failed")
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -275,7 +275,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 			GetUserLocation: func() (*UserLocation, error) {
 				return &UserLocation{Latitude: 50.0, Longitude: 10.0}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -299,7 +299,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 			GetUserLocation: func() (*UserLocation, error) {
 				return &UserLocation{Latitude: 50.0, Longitude: 10.0}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -324,7 +324,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 			GetUserLocation: func() (*UserLocation, error) {
 				return &UserLocation{Latitude: 50.0, Longitude: 10.0}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -354,7 +354,7 @@ func TestE2E_FlagParsing(t *testing.T) {
 				t.Error("Should not call GetUserLocation with invalid flags")
 				return nil, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -382,7 +382,7 @@ func TestE2E_FlagParsing(t *testing.T) {
 				t.Error("Should not call GetUserLocation with invalid flags")
 				return nil, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -407,7 +407,7 @@ func TestE2E_FlagParsing(t *testing.T) {
 				t.Error("Should not call GetUserLocation with invalid flags")
 				return nil, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -435,7 +435,7 @@ func TestE2E_FlagParsing(t *testing.T) {
 				t.Error("Should not call GetUserLocation with invalid flags")
 				return nil, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				return locs, nil
 			},
 			GetRelaysPath: func() (string, error) {
@@ -467,7 +467,7 @@ func TestE2E_Integration(t *testing.T) {
 					Longitude: 8.682127,
 				}, nil
 			},
-			PingLocations: func(locs []Location) ([]Location, error) {
+			PingLocations: func(locs []Location, timeout, workers int) ([]Location, error) {
 				for i := range locs {
 					latency := 12.5
 					locs[i].Latency = &latency
