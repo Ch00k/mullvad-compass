@@ -31,10 +31,8 @@ func NewDefaultPingerFactory() PingerFactory {
 	return &defaultPingerFactory{}
 }
 
-// CreatePinger creates a real socket manager
+// CreatePinger creates a platform-specific socket manager
+// Implementation is in platform-specific files (factory_*.go)
 func (f *defaultPingerFactory) CreatePinger(ipVersion relays.IPVersion) (Pinger, error) {
-	return newSocketManager(ipVersion)
+	return createPlatformPinger(ipVersion)
 }
-
-// Ensure socketManager implements Pinger
-var _ Pinger = (*socketManager)(nil)

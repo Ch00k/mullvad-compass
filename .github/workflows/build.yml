@@ -32,27 +32,24 @@ jobs:
         uses: golangci/golangci-lint-action@v9.0.0
 
   test:
-    name: Test (${{ matrix.privilege-level }})
-    runs-on: ubuntu-latest
+    name: Test (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - privilege-level: "no-privileges"
-            description: "No ICMP privileges (restrictive ping_group_range)"
-            setup-privileges: "false"
-            use-sudo: "false"
+          - name: "Linux restrictive"
+            os: ubuntu-latest
+            ping_group_range_restrictive: true
 
-          - privilege-level: "udp-icmp"
-            description: "UDP ICMP via ping_group_range"
-            setup-privileges: "true"
-            use-sudo: "false"
+          - name: "Linux permissive"
+            os: ubuntu-latest
+            ping_group_range_restrictive: false
 
-          - privilege-level: "raw-icmp"
-            description: "Raw ICMP via CAP_NET_RAW"
-            setup-privileges: "false"
-            use-sudo: "true"
+          - name: "Windows"
+            os: windows-latest
+            ping_group_range_restrictive: false
 
     steps:
       - name: Checkout repository
@@ -63,34 +60,41 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
 
-      - name: Check initial ping_group_range configuration
+      - name: Check system configuration (Linux)
+        if: runner.os == 'Linux'
         run: |
-          echo "=== Initial System Configuration ==="
-          echo "ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
           echo "Current user: $(id)"
-          echo "=================================="
+          echo "ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
+
+      - name: Check system configuration (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "Current user: $env:USERNAME"
+          echo "Administrator: $((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))"
 
       - name: Configure ping_group_range for UDP ICMP
-        if: matrix.setup-privileges == 'true'
+        if: runner.os == 'Linux' && matrix.ping_group_range_restrictive
+        run: |
+          echo "Configuring ping_group_range to disallow all users..."
+          sudo sysctl -w net.ipv4.ping_group_range="1 0"
+          echo "New ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
+
+      - name: Configure ping_group_range for UDP ICMP
+        if: runner.os == 'Linux' && ! matrix.ping_group_range_restrictive
         run: |
           echo "Configuring ping_group_range to allow all users..."
           sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
           echo "New ping_group_range: $(cat /proc/sys/net/ipv4/ping_group_range)"
 
       - name: Run tests without sudo
-        if: matrix.use-sudo == 'false'
         run: make test-ci
-
-      - name: Run tests with sudo (for raw ICMP)
-        if: matrix.use-sudo == 'true'
-        run: sudo make test-ci
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ${{ matrix.privilege-level }}
-          name: coverage-${{ matrix.privilege-level }}
+          flags: ${{ matrix.os }},${{ matrix.ping_group_range_restrictive && 'restrictive' || 'permissive' }}
+          name: coverage-${{ matrix.os }}-${{ matrix.ping_group_range_restrictive && 'restrictive' || 'permissive' }}
 
   release:
     name: Build ${{ matrix.goos }}-${{ matrix.goarch }}
