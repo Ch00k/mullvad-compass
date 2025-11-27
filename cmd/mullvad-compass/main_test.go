@@ -470,25 +470,16 @@ func TestE2E_BestServerMode(t *testing.T) {
 
 		result := output.String()
 
-		// Should use compact format similar to --where-am-i
-		if !strings.Contains(result, "Hostname:") {
-			t.Error("Output should contain 'Hostname:' field")
+		// Should use new 2-line format with location and best server
+		if !strings.Contains(result, "Your location:") {
+			t.Error("Output should contain 'Your location:' header")
 		}
-		if !strings.Contains(result, "Country:") {
-			t.Error("Output should contain 'Country:' field")
-		}
-		if !strings.Contains(result, "City:") {
-			t.Error("Output should contain 'City:' field")
-		}
-		if !strings.Contains(result, "Latency:") {
-			t.Error("Output should contain 'Latency:' field")
-		}
-		if !strings.Contains(result, "Distance:") {
-			t.Error("Output should contain 'Distance:' field")
+		if !strings.Contains(result, "Best server:") {
+			t.Error("Output should contain 'Best server:' header")
 		}
 
 		// Should contain the best server (lowest latency)
-		if !strings.Contains(result, "20.00") {
+		if !strings.Contains(result, "20.00 ms") {
 			t.Error("Should contain the server with lowest latency (20ms)")
 		}
 	})
@@ -529,13 +520,13 @@ func TestE2E_BestServerMode(t *testing.T) {
 			t.Error("Expected PingLocations to be called at least once")
 		}
 
-		// Should output one server in compact format
+		// Should output one server in new 2-line format
 		result := output.String()
-		if !strings.Contains(result, "Hostname:") {
-			t.Error("Output should contain 'Hostname:' field")
+		if !strings.Contains(result, "Your location:") {
+			t.Error("Output should contain 'Your location:' header")
 		}
-		if !strings.Contains(result, "Latency:") {
-			t.Error("Output should contain 'Latency:' field")
+		if !strings.Contains(result, "Best server:") {
+			t.Error("Output should contain 'Best server:' header")
 		}
 	})
 
@@ -721,147 +712,6 @@ func TestE2E_Integration(t *testing.T) {
 			if strings.Contains(line, "openvpn") {
 				t.Error("Should not contain openvpn servers")
 			}
-		}
-	})
-
-	t.Run("WhereAmI flag shows location with long form not on Mullvad", func(t *testing.T) {
-		var output bytes.Buffer
-
-		deps := Dependencies{
-			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
-				return &api.UserLocation{
-					IP:            "203.0.113.42",
-					Latitude:      41.327953,
-					Longitude:     19.819025,
-					Country:       "Albania",
-					City:          "Tirana",
-					MullvadExitIP: false,
-				}, nil
-			},
-			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
-				t.Error("PingLocations should not be called with --where-am-i flag")
-				return locs, nil
-			},
-			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
-				t.Error("GetRelaysPath should not be called with --where-am-i flag")
-				return nil, fmt.Errorf("test error")
-			},
-			Stdout: &output,
-		}
-
-		args := []string{"--where-am-i"}
-		err := run(context.Background(), args, deps)
-		if err != nil {
-			t.Fatalf("Expected no error, got: %v", err)
-		}
-
-		result := output.String()
-
-		// Should contain location information
-		if !strings.Contains(result, "203.0.113.42") {
-			t.Error("Output should contain IP address")
-		}
-		if !strings.Contains(result, "Tirana") {
-			t.Error("Output should contain city name")
-		}
-		if !strings.Contains(result, "Albania") {
-			t.Error("Output should contain country name")
-		}
-		if !strings.Contains(result, "41.327953") {
-			t.Error("Output should contain latitude")
-		}
-		if !strings.Contains(result, "19.819025") {
-			t.Error("Output should contain longitude")
-		}
-		if !strings.Contains(result, "Connected to Mullvad VPN") || !strings.Contains(result, "No") {
-			t.Error("Output should indicate not connected to Mullvad VPN")
-		}
-	})
-
-	t.Run("WhereAmI flag shows Mullvad connection status when connected", func(t *testing.T) {
-		var output bytes.Buffer
-
-		deps := Dependencies{
-			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
-				return &api.UserLocation{
-					IP:            "185.65.135.42",
-					Latitude:      59.329323,
-					Longitude:     18.068581,
-					Country:       "Sweden",
-					City:          "Stockholm",
-					MullvadExitIP: true,
-				}, nil
-			},
-			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
-				t.Error("PingLocations should not be called with --where-am-i flag")
-				return locs, nil
-			},
-			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
-				t.Error("GetRelaysPath should not be called with --where-am-i flag")
-				return nil, fmt.Errorf("test error")
-			},
-			Stdout: &output,
-		}
-
-		args := []string{"--where-am-i"}
-		err := run(context.Background(), args, deps)
-		if err != nil {
-			t.Fatalf("Expected no error, got: %v", err)
-		}
-
-		result := output.String()
-
-		if !strings.Contains(result, "185.65.135.42") {
-			t.Error("Output should contain IP address")
-		}
-		if !strings.Contains(result, "Connected to Mullvad VPN") || !strings.Contains(result, "Yes") {
-			t.Error("Output should indicate connected to Mullvad VPN")
-		}
-	})
-
-	t.Run("WhereAmI flag shows location with short form", func(t *testing.T) {
-		var output bytes.Buffer
-
-		deps := Dependencies{
-			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
-				return &api.UserLocation{
-					Latitude:  52.520008,
-					Longitude: 13.404954,
-					Country:   "Germany",
-					City:      "Berlin",
-				}, nil
-			},
-			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
-				t.Error("PingLocations should not be called with -i flag")
-				return locs, nil
-			},
-			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
-				t.Error("GetRelaysPath should not be called with -i flag")
-				return nil, fmt.Errorf("test error")
-			},
-			Stdout: &output,
-		}
-
-		args := []string{"-i"}
-		err := run(context.Background(), args, deps)
-		if err != nil {
-			t.Fatalf("Expected no error, got: %v", err)
-		}
-
-		result := output.String()
-
-		// Should contain location information
-		if !strings.Contains(result, "Berlin") {
-			t.Error("Output should contain city name")
-		}
-		if !strings.Contains(result, "Germany") {
-			t.Error("Output should contain country name")
-		}
-		if !strings.Contains(result, "52.520008") {
-			t.Error("Output should contain latitude")
-		}
-		if !strings.Contains(result, "13.404954") {
-			t.Error("Output should contain longitude")
 		}
 	})
 }

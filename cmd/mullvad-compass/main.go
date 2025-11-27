@@ -132,14 +132,17 @@ func runBestServerMode(
 
 		// Replace with deterministic data if flag is set
 		bestServer := filteredLocations[0]
+		deterministicUserLoc := userLoc
 		if deterministicOutput {
 			deterministicLocations := getDeterministicLocations()
 			if len(deterministicLocations) > 0 {
 				bestServer = deterministicLocations[0]
 			}
+			detUserLoc := getDeterministicUserLocation()
+			deterministicUserLoc = &detUserLoc
 		}
 
-		output := formatter.FormatBestServer(bestServer, ipVersion.IsIPv6())
+		output := formatter.FormatBestServer(*deterministicUserLoc, bestServer, ipVersion.IsIPv6())
 		_, _ = fmt.Fprint(stdout, output)
 	}
 
@@ -176,20 +179,6 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 			log.Printf("Total operation completed in %v", elapsed)
 		}
 	}()
-
-	// Handle whereami flag
-	if config.ShowWhereAmI {
-		if config.LogLevel <= logging.LogLevelDebug {
-			log.Println("Fetching user location...")
-		}
-		userLoc, err := getUserLocation(ctx, config.LogLevel, deps.GetUserLocation)
-		if err != nil {
-			return fmt.Errorf("failed to get user location: %w", err)
-		}
-		output := formatter.FormatUserLocation(*userLoc)
-		_, _ = fmt.Fprint(deps.Stdout, output)
-		return nil
-	}
 
 	// Parse relays file
 	if config.LogLevel <= logging.LogLevelDebug {

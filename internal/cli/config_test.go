@@ -40,9 +40,6 @@ func TestParseFlagsDefaults(t *testing.T) {
 		if cfg.ShowVersion {
 			t.Error("Expected showVersion to be false, got true")
 		}
-		if cfg.ShowWhereAmI {
-			t.Error("Expected showWhereAmI to be false, got true")
-		}
 	})
 }
 
@@ -86,28 +83,6 @@ func TestParseFlagsVersion(t *testing.T) {
 		}
 		if !cfg.ShowVersion {
 			t.Error("Expected showVersion to be true, got false")
-		}
-	})
-}
-
-func TestParseFlagsWhereAmI(t *testing.T) {
-	t.Run("WhereAmI short flag", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-i"}, "dev")
-		if err != nil {
-			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if !cfg.ShowWhereAmI {
-			t.Error("Expected showWhereAmI to be true, got false")
-		}
-	})
-
-	t.Run("WhereAmI long flag", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"--where-am-i"}, "dev")
-		if err != nil {
-			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if !cfg.ShowWhereAmI {
-			t.Error("Expected showWhereAmI to be true, got false")
 		}
 	})
 }
