@@ -49,6 +49,10 @@ func LocationsWithFactory(
 	factory PingerFactory,
 	logLevel logging.LogLevel,
 ) ([]relays.Location, error) {
+	if len(locations) == 0 {
+		return []relays.Location{}, nil
+	}
+
 	if logLevel <= logging.LogLevelInfo {
 		log.Printf(
 			"Starting to ping %d locations with %d workers (timeout: %dms, IP version: %s)",

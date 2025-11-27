@@ -28,10 +28,10 @@ func TestPingLocationsWithFactory_EmptyLocations(t *testing.T) {
 		t.Errorf("Expected empty result, got %d locations", len(result))
 	}
 
-	// Verify factory was called
+	// Verify factory was NOT called (no need to create privileged socket for empty locations)
 	calls := factory.GetCreatePingerCalls()
-	if len(calls) != 1 {
-		t.Errorf("Expected 1 CreatePinger call, got %d", len(calls))
+	if len(calls) != 0 {
+		t.Errorf("Expected 0 CreatePinger calls for empty locations, got %d", len(calls))
 	}
 }
 
