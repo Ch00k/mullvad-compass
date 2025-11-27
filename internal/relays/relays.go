@@ -157,6 +157,82 @@ func ParseRelaysFileWithLogLevel(path string, logLevel logging.LogLevel) (*File,
 	return &relays, nil
 }
 
+// shouldIncludeRelay determines if a relay should be included based on filter criteria
+func shouldIncludeRelay(
+	relay Relay,
+	relayType ServerType,
+	serverType ServerType,
+	wireGuardObfuscation WireGuardObfuscation,
+	daita bool,
+	ipVersion IPVersion,
+) bool {
+	// Skip inactive relays
+	if !relay.Active {
+		return false
+	}
+
+	// Skip relays excluded from country
+	if !relay.IncludeInCountry {
+		return false
+	}
+
+	// Skip bridge servers
+	if relayType == Bridge {
+		return false
+	}
+
+	// Filter by DAITA if specified
+	if daita && !matchesDaita(relayType, relay.EndpointData) {
+		return false
+	}
+
+	// Filter by wireguard obfuscation if specified
+	if wireGuardObfuscation != WGObfNone &&
+		!matchesWireGuardObfuscation(relayType, relay.EndpointData, wireGuardObfuscation) {
+		return false
+	}
+
+	// Filter by server type if specified
+	if serverType != ServerTypeNone && relayType != serverType {
+		return false
+	}
+
+	// Filter by IP version
+	if !matchesIPVersion(relay, ipVersion) {
+		return false
+	}
+
+	return true
+}
+
+// matchesDaita checks if a relay matches DAITA requirements
+func matchesDaita(relayType ServerType, endpointData json.RawMessage) bool {
+	if relayType != WireGuard {
+		return false
+	}
+	return hasDaita(endpointData)
+}
+
+// matchesWireGuardObfuscation checks if a relay matches wireguard obfuscation requirements
+func matchesWireGuardObfuscation(
+	relayType ServerType,
+	endpointData json.RawMessage,
+	obfuscationType WireGuardObfuscation,
+) bool {
+	if relayType != WireGuard {
+		return false
+	}
+	return matchesObfuscation(endpointData, obfuscationType)
+}
+
+// matchesIPVersion checks if a relay has the required IP version
+func matchesIPVersion(relay Relay, ipVersion IPVersion) bool {
+	if ipVersion.IsIPv6() {
+		return relay.IPv6AddrIn != ""
+	}
+	return relay.IPv4AddrIn != ""
+}
+
 // GetLocations extracts Location objects from the relays file, optionally filtered by server type, wireguard obfuscation, DAITA, and IPv6
 // Returns the locations and the count of relays skipped due to unknown endpoint_data format
 func GetLocations(
@@ -172,64 +248,13 @@ func GetLocations(
 	for _, country := range relays.Countries {
 		for _, city := range country.Cities {
 			for _, relay := range city.Relays {
-				// Determine the relay type
 				relayType, err := determineRelayType(relay.EndpointData)
 				if err != nil {
 					skippedUnknownFormat++
-					continue // Skip relays we can't parse
-				}
-
-				// Skip inactive relays
-				if !relay.Active {
 					continue
 				}
 
-				// Skip relays excluded from country
-				if !relay.IncludeInCountry {
-					continue
-				}
-
-				// Skip bridge servers
-				if relayType == Bridge {
-					continue
-				}
-
-				// Filter by DAITA if specified
-				// DAITA is only available for wireguard servers
-				if daita {
-					if relayType != WireGuard {
-						continue // Skip non-wireguard servers when DAITA is requested
-					}
-					if !hasDaita(relay.EndpointData) {
-						continue // Skip wireguard servers without DAITA
-					}
-				}
-
-				// Filter by wireguard obfuscation if specified
-				// When obfuscation is specified, only include wireguard servers that match
-				// This implicitly filters to wireguard only, even if serverType is not specified
-				if wireGuardObfuscation != WGObfNone {
-					if relayType != WireGuard {
-						continue // Skip non-wireguard servers when obfuscation filter is set
-					}
-					if !matchesObfuscation(relay.EndpointData, wireGuardObfuscation) {
-						continue // Skip wireguard servers that don't match the obfuscation
-					}
-				}
-
-				// Filter by server type if specified
-				// This is checked after obfuscation to allow --server-type openvpn --wireguard-obfuscation to return empty
-				if serverType != ServerTypeNone && relayType != serverType {
-					continue
-				}
-
-				// Skip relays without IPv6 when IPv6 is selected
-				if ipVersion.IsIPv6() && relay.IPv6AddrIn == "" {
-					continue
-				}
-
-				// Skip relays without IPv4 when IPv4 is selected
-				if !ipVersion.IsIPv6() && relay.IPv4AddrIn == "" {
+				if !shouldIncludeRelay(relay, relayType, serverType, wireGuardObfuscation, daita, ipVersion) {
 					continue
 				}
 
@@ -257,18 +282,37 @@ func GetLocations(
 
 // determineRelayType parses the endpoint_data field to determine the relay type
 func determineRelayType(endpointData json.RawMessage) (ServerType, error) {
-	// Try to unmarshal as a string first (for "openvpn" or "bridge")
-	var stringType string
-	if err := json.Unmarshal(endpointData, &stringType); err == nil {
-		return ParseServerType(stringType)
+	if len(endpointData) == 0 {
+		return ServerTypeNone, fmt.Errorf("empty endpoint_data")
 	}
 
-	// Try to unmarshal as an object (for wireguard)
-	var objType WireGuardEndpoint
-	if err := json.Unmarshal(endpointData, &objType); err == nil {
+	// Check first non-whitespace byte to determine JSON type
+	firstByte := endpointData[0]
+	for i := 0; i < len(endpointData); i++ {
+		if endpointData[i] != ' ' && endpointData[i] != '\t' && endpointData[i] != '\n' && endpointData[i] != '\r' {
+			firstByte = endpointData[i]
+			break
+		}
+	}
+
+	switch firstByte {
+	case '"':
+		// String type (openvpn or bridge)
+		var stringType string
+		if err := json.Unmarshal(endpointData, &stringType); err != nil {
+			return ServerTypeNone, fmt.Errorf("failed to unmarshal string endpoint_data: %w", err)
+		}
+		return ParseServerType(stringType)
+	case '{':
+		// Object type (wireguard)
+		var objType WireGuardEndpoint
+		if err := json.Unmarshal(endpointData, &objType); err != nil {
+			return ServerTypeNone, fmt.Errorf("failed to unmarshal object endpoint_data: %w", err)
+		}
 		if objType.Wireguard.PublicKey != "" {
 			return WireGuard, nil
 		}
+		return ServerTypeNone, fmt.Errorf("wireguard endpoint missing public key")
 	}
 
 	return ServerTypeNone, fmt.Errorf("unknown endpoint_data format")
