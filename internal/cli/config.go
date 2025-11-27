@@ -20,7 +20,6 @@ type Config struct {
 	MaxDistance          float64
 	ShowHelp             bool
 	ShowVersion          bool
-	ShowWhereAmI         bool
 	Timeout              int
 	Workers              int
 	BestServerMode       bool
@@ -48,10 +47,6 @@ func ParseFlags(args []string, version string) (*Config, error) {
 
 		case arg == "-v" || arg == "--version":
 			cfg.ShowVersion = true
-			return cfg, nil
-
-		case arg == "-i" || arg == "--where-am-i":
-			cfg.ShowWhereAmI = true
 			return cfg, nil
 
 		case arg == "-s" || arg == "--server-type":
@@ -169,17 +164,25 @@ Find Mullvad VPN servers with the lowest latency at your current location.
 USAGE:
     mullvad-compass [OPTIONS]
 
-Running without options finds the single best (closest, fastest, lowest latency) server among all available servers.
+MODES:
+    Best Server Mode (default):   Shows your location and the single best server.
+                                  Activated when running without filter options.
 
-OPTIONS:
+    Table Mode:                   Shows all matching servers in a table, sorted by latency.
+                                  Activated by using any filter option (-m, -s, -o, -d, -6).
+
+FILTER OPTIONS (Table Mode):
     -m, --max-distance KM              Maximum distance in km from your location (default: 500, range: 1-20000)
     -s, --server-type TYPE             Filter by server type (wireguard, openvpn)
     -o, --wireguard-obfuscation TYPE   Filter WireGuard servers by obfuscation (lwo, quic, shadowsocks)
     -d, --daita                        Filter WireGuard servers with DAITA enabled
     -6, --ipv6                         Use IPv6 addresses for pinging
+
+PERFORMANCE OPTIONS:
     -t, --timeout MS                   Ping timeout in milliseconds (default: 500, range: 100-5000)
     -w, --workers COUNT                Number of concurrent ping workers (default: 25, range: 1-200)
-    -i, --where-am-i                   Show your current location
+
+OTHER OPTIONS:
     -l, --log-level LEVEL              Set log level (debug, info, warning, error; default: error)
     -h, --help                         Show this help message
     -v, --version                      Show version information

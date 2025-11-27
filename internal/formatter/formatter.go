@@ -140,38 +140,48 @@ func formatLatency(latency *float64) string {
 	return fmt.Sprintf("%.2f", *latency)
 }
 
-// FormatBestServer formats a single server in a compact format similar to --where-am-i
-func FormatBestServer(loc relays.Location, useIPv6 bool) string {
-	ipAddr := loc.IPv4Address
-	if useIPv6 {
-		ipAddr = loc.IPv6Address
-	}
+// formatUserLocationLines formats user location in the compact 2-line format
+func formatUserLocationLines(loc api.UserLocation) string {
+	const indent = "                 " // Length of "Your location: "
 
 	var output strings.Builder
-	output.WriteString(fmt.Sprintf("Country:    %s\n", loc.Country))
-	output.WriteString(fmt.Sprintf("City:       %s\n", loc.City))
-	output.WriteString(fmt.Sprintf("Distance:   %s km\n", formatDistance(loc.DistanceFromMyLocation)))
-	output.WriteString(fmt.Sprintf("Hostname:   %s\n", loc.Hostname))
-	output.WriteString(fmt.Sprintf("IP:         %s\n", ipAddr))
-	output.WriteString(fmt.Sprintf("Latency:    %s ms\n", formatLatency(loc.Latency)))
+	output.WriteString(fmt.Sprintf("Your location:   %s, %s\n", loc.City, loc.Country))
+	output.WriteString(fmt.Sprintf("%s%s", indent, loc.IP))
+
+	return output.String()
+}
+
+// FormatBestServer formats user location and best server in a compact 2-line format
+func FormatBestServer(userLoc api.UserLocation, serverLoc relays.Location, useIPv6 bool) string {
+	serverIP := serverLoc.IPv4Address
+	if useIPv6 {
+		serverIP = serverLoc.IPv6Address
+	}
+
+	const indent = "                 " // Length of "Your location: "
+
+	var output strings.Builder
+
+	// Your location
+	output.WriteString(formatUserLocationLines(userLoc))
+	output.WriteString("\n")
+
+	// Best server
+	output.WriteString(fmt.Sprintf("Best server:     %s, %s\n", serverLoc.City, serverLoc.Country))
+	output.WriteString(fmt.Sprintf("%s%s (%s)\n", indent, serverLoc.Hostname, serverIP))
+	output.WriteString(
+		fmt.Sprintf(
+			"%s%s ms, %s km away\n",
+			indent,
+			formatLatency(serverLoc.Latency),
+			formatDistance(serverLoc.DistanceFromMyLocation),
+		),
+	)
 
 	return output.String()
 }
 
 // FormatUserLocation formats user location information
 func FormatUserLocation(loc api.UserLocation) string {
-	mullvadStatus := "No"
-	if loc.MullvadExitIP {
-		mullvadStatus = "Yes"
-	}
-
-	var output strings.Builder
-	output.WriteString(fmt.Sprintf("Country:                    %s\n", loc.Country))
-	output.WriteString(fmt.Sprintf("City:                       %s\n", loc.City))
-	output.WriteString(fmt.Sprintf("Latitude:                   %f\n", loc.Latitude))
-	output.WriteString(fmt.Sprintf("Longitude:                  %f\n", loc.Longitude))
-	output.WriteString(fmt.Sprintf("IP:                         %s\n", loc.IP))
-	output.WriteString(fmt.Sprintf("Connected to Mullvad VPN:   %s\n", mullvadStatus))
-
-	return output.String()
+	return formatUserLocationLines(loc)
 }

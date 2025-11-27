@@ -1,7 +1,22 @@
 // Package main provides the command-line interface for mullvad-compass.
 package main
 
-import "github.com/Ch00k/mullvad-compass/internal/relays"
+import (
+	"github.com/Ch00k/mullvad-compass/internal/api"
+	"github.com/Ch00k/mullvad-compass/internal/relays"
+)
+
+// getDeterministicUserLocation returns a fixed user location for testing/documentation
+func getDeterministicUserLocation() api.UserLocation {
+	return api.UserLocation{
+		IP:            "203.0.113.42",
+		Country:       "Germany",
+		City:          "Dresden",
+		Latitude:      51.0514,
+		Longitude:     13.7341,
+		MullvadExitIP: false,
+	}
+}
 
 // getDeterministicLocations returns a fixed set of server locations with predetermined values for testing/documentation
 func getDeterministicLocations() []relays.Location {
