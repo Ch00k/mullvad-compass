@@ -144,11 +144,11 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
 
-      - name: Get version from tag
+      - name: Get version from .version file
         id: version
         shell: bash
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=$(cat .version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build

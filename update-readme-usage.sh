@@ -1,26 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-# Accept version as parameter or fetch from GitHub
-VERSION="$1"
+# Read version from .version file
+if [ -f ".version" ]; then
+    VERSION=$(cat .version)
+    echo "Using version from .version file: $VERSION"
+else
+    echo "Error: .version file not found"
+    exit 1
+fi
 
 # Build the project
 echo "Building project..."
 make build
-
-if [ -z "$VERSION" ]; then
-    # Get the latest version from GitHub if not provided
-    echo "Fetching latest version from GitHub..."
-    VERSION=$(curl -s https://api.github.com/repos/Ch00k/mullvad-compass/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-    if [ -z "$VERSION" ]; then
-        echo "Warning: Could not fetch latest version from GitHub, using '0.0.1'"
-        VERSION="0.0.1"
-    else
-        echo "Latest version: $VERSION"
-    fi
-else
-    echo "Using provided version: $VERSION"
-fi
 
 # Capture outputs and remove trailing whitespace
 echo "Generating best-server output..."

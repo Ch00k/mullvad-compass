@@ -52,16 +52,19 @@ echo "New version: $NEW_VERSION"
 
 read -p "Create release $NEW_VERSION? [y/N] " -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Updating README with new version..."
-    ./update-readme-usage.sh "$NEW_VERSION"
+    echo "Writing version to .version file..."
+    echo "$NEW_VERSION" >.version
 
-    # Check if README was modified
-    if ! git diff --quiet README.md; then
-        echo "Committing README changes..."
-        git add README.md
-        git commit -m "Update README for version $NEW_VERSION"
+    echo "Updating README with new version..."
+    ./update-readme-usage.sh
+
+    # Check if README or .version were modified
+    if ! git diff --quiet README.md .version; then
+        echo "Committing README and .version changes..."
+        git add README.md .version
+        git commit -m "Update README and version to $NEW_VERSION"
     else
-        echo "No README changes to commit"
+        echo "No changes to commit"
     fi
 
     echo "Creating annotated tag..."
