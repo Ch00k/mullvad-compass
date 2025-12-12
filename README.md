@@ -7,7 +7,7 @@ A rewrite of [mullvad-closest](https://github.com/Ch00k/mullvad-closest), offeri
 ## Features
 
 - Finds the single best or multiple closest Mullvad VPN servers
-- Filters by distance threshold and WireGuard obfuscation type
+- Filters by distance threshold and anti-censorship protocol
 - Measures actual latency via ICMP ping
 - Supports IPv4 and IPv6 addresses
 - Executes concurrent pings
@@ -81,22 +81,22 @@ MODES:
                                   Activated when running without filter options.
 
     Table Mode:                   Shows all matching servers in a table, sorted by latency.
-                                  Activated by using any filter option (-m, -o, -d, -6).
+                                  Activated by using any filter option (-m, -a, -d, -6).
 
 FILTER OPTIONS (Table Mode):
-    -m, --max-distance KM              Maximum distance in km from your location (default: 500, range: 1-20000)
-    -o, --wireguard-obfuscation TYPE   Filter WireGuard servers by obfuscation (lwo, quic, shadowsocks)
-    -d, --daita                        Filter WireGuard servers with DAITA enabled
-    -6, --ipv6                         Use IPv6 addresses for pinging
+    -m, --max-distance KM         Maximum distance in km from your location (default: 500, range: 1-20000)
+    -a, --anti-censorship TYPE    Filter servers by anti-censorship type (lwo, quic, shadowsocks)
+    -d, --daita                   Filter servers with DAITA enabled
+    -6, --ipv6                    Use IPv6 addresses for pinging
 
 PERFORMANCE OPTIONS:
-    -t, --timeout MS                   Ping timeout in milliseconds (default: 500, range: 100-5000)
-    -w, --workers COUNT                Number of concurrent ping workers (default: 25, range: 1-200)
+    -t, --timeout MS              Ping timeout in milliseconds (default: 500, range: 100-5000)
+    -w, --workers COUNT           Number of concurrent ping workers (default: 25, range: 1-200)
 
 OTHER OPTIONS:
-    -l, --log-level LEVEL              Set log level (debug, info, warning, error; default: error)
-    -h, --help                         Show this help message
-    -v, --version                      Show version information
+    -l, --log-level LEVEL         Set log level (debug, info, warning, error; default: error)
+    -h, --help                    Show this help message
+    -v, --version                 Show version information
 ```
 <!-- help:end -->
 

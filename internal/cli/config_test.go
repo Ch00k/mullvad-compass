@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"bytes"
 	"strings"
 	"testing"
 
@@ -22,8 +23,8 @@ func TestParseFlagsDefaults(t *testing.T) {
 		if cfg.Workers != 25 {
 			t.Errorf("Expected workers to be 25, got %d", cfg.Workers)
 		}
-		if cfg.WireGuardObfuscation != relays.WGObfNone {
-			t.Errorf("Expected wireGuardObfuscation to be relays.WGObfNone, got %v", cfg.WireGuardObfuscation)
+		if cfg.AntiCensorship != relays.ACNone {
+			t.Errorf("Expected antiCensorship to be relays.ACNone, got %v", cfg.AntiCensorship)
 		}
 		if cfg.Daita {
 			t.Error("Expected daita to be false, got true")
@@ -84,48 +85,48 @@ func TestParseFlagsVersion(t *testing.T) {
 	})
 }
 
-func TestParseFlagsWireguardObfuscation(t *testing.T) {
-	t.Run("Obfuscation short flag with lwo", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-o", "lwo"}, "dev")
+func TestParseFlagsAntiCensorship(t *testing.T) {
+	t.Run("Anti-censorship short flag with lwo", func(t *testing.T) {
+		cfg, err := ParseFlags([]string{"-a", "lwo"}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
 		}
-		if cfg.WireGuardObfuscation != relays.LWO {
-			t.Errorf("Expected wireGuardObfuscation to be relays.LWO, got %v", cfg.WireGuardObfuscation)
+		if cfg.AntiCensorship != relays.LWO {
+			t.Errorf("Expected antiCensorship to be relays.LWO, got %v", cfg.AntiCensorship)
 		}
 	})
 
-	t.Run("Obfuscation long flag with quic", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"--wireguard-obfuscation", "quic"}, "dev")
+	t.Run("Anti-censorship long flag with quic", func(t *testing.T) {
+		cfg, err := ParseFlags([]string{"--anti-censorship", "quic"}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
 		}
-		if cfg.WireGuardObfuscation != relays.QUIC {
-			t.Errorf("Expected wireGuardObfuscation to be relays.QUIC, got %v", cfg.WireGuardObfuscation)
+		if cfg.AntiCensorship != relays.QUIC {
+			t.Errorf("Expected antiCensorship to be relays.QUIC, got %v", cfg.AntiCensorship)
 		}
 	})
 
-	t.Run("Obfuscation with shadowsocks", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-o", "shadowsocks"}, "dev")
+	t.Run("Anti-censorship with shadowsocks", func(t *testing.T) {
+		cfg, err := ParseFlags([]string{"-a", "shadowsocks"}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
 		}
-		if cfg.WireGuardObfuscation != relays.Shadowsocks {
-			t.Errorf("Expected wireGuardObfuscation to be relays.Shadowsocks, got %v", cfg.WireGuardObfuscation)
+		if cfg.AntiCensorship != relays.Shadowsocks {
+			t.Errorf("Expected antiCensorship to be relays.Shadowsocks, got %v", cfg.AntiCensorship)
 		}
 	})
 
-	t.Run("Obfuscation with invalid value", func(t *testing.T) {
-		_, err := ParseFlags([]string{"-o", "invalid"}, "dev")
+	t.Run("Anti-censorship with invalid value", func(t *testing.T) {
+		_, err := ParseFlags([]string{"-a", "invalid"}, "dev")
 		if err == nil {
-			t.Error("Expected error for invalid obfuscation type, got nil")
+			t.Error("Expected error for invalid anti-censorship protocol, got nil")
 		}
 	})
 
-	t.Run("Obfuscation without value", func(t *testing.T) {
-		_, err := ParseFlags([]string{"-o"}, "dev")
+	t.Run("Anti-censorship without value", func(t *testing.T) {
+		_, err := ParseFlags([]string{"-a"}, "dev")
 		if err == nil {
-			t.Error("Expected error for missing obfuscation value, got nil")
+			t.Error("Expected error for missing anti-censorship value, got nil")
 		}
 	})
 }
@@ -436,7 +437,7 @@ func TestParseFlagsUnexpectedArgument(t *testing.T) {
 func TestParseFlagesMultipleFlags(t *testing.T) {
 	t.Run("Multiple flags combined", func(t *testing.T) {
 		cfg, err := ParseFlags([]string{
-			"-o", "lwo",
+			"-a", "lwo",
 			"-d",
 			"-6",
 			"-m", "750.25",
@@ -446,8 +447,8 @@ func TestParseFlagesMultipleFlags(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
 		}
-		if cfg.WireGuardObfuscation != relays.LWO {
-			t.Errorf("Expected wireGuardObfuscation to be relays.LWO, got %v", cfg.WireGuardObfuscation)
+		if cfg.AntiCensorship != relays.LWO {
+			t.Errorf("Expected antiCensorship to be relays.LWO, got %v", cfg.AntiCensorship)
 		}
 		if !cfg.Daita {
 			t.Error("Expected daita to be true, got false")
@@ -537,4 +538,44 @@ func TestParseFlagsBestServerMode(t *testing.T) {
 			t.Error("Expected BestServerMode to be false with log-level and max-distance flags")
 		}
 	})
+}
+
+func TestPrintUsage(t *testing.T) {
+	var buf bytes.Buffer
+	PrintUsage(&buf, "1.2.3")
+	got := buf.String()
+
+	expected := `mullvad-compass 1.2.3
+
+Find Mullvad VPN servers with the lowest latency at your current location.
+
+USAGE:
+    mullvad-compass [OPTIONS]
+
+MODES:
+    Best Server Mode (default):   Shows your location and the single best server.
+                                  Activated when running without filter options.
+
+    Table Mode:                   Shows all matching servers in a table, sorted by latency.
+                                  Activated by using any filter option (-m, -a, -d, -6).
+
+FILTER OPTIONS (Table Mode):
+    -m, --max-distance KM         Maximum distance in km from your location (default: 500, range: 1-20000)
+    -a, --anti-censorship TYPE    Filter servers by anti-censorship type (lwo, quic, shadowsocks)
+    -d, --daita                   Filter servers with DAITA enabled
+    -6, --ipv6                    Use IPv6 addresses for pinging
+
+PERFORMANCE OPTIONS:
+    -t, --timeout MS              Ping timeout in milliseconds (default: 500, range: 100-5000)
+    -w, --workers COUNT           Number of concurrent ping workers (default: 25, range: 1-200)
+
+OTHER OPTIONS:
+    -l, --log-level LEVEL         Set log level (debug, info, warning, error; default: error)
+    -h, --help                    Show this help message
+    -v, --version                 Show version information
+`
+
+	if got != expected {
+		t.Errorf("PrintUsage output mismatch:\nGot:\n%s\nExpected:\n%s", got, expected)
+	}
 }

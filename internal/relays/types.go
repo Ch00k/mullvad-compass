@@ -2,18 +2,18 @@ package relays
 
 import "fmt"
 
-// WireGuardObfuscation represents the obfuscation protocol for WireGuard connections.
-type WireGuardObfuscation int
+// AntiCensorship represents the anti-censorship protocol for WireGuard connections.
+type AntiCensorship int
 
-// WireGuard obfuscation protocol constants
+// Anti-censorship protocol constants
 const (
-	WGObfNone   WireGuardObfuscation = iota // No obfuscation
-	LWO                                     // Lightweight obfuscation
-	QUIC                                    // QUIC protocol obfuscation
-	Shadowsocks                             // Shadowsocks obfuscation
+	ACNone      AntiCensorship = iota // No anti-censorship
+	LWO                               // LWO protocol
+	QUIC                              // QUIC protocol
+	Shadowsocks                       // Shadowsocks protocol
 )
 
-func (w WireGuardObfuscation) String() string {
+func (w AntiCensorship) String() string {
 	switch w {
 	case LWO:
 		return "lwo"
@@ -21,15 +21,15 @@ func (w WireGuardObfuscation) String() string {
 		return "quic"
 	case Shadowsocks:
 		return "shadowsocks"
-	case WGObfNone:
+	case ACNone:
 		return ""
 	default:
 		return ""
 	}
 }
 
-// ParseWireGuardObfuscation parses a WireGuard obfuscation string into its type.
-func ParseWireGuardObfuscation(s string) (WireGuardObfuscation, error) {
+// ParseAntiCensorship parses an anti-censorship protocol string into its type.
+func ParseAntiCensorship(s string) (AntiCensorship, error) {
 	switch s {
 	case "lwo":
 		return LWO, nil
@@ -38,9 +38,9 @@ func ParseWireGuardObfuscation(s string) (WireGuardObfuscation, error) {
 	case "shadowsocks":
 		return Shadowsocks, nil
 	case "":
-		return WGObfNone, nil
+		return ACNone, nil
 	default:
-		return WGObfNone, fmt.Errorf("invalid wireguard obfuscation: %s (must be 'lwo', 'quic', or 'shadowsocks')", s)
+		return ACNone, fmt.Errorf("invalid anti-censorship protocol: %s (must be 'lwo', 'quic', or 'shadowsocks')", s)
 	}
 }
 

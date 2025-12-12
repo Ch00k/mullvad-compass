@@ -92,7 +92,7 @@ func TestGetLocations(t *testing.T) {
 	}
 
 	t.Run("Returns only WireGuard servers", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(relays, ACNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -110,7 +110,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Verify location fields", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(relays, ACNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -188,7 +188,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(testRelays, ACNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -211,7 +211,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by DAITA", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, WGObfNone, true, IPv4)
+		locations, _, err := GetLocations(relays, ACNone, true, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -228,7 +228,7 @@ func TestGetLocations(t *testing.T) {
 		}
 	})
 
-	t.Run("Filter by LWO obfuscation", func(t *testing.T) {
+	t.Run("Filter by LWO", func(t *testing.T) {
 		locations, _, err := GetLocations(relays, LWO, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
@@ -246,7 +246,7 @@ func TestGetLocations(t *testing.T) {
 		}
 	})
 
-	t.Run("Filter by QUIC obfuscation", func(t *testing.T) {
+	t.Run("Filter by QUIC", func(t *testing.T) {
 		locations, _, err := GetLocations(relays, QUIC, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
@@ -264,7 +264,7 @@ func TestGetLocations(t *testing.T) {
 		}
 	})
 
-	t.Run("Filter by Shadowsocks obfuscation", func(t *testing.T) {
+	t.Run("Filter by Shadowsocks", func(t *testing.T) {
 		locations, _, err := GetLocations(relays, Shadowsocks, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
@@ -334,7 +334,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv6)
+		locations, _, err := GetLocations(testRelays, ACNone, false, IPv6)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -408,7 +408,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(testRelays, ACNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
