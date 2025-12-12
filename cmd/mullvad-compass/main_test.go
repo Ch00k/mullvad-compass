@@ -255,6 +255,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 
 	t.Run("Connected to Mullvad VPN warning", func(t *testing.T) {
 		var output bytes.Buffer
+		pingCalled := false
 
 		deps := Dependencies{
 			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
@@ -267,7 +268,11 @@ func TestE2E_ErrorHandling(t *testing.T) {
 				}, nil
 			},
 			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
-				t.Error("PingLocations should not be called when connected to Mullvad VPN")
+				pingCalled = true
+				for i := range locs {
+					latency := float64(10 + i)
+					locs[i].Latency = &latency
+				}
 				return locs, nil
 			},
 			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
@@ -285,6 +290,80 @@ func TestE2E_ErrorHandling(t *testing.T) {
 		result := output.String()
 		if !strings.Contains(result, "connected to Mullvad VPN") {
 			t.Error("Output should warn about being connected to Mullvad VPN")
+		}
+		if !pingCalled {
+			t.Error("PingLocations should be called even when connected to Mullvad VPN")
+		}
+
+		// Verify warning appears after the results table
+		warningIndex := strings.Index(result, "WARNING")
+		if warningIndex == -1 {
+			t.Error("WARNING message should be present in output")
+		}
+		// The table should contain headers like "Country" or "City" before the warning
+		countryIndex := strings.Index(result, "Country")
+		if countryIndex == -1 {
+			t.Error("Results table should be present in output")
+		}
+		if warningIndex <= countryIndex {
+			t.Error("WARNING should appear after the results table, not before")
+		}
+	})
+
+	t.Run("Connected to Mullvad VPN warning in best server mode", func(t *testing.T) {
+		var output bytes.Buffer
+		pingCalled := false
+
+		deps := Dependencies{
+			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
+				return &api.UserLocation{
+					Latitude:      59.329323,
+					Longitude:     18.068581,
+					Country:       "Sweden",
+					City:          "Stockholm",
+					MullvadExitIP: true,
+				}, nil
+			},
+			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
+				pingCalled = true
+				for i := range locs {
+					latency := float64(10 + i)
+					locs[i].Latency = &latency
+				}
+				return locs, nil
+			},
+			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
+				return relays.ParseRelaysFile("../../testdata/relays.json")
+			},
+			Stdout: &output,
+		}
+
+		args := []string{} // No args triggers best server mode
+		err := run(context.Background(), args, deps)
+		if err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+		if !strings.Contains(result, "connected to Mullvad VPN") {
+			t.Error("Output should warn about being connected to Mullvad VPN in best server mode")
+		}
+		if !pingCalled {
+			t.Error("PingLocations should be called even when connected to Mullvad VPN in best server mode")
+		}
+
+		// Verify warning appears after the best server output
+		warningIndex := strings.Index(result, "WARNING")
+		if warningIndex == -1 {
+			t.Error("WARNING message should be present in output")
+		}
+		// Best server output should contain "Best server" before the warning
+		bestServerIndex := strings.Index(result, "Best server")
+		if bestServerIndex == -1 {
+			t.Error("Best server output should be present")
+		}
+		if warningIndex <= bestServerIndex {
+			t.Error("WARNING should appear after the best server output, not before")
 		}
 	})
 }
