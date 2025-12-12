@@ -221,20 +221,9 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 		return fmt.Errorf("failed to get user location: %w", err)
 	}
 
-	// Check if connected to Mullvad VPN
-	if userLoc.MullvadExitIP {
-		userLocOutput := formatter.FormatUserLocation(*userLoc)
-		_, _ = fmt.Fprintf(
-			deps.Stdout,
-			"You are currently connected to Mullvad VPN. Pinging Mullvad servers from a Mullvad server does not provide meaningful results.\nYour location info:\n%s",
-			userLocOutput,
-		)
-		return nil
-	}
-
 	// Best server mode: progressively expand range until we find servers
 	if config.BestServerMode {
-		return runBestServerMode(
+		err := runBestServerMode(
 			ctx,
 			config.LogLevel,
 			locations,
@@ -246,6 +235,13 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 			deps.PingLocations,
 			config.DeterministicOutput,
 		)
+		if err == nil && userLoc.MullvadExitIP {
+			_, _ = fmt.Fprint(
+				deps.Stdout,
+				"\nWARNING: You are connected to Mullvad VPN. Results might not be meaningful.\n",
+			)
+		}
+		return err
 	}
 
 	// Normal mode: filter by distance
@@ -297,6 +293,13 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 
 	table := formatter.FormatTable(locations, config.IPVersion.IsIPv6())
 	_, _ = fmt.Fprint(deps.Stdout, table)
+
+	if userLoc.MullvadExitIP {
+		_, _ = fmt.Fprint(
+			deps.Stdout,
+			"\nWARNING: You are connected to Mullvad VPN. Results might not be meaningful.\n",
+		)
+	}
 
 	return nil
 }
