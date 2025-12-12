@@ -161,7 +161,7 @@ func ParseRelaysFileWithLogLevel(path string, logLevel logging.LogLevel) (*File,
 func shouldIncludeRelay(
 	relay Relay,
 	relayType ServerType,
-	wireGuardObfuscation WireGuardObfuscation,
+	antiCensorship AntiCensorship,
 	daita bool,
 	ipVersion IPVersion,
 ) bool {
@@ -190,9 +190,9 @@ func shouldIncludeRelay(
 		return false
 	}
 
-	// Filter by wireguard obfuscation if specified
-	if wireGuardObfuscation != WGObfNone &&
-		!matchesObfuscation(relay.EndpointData, wireGuardObfuscation) {
+	// Filter by anti-censorship if specified
+	if antiCensorship != ACNone &&
+		!matchesAntiCensorship(relay.EndpointData, antiCensorship) {
 		return false
 	}
 
@@ -212,11 +212,11 @@ func matchesIPVersion(relay Relay, ipVersion IPVersion) bool {
 	return relay.IPv4AddrIn != ""
 }
 
-// GetLocations extracts Location objects from the relays file, optionally filtered by wireguard obfuscation, DAITA, and IPv6
+// GetLocations extracts Location objects from the relays file, optionally filtered by anti-censorship, DAITA, and IPv6
 // Returns the locations and the count of relays skipped due to unknown endpoint_data format
 func GetLocations(
 	relays *File,
-	wireGuardObfuscation WireGuardObfuscation,
+	antiCensorship AntiCensorship,
 	daita bool,
 	ipVersion IPVersion,
 ) ([]Location, int, error) {
@@ -232,7 +232,7 @@ func GetLocations(
 					continue
 				}
 
-				if !shouldIncludeRelay(relay, relayType, wireGuardObfuscation, daita, ipVersion) {
+				if !shouldIncludeRelay(relay, relayType, antiCensorship, daita, ipVersion) {
 					continue
 				}
 
@@ -305,14 +305,14 @@ func hasDaita(endpointData json.RawMessage) bool {
 	return endpoint.Wireguard.Daita
 }
 
-// matchesObfuscation checks if a wireguard endpoint matches the specified obfuscation type
-func matchesObfuscation(endpointData json.RawMessage, obfuscationType WireGuardObfuscation) bool {
+// matchesAntiCensorship checks if a wireguard endpoint matches the specified anti-censorship protocol
+func matchesAntiCensorship(endpointData json.RawMessage, antiCensorshipType AntiCensorship) bool {
 	var endpoint WireGuardEndpoint
 	if err := json.Unmarshal(endpointData, &endpoint); err != nil {
 		return false
 	}
 
-	switch obfuscationType {
+	switch antiCensorshipType {
 	case LWO:
 		return endpoint.Wireguard.Lwo
 	case QUIC:

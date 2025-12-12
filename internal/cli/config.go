@@ -13,17 +13,17 @@ import (
 
 // Config holds all command-line configuration options for the application.
 type Config struct {
-	WireGuardObfuscation relays.WireGuardObfuscation
-	Daita                bool
-	IPVersion            relays.IPVersion
-	MaxDistance          float64
-	ShowHelp             bool
-	ShowVersion          bool
-	Timeout              int
-	Workers              int
-	BestServerMode       bool
-	LogLevel             logging.LogLevel
-	DeterministicOutput  bool
+	AntiCensorship      relays.AntiCensorship
+	Daita               bool
+	IPVersion           relays.IPVersion
+	MaxDistance         float64
+	ShowHelp            bool
+	ShowVersion         bool
+	Timeout             int
+	Workers             int
+	BestServerMode      bool
+	LogLevel            logging.LogLevel
+	DeterministicOutput bool
 }
 
 // ParseFlags parses command-line arguments manually to support GNU-style long flags
@@ -48,17 +48,17 @@ func ParseFlags(args []string, version string) (*Config, error) {
 			cfg.ShowVersion = true
 			return cfg, nil
 
-		case arg == "-o" || arg == "--wireguard-obfuscation":
+		case arg == "-a" || arg == "--anti-censorship":
 			cfg.BestServerMode = false
 			if i+1 >= len(args) {
 				return nil, fmt.Errorf("%s requires an argument", arg)
 			}
 			i++
-			obfuscation, err := relays.ParseWireGuardObfuscation(args[i])
+			antiCensorship, err := relays.ParseAntiCensorship(args[i])
 			if err != nil {
 				return nil, err
 			}
-			cfg.WireGuardObfuscation = obfuscation
+			cfg.AntiCensorship = antiCensorship
 
 		case arg == "-d" || arg == "--daita":
 			cfg.BestServerMode = false
@@ -156,21 +156,21 @@ MODES:
                                   Activated when running without filter options.
 
     Table Mode:                   Shows all matching servers in a table, sorted by latency.
-                                  Activated by using any filter option (-m, -o, -d, -6).
+                                  Activated by using any filter option (-m, -a, -d, -6).
 
 FILTER OPTIONS (Table Mode):
-    -m, --max-distance KM              Maximum distance in km from your location (default: 500, range: 1-20000)
-    -o, --wireguard-obfuscation TYPE   Filter WireGuard servers by obfuscation (lwo, quic, shadowsocks)
-    -d, --daita                        Filter WireGuard servers with DAITA enabled
-    -6, --ipv6                         Use IPv6 addresses for pinging
+    -m, --max-distance KM         Maximum distance in km from your location (default: 500, range: 1-20000)
+    -a, --anti-censorship TYPE    Filter servers by anti-censorship type (lwo, quic, shadowsocks)
+    -d, --daita                   Filter servers with DAITA enabled
+    -6, --ipv6                    Use IPv6 addresses for pinging
 
 PERFORMANCE OPTIONS:
-    -t, --timeout MS                   Ping timeout in milliseconds (default: 500, range: 100-5000)
-    -w, --workers COUNT                Number of concurrent ping workers (default: 25, range: 1-200)
+    -t, --timeout MS              Ping timeout in milliseconds (default: 500, range: 100-5000)
+    -w, --workers COUNT           Number of concurrent ping workers (default: 25, range: 1-200)
 
 OTHER OPTIONS:
-    -l, --log-level LEVEL              Set log level (debug, info, warning, error; default: error)
-    -h, --help                         Show this help message
-    -v, --version                      Show version information
+    -l, --log-level LEVEL         Set log level (debug, info, warning, error; default: error)
+    -h, --help                    Show this help message
+    -v, --version                 Show version information
 `, version)
 }

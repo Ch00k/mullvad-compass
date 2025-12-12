@@ -4,51 +4,51 @@ import (
 	"testing"
 )
 
-func TestWireGuardObfuscationString(t *testing.T) {
+func TestAntiCensorshipString(t *testing.T) {
 	tests := []struct {
 		name string
-		obf  WireGuardObfuscation
+		obf  AntiCensorship
 		want string
 	}{
 		{"LWO", LWO, "lwo"},
 		{"QUIC", QUIC, "quic"},
 		{"Shadowsocks", Shadowsocks, "shadowsocks"},
-		{"None", WGObfNone, ""},
+		{"None", ACNone, ""},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.obf.String(); got != tt.want {
-				t.Errorf("WireGuardObfuscation.String() = %v, want %v", got, tt.want)
+				t.Errorf("AntiCensorship.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestParseWireGuardObfuscation(t *testing.T) {
+func TestParseAntiCensorship(t *testing.T) {
 	tests := []struct {
 		name    string
 		input   string
-		want    WireGuardObfuscation
+		want    AntiCensorship
 		wantErr bool
 	}{
 		{"lwo", "lwo", LWO, false},
 		{"quic", "quic", QUIC, false},
 		{"shadowsocks", "shadowsocks", Shadowsocks, false},
-		{"empty", "", WGObfNone, false},
-		{"invalid", "invalid", WGObfNone, true},
-		{"uppercase", "LWO", WGObfNone, true},
+		{"empty", "", ACNone, false},
+		{"invalid", "invalid", ACNone, true},
+		{"uppercase", "LWO", ACNone, true},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := ParseWireGuardObfuscation(tt.input)
+			got, err := ParseAntiCensorship(tt.input)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseWireGuardObfuscation() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseAntiCensorship() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("ParseWireGuardObfuscation() = %v, want %v", got, tt.want)
+				t.Errorf("ParseAntiCensorship() = %v, want %v", got, tt.want)
 			}
 		})
 	}
