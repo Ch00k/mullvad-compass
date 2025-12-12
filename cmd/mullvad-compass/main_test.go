@@ -65,43 +65,6 @@ func TestE2E_FullFlow(t *testing.T) {
 		}
 	})
 
-	t.Run("Filter by server type", func(t *testing.T) {
-		var output bytes.Buffer
-
-		deps := Dependencies{
-			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
-				return &api.UserLocation{
-					Latitude:  52.520008, // Berlin
-					Longitude: 13.404954,
-				}, nil
-			},
-			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
-				for i := range locs {
-					latency := 15.0
-					locs[i].Latency = &latency
-				}
-				return locs, nil
-			},
-			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
-				return relays.ParseRelaysFile("../../testdata/relays.json")
-			},
-			Stdout: &output,
-		}
-
-		args := []string{"-s", "wireguard", "-m", "500"}
-		err := run(context.Background(), args, deps)
-		if err != nil {
-			t.Fatalf("Expected no error, got: %v", err)
-		}
-
-		result := output.String()
-
-		// Should only contain wireguard servers
-		if strings.Contains(result, "openvpn") {
-			t.Error("Output should not contain openvpn servers when filtering for wireguard")
-		}
-	})
-
 	t.Run("No servers within distance", func(t *testing.T) {
 		var output bytes.Buffer
 
@@ -327,7 +290,7 @@ func TestE2E_ErrorHandling(t *testing.T) {
 }
 
 func TestE2E_FlagParsing(t *testing.T) {
-	t.Run("Invalid server type", func(t *testing.T) {
+	t.Run("Invalid flag", func(t *testing.T) {
 		var output bytes.Buffer
 
 		deps := Dependencies{
@@ -344,14 +307,14 @@ func TestE2E_FlagParsing(t *testing.T) {
 			Stdout: &output,
 		}
 
-		args := []string{"-s", "invalid"}
+		args := []string{"-x"}
 		err := run(context.Background(), args, deps)
 
 		if err == nil {
-			t.Fatal("Expected error for invalid server type")
+			t.Fatal("Expected error for invalid flag")
 		}
-		if !strings.Contains(err.Error(), "invalid server type") {
-			t.Errorf("Expected invalid server type error, got: %v", err)
+		if !strings.Contains(err.Error(), "unknown flag") {
+			t.Errorf("Expected unknown flag error, got: %v", err)
 		}
 	})
 
@@ -687,7 +650,7 @@ func TestE2E_Integration(t *testing.T) {
 			Stdout: &output,
 		}
 
-		args := []string{"-s", "wireguard", "-m", "300"}
+		args := []string{"-m", "300"}
 		err := run(context.Background(), args, deps)
 		if err != nil {
 			t.Fatalf("Expected no error, got: %v", err)

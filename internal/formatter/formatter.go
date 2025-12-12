@@ -50,7 +50,7 @@ func FormatTable(locations []relays.Location, useIPv6 bool) string {
 	}
 
 	// Build table data
-	headers := []string{"Country", "City", "Type", "IP", "Hostname", "Distance (km)", "Latency (ms)"}
+	headers := []string{"Country", "City", "IP", "Hostname", "Distance (km)", "Latency (ms)"}
 	rows := make([][]string, len(locations))
 
 	for i, loc := range locations {
@@ -61,7 +61,6 @@ func FormatTable(locations []relays.Location, useIPv6 bool) string {
 		rows[i] = []string{
 			loc.Country,
 			loc.City,
-			loc.Type,
 			ipAddr,
 			loc.Hostname,
 			formatDistance(loc.DistanceFromMyLocation),

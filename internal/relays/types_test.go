@@ -98,7 +98,6 @@ func TestServerTypeString(t *testing.T) {
 		serverType ServerType
 		want       string
 	}{
-		{"OpenVPN", OpenVPN, "openvpn"},
 		{"WireGuard", WireGuard, "wireguard"},
 		{"Bridge", Bridge, "bridge"},
 		{"None", ServerTypeNone, ""},
@@ -120,7 +119,6 @@ func TestParseServerType(t *testing.T) {
 		want    ServerType
 		wantErr bool
 	}{
-		{"openvpn", "openvpn", OpenVPN, false},
 		{"wireguard", "wireguard", WireGuard, false},
 		{"bridge", "bridge", Bridge, false},
 		{"empty", "", ServerTypeNone, false},

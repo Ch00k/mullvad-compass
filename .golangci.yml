@@ -9,6 +9,13 @@ linters:
     staticcheck:
       checks:
         - all
+    revive:
+      rules:
+        - name: var-naming
+          arguments:
+            - []
+            - []
+            - - skip-package-name-checks: true
 formatters:
   enable:
     - gofumpt

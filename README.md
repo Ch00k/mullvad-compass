@@ -7,7 +7,7 @@ A rewrite of [mullvad-closest](https://github.com/Ch00k/mullvad-closest), offeri
 ## Features
 
 - Finds the single best or multiple closest Mullvad VPN servers
-- Filters by server type (OpenVPN or WireGuard), distance threshold, WireGuard obfuscation type
+- Filters by distance threshold and WireGuard obfuscation type
 - Measures actual latency via ICMP ping
 - Supports IPv4 and IPv6 addresses
 - Executes concurrent pings
@@ -39,7 +39,7 @@ Your location:   Dresden, Germany
                  203.0.113.42
 Best server:     Prague, Czech Republic
                  cz-prg-wg-201 (178.249.209.162)
-                 9.85 ms, 156 km away
+                 9.78 ms, 156 km away
 ```
 <!-- best-server:end -->
 
@@ -48,22 +48,19 @@ Find multiple servers within 200 km, sorted by latency (lowest first):
 <!-- multiple-servers:start -->
 ```
 $ mullvad-compass --max-distance 250
-Country          City     Type        IP                Hostname          Distance (km)   Latency (ms)
---------------   ------   ---------   ---------------   ---------------   -------------   ------------
-Czech Republic   Prague   wireguard   178.249.209.162   cz-prg-wg-201     156             9.85
-Czech Republic   Prague   openvpn     146.70.129.194    cz-prg-ovpn-102   156             12.86
-Czech Republic   Prague   openvpn     146.70.129.162    cz-prg-ovpn-101   156             12.89
-Czech Republic   Prague   wireguard   178.249.209.175   cz-prg-wg-202     156             12.95
-Czech Republic   Prague   wireguard   146.70.129.130    cz-prg-wg-102     156             13.94
-Germany          Berlin   wireguard   193.32.248.66     de-ber-wg-001     238             15.85
-Germany          Berlin   wireguard   193.32.248.68     de-ber-wg-003     238             15.87
-Germany          Berlin   wireguard   193.32.248.74     de-ber-wg-008     238             15.88
-Germany          Berlin   wireguard   193.32.248.75     de-ber-wg-007     238             15.88
-Germany          Berlin   wireguard   193.32.248.69     de-ber-wg-004     238             15.89
-Germany          Berlin   wireguard   193.32.248.67     de-ber-wg-002     238             15.93
-Germany          Berlin   openvpn     193.32.248.72     de-ber-ovpn-001   238             15.94
-Germany          Berlin   wireguard   193.32.248.70     de-ber-wg-005     238             15.96
-Germany          Berlin   wireguard   193.32.248.71     de-ber-wg-006     238             16.03
+Country          City     IP                Hostname        Distance (km)   Latency (ms)
+--------------   ------   ---------------   -------------   -------------   ------------
+Czech Republic   Prague   178.249.209.162   cz-prg-wg-201   156             9.78
+Czech Republic   Prague   178.249.209.175   cz-prg-wg-202   156             13.01
+Czech Republic   Prague   146.70.129.130    cz-prg-wg-102   156             13.94
+Germany          Berlin   193.32.248.75     de-ber-wg-007   238             15.86
+Germany          Berlin   193.32.248.66     de-ber-wg-001   238             15.88
+Germany          Berlin   193.32.248.70     de-ber-wg-005   238             15.89
+Germany          Berlin   193.32.248.74     de-ber-wg-008   238             15.91
+Germany          Berlin   193.32.248.68     de-ber-wg-003   238             15.93
+Germany          Berlin   193.32.248.69     de-ber-wg-004   238             15.95
+Germany          Berlin   193.32.248.71     de-ber-wg-006   238             15.95
+Germany          Berlin   193.32.248.67     de-ber-wg-002   238             15.99
 ```
 <!-- multiple-servers:end -->
 
@@ -84,11 +81,10 @@ MODES:
                                   Activated when running without filter options.
 
     Table Mode:                   Shows all matching servers in a table, sorted by latency.
-                                  Activated by using any filter option (-m, -s, -o, -d, -6).
+                                  Activated by using any filter option (-m, -o, -d, -6).
 
 FILTER OPTIONS (Table Mode):
     -m, --max-distance KM              Maximum distance in km from your location (default: 500, range: 1-20000)
-    -s, --server-type TYPE             Filter by server type (wireguard, openvpn)
     -o, --wireguard-obfuscation TYPE   Filter WireGuard servers by obfuscation (lwo, quic, shadowsocks)
     -d, --daita                        Filter WireGuard servers with DAITA enabled
     -6, --ipv6                         Use IPv6 addresses for pinging

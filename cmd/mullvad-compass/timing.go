@@ -60,7 +60,6 @@ func parseRelaysFile(
 func getLocations(
 	logLevel logging.LogLevel,
 	relaysData *relays.File,
-	serverType relays.ServerType,
 	wireGuardObfuscation relays.WireGuardObfuscation,
 	daita bool,
 	ipVersion relays.IPVersion,
@@ -73,7 +72,7 @@ func getLocations(
 		}
 	}()
 
-	locations, skipped, err := relays.GetLocations(relaysData, serverType, wireGuardObfuscation, daita, ipVersion)
+	locations, skipped, err := relays.GetLocations(relaysData, wireGuardObfuscation, daita, ipVersion)
 	if err != nil {
 		return nil, err
 	}

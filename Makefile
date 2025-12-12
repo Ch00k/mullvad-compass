@@ -31,6 +31,9 @@ build:
 run:
 	go run ./cmd/mullvad-compass
 
+readme:
+	./update-readme-usage.sh
+
 release:
 	@echo "Available release types:"
 	@echo "  make release-patch  # Patch version (x.y.Z)"

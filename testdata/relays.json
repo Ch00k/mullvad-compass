@@ -1,5 +1,5 @@
 {
-  "etag": "W/\"691ae54e-36f87\"",
+  "etag": "W/\"693a4d4f-36cd5\"",
   "countries": [
     {
       "name": "Albania",
@@ -66,13 +66,13 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "103.124.165.196",
-                      "2a04:27c0:0:d::f00a"
+                      "2a04:27c0:0:d::f00a",
+                      "103.124.165.196"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "al-tia-wg-004.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
                     "103.124.165.197"
                   ]
@@ -189,48 +189,6 @@
           "latitude": 48.210033,
           "longitude": 16.363449,
           "relays": [
-            {
-              "hostname": "at-vie-ovpn-001",
-              "ipv4_addr_in": "146.70.116.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Austria",
-                "country_code": "at",
-                "city": "Vienna",
-                "city_code": "vie",
-                "latitude": 48.210033,
-                "longitude": 16.363449
-              }
-            },
-            {
-              "hostname": "at-vie-ovpn-002",
-              "ipv4_addr_in": "146.70.116.226",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Austria",
-                "country_code": "at",
-                "city": "Vienna",
-                "city_code": "vie",
-                "latitude": 48.210033,
-                "longitude": 16.363449
-              }
-            },
             {
               "hostname": "at-vie-wg-001",
               "ipv4_addr_in": "146.70.116.98",
@@ -395,48 +353,6 @@
           "longitude": 138.599503,
           "relays": [
             {
-              "hostname": "au-adl-ovpn-301",
-              "ipv4_addr_in": "103.214.20.146",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Adelaide",
-                "city_code": "adl",
-                "latitude": -34.92123,
-                "longitude": 138.599503
-              }
-            },
-            {
-              "hostname": "au-adl-ovpn-302",
-              "ipv4_addr_in": "103.214.20.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Adelaide",
-                "city_code": "adl",
-                "latitude": -34.92123,
-                "longitude": 138.599503
-              }
-            },
-            {
               "hostname": "au-adl-wg-301",
               "ipv4_addr_in": "103.214.20.50",
               "ipv6_addr_in": "2404:f780:0:deb::c1f",
@@ -502,48 +418,6 @@
           "latitude": -27.471,
           "longitude": 153.0234,
           "relays": [
-            {
-              "hostname": "au-bne-ovpn-301",
-              "ipv4_addr_in": "103.216.220.50",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Brisbane",
-                "city_code": "bne",
-                "latitude": -27.471,
-                "longitude": 153.0234
-              }
-            },
-            {
-              "hostname": "au-bne-ovpn-302",
-              "ipv4_addr_in": "103.216.220.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Brisbane",
-                "city_code": "bne",
-                "latitude": -27.471,
-                "longitude": 153.0234
-              }
-            },
             {
               "hostname": "au-bne-wg-301",
               "ipv4_addr_in": "103.216.220.18",
@@ -611,48 +485,6 @@
           "longitude": 144.946014,
           "relays": [
             {
-              "hostname": "au-mel-ovpn-301",
-              "ipv4_addr_in": "103.108.229.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Melbourne",
-                "city_code": "mel",
-                "latitude": -37.815018,
-                "longitude": 144.946014
-              }
-            },
-            {
-              "hostname": "au-mel-ovpn-302",
-              "ipv4_addr_in": "103.108.229.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Melbourne",
-                "city_code": "mel",
-                "latitude": -37.815018,
-                "longitude": 144.946014
-              }
-            },
-            {
               "hostname": "au-mel-wg-302",
               "ipv4_addr_in": "103.108.229.66",
               "ipv6_addr_in": "2406:d501:f:dec::a02f",
@@ -689,48 +521,6 @@
           "latitude": -31.953512,
           "longitude": 115.857048,
           "relays": [
-            {
-              "hostname": "au-per-ovpn-301",
-              "ipv4_addr_in": "103.108.231.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Perth",
-                "city_code": "per",
-                "latitude": -31.953512,
-                "longitude": 115.857048
-              }
-            },
-            {
-              "hostname": "au-per-ovpn-302",
-              "ipv4_addr_in": "103.108.231.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Perth",
-                "city_code": "per",
-                "latitude": -31.953512,
-                "longitude": 115.857048
-              }
-            },
             {
               "hostname": "au-per-wg-301",
               "ipv4_addr_in": "103.108.231.50",
@@ -797,48 +587,6 @@
           "latitude": -33.861481,
           "longitude": 151.205475,
           "relays": [
-            {
-              "hostname": "au-syd-ovpn-001",
-              "ipv4_addr_in": "146.70.200.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Sydney",
-                "city_code": "syd",
-                "latitude": -33.861481,
-                "longitude": 151.205475
-              }
-            },
-            {
-              "hostname": "au-syd-ovpn-002",
-              "ipv4_addr_in": "146.70.200.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Australia",
-                "country_code": "au",
-                "city": "Sydney",
-                "city_code": "syd",
-                "latitude": -33.861481,
-                "longitude": 151.205475
-              }
-            },
             {
               "hostname": "au-syd-wg-001",
               "ipv4_addr_in": "146.70.200.2",
@@ -1059,8 +807,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a06:3040:18:210::f00a",
-                      "103.120.6.12"
+                      "103.120.6.12",
+                      "2a06:3040:18:210::f00a"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "au-syd-wg-301.blockerad.eu"
@@ -1227,48 +975,6 @@
           "longitude": 4.333333,
           "relays": [
             {
-              "hostname": "be-bru-ovpn-101",
-              "ipv4_addr_in": "82.102.19.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Belgium",
-                "country_code": "be",
-                "city": "Brussels",
-                "city_code": "bru",
-                "latitude": 50.833333,
-                "longitude": 4.333333
-              }
-            },
-            {
-              "hostname": "be-bru-ovpn-102",
-              "ipv4_addr_in": "91.207.57.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Belgium",
-                "country_code": "be",
-                "city": "Brussels",
-                "city_code": "bru",
-                "latitude": 50.833333,
-                "longitude": 4.333333
-              }
-            },
-            {
               "hostname": "be-bru-wg-101",
               "ipv4_addr_in": "91.90.123.2",
               "ipv6_addr_in": "2001:ac8:27:88::a01f",
@@ -1370,48 +1076,6 @@
           "longitude": 23.316667,
           "relays": [
             {
-              "hostname": "bg-sof-ovpn-001",
-              "ipv4_addr_in": "146.70.188.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Bulgaria",
-                "country_code": "bg",
-                "city": "Sofia",
-                "city_code": "sof",
-                "latitude": 42.683333,
-                "longitude": 23.316667
-              }
-            },
-            {
-              "hostname": "bg-sof-ovpn-002",
-              "ipv4_addr_in": "146.70.188.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Bulgaria",
-                "country_code": "bg",
-                "city": "Sofia",
-                "city_code": "sof",
-                "latitude": 42.683333,
-                "longitude": 23.316667
-              }
-            },
-            {
               "hostname": "bg-sof-wg-001",
               "ipv4_addr_in": "146.70.188.130",
               "ipv6_addr_in": "2001:ac8:30:56::f001",
@@ -1500,8 +1164,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2604:980:e007:100::f00a",
-                      "155.2.219.13"
+                      "155.2.219.13",
+                      "2604:980:e007:100::f00a"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "br-for-wg-001.blockerad.eu"
@@ -1538,8 +1202,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "155.2.219.138",
-                      "2604:980:e007:100::f10a"
+                      "2604:980:e007:100::f10a",
+                      "155.2.219.138"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "br-for-wg-002.blockerad.eu"
@@ -1650,8 +1314,8 @@
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "103.139.178.74",
-                    "103.139.178.75"
+                    "103.139.178.75",
+                    "103.139.178.74"
                   ]
                 }
               },
@@ -1681,8 +1345,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "103.139.178.133",
-                      "2a06:3040:10:610::f20a"
+                      "2a06:3040:10:610::f20a",
+                      "103.139.178.133"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "br-sao-wg-303.blockerad.eu"
@@ -1756,48 +1420,6 @@
           "latitude": 45.5053,
           "longitude": -73.5525,
           "relays": [
-            {
-              "hostname": "ca-mtr-ovpn-001",
-              "ipv4_addr_in": "37.120.237.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Montreal",
-                "city_code": "mtr",
-                "latitude": 45.5053,
-                "longitude": -73.5525
-              }
-            },
-            {
-              "hostname": "ca-mtr-ovpn-002",
-              "ipv4_addr_in": "45.133.182.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Montreal",
-                "city_code": "mtr",
-                "latitude": 45.5053,
-                "longitude": -73.5525
-              }
-            },
             {
               "hostname": "ca-mtr-wg-001",
               "ipv4_addr_in": "146.70.198.66",
@@ -2012,48 +1634,6 @@
           "latitude": 43.666667,
           "longitude": -79.416667,
           "relays": [
-            {
-              "hostname": "ca-tor-ovpn-001",
-              "ipv4_addr_in": "178.249.214.193",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Toronto",
-                "city_code": "tor",
-                "latitude": 43.666667,
-                "longitude": -79.416667
-              }
-            },
-            {
-              "hostname": "ca-tor-ovpn-002",
-              "ipv4_addr_in": "178.249.214.206",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Toronto",
-                "city_code": "tor",
-                "latitude": 43.666667,
-                "longitude": -79.416667
-              }
-            },
             {
               "hostname": "ca-tor-wg-001",
               "ipv4_addr_in": "178.249.214.2",
@@ -2382,48 +1962,6 @@
           "longitude": -123.133333,
           "relays": [
             {
-              "hostname": "ca-van-ovpn-201",
-              "ipv4_addr_in": "104.193.135.132",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "techfutures",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Vancouver",
-                "city_code": "van",
-                "latitude": 49.25,
-                "longitude": -123.133333
-              }
-            },
-            {
-              "hostname": "ca-van-ovpn-202",
-              "ipv4_addr_in": "104.193.135.164",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "techfutures",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Canada",
-                "country_code": "ca",
-                "city": "Vancouver",
-                "city_code": "van",
-                "latitude": 49.25,
-                "longitude": -123.133333
-              }
-            },
-            {
               "hostname": "ca-van-wg-201",
               "ipv4_addr_in": "104.193.135.196",
               "ipv6_addr_in": "2606:9580:103:e::f001",
@@ -2620,153 +2158,6 @@
           "longitude": 8.55,
           "relays": [
             {
-              "hostname": "ch-zrh-ovpn-001",
-              "ipv4_addr_in": "193.32.127.81",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-002",
-              "ipv4_addr_in": "193.32.127.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-003",
-              "ipv4_addr_in": "193.32.127.83",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-201",
-              "ipv4_addr_in": "46.19.140.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "PrivateLayer",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-202",
-              "ipv4_addr_in": "81.17.16.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "PrivateLayer",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-501",
-              "ipv4_addr_in": "146.70.134.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
-              "hostname": "ch-zrh-ovpn-502",
-              "ipv4_addr_in": "146.70.134.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Switzerland",
-                "country_code": "ch",
-                "city": "Zurich",
-                "city_code": "zrh",
-                "latitude": 47.366667,
-                "longitude": 8.55
-              }
-            },
-            {
               "hostname": "ch-zrh-wg-001",
               "ipv4_addr_in": "193.32.127.66",
               "ipv6_addr_in": "2a03:1b20:a:f011::f001",
@@ -2783,13 +2174,13 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "193.32.127.99",
-                      "2a03:1b20:a:f011::f00a"
+                      "2a03:1b20:a:f011::f00a",
+                      "193.32.127.99"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "ch-zrh-wg-001.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -2818,7 +2209,7 @@
                   "public_key": "qcvI02LwBnTb7aFrOyZSWvg4kb7zNW9/+rS6alnWyFE=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -2847,7 +2238,7 @@
                   "public_key": "5Ms10UxGjCSzwImTrvEjcygsWY8AfMIdYyRvgFuTqH8=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -2876,7 +2267,7 @@
                   "public_key": "C3jAgPirUZG6sNYe4VuAgDEYunENUyG34X42y+SBngQ=",
                   "daita": true,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -2905,7 +2296,7 @@
                   "public_key": "dV/aHhwG0fmp0XuvSvrdWjCtdyhPDDFiE/nuv/1xnRM=",
                   "daita": true,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -2934,7 +2325,7 @@
                   "public_key": "wDjbvO94t0UI1RlimpEFFv7kJ6DngthvuRX6uBN0wAA=",
                   "daita": true,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -3580,61 +2971,19 @@
           "longitude": 14.466667,
           "relays": [
             {
-              "hostname": "cz-prg-ovpn-101",
-              "ipv4_addr_in": "146.70.129.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Czech Republic",
-                "country_code": "cz",
-                "city": "Prague",
-                "city_code": "prg",
-                "latitude": 50.083333,
-                "longitude": 14.466667
-              }
-            },
-            {
-              "hostname": "cz-prg-ovpn-102",
-              "ipv4_addr_in": "146.70.129.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Czech Republic",
-                "country_code": "cz",
-                "city": "Prague",
-                "city_code": "prg",
-                "latitude": 50.083333,
-                "longitude": 14.466667
-              }
-            },
-            {
               "hostname": "cz-prg-wg-101",
               "ipv4_addr_in": "146.70.129.98",
               "ipv6_addr_in": "2001:ac8:33:c::a01f",
               "overridden_ipv4": false,
               "overridden_ipv6": false,
               "include_in_country": true,
-              "active": false,
+              "active": true,
               "owned": false,
               "provider": "M247",
               "weight": 100,
               "endpoint_data": {
                 "wireguard": {
-                  "public_key": "wLBxTaISMJ++vUht4hlAOUog9fhZxDql16TaYWaboDc=",
+                  "public_key": "tWVga+pS/Ztrbx/L/PBlaWPGhkI3PCPBzbQlCeXWqn8=",
                   "daita": false,
                   "quic": null,
                   "lwo": false,
@@ -3779,27 +3128,6 @@
           "longitude": 13.404954,
           "relays": [
             {
-              "hostname": "de-ber-ovpn-001",
-              "ipv4_addr_in": "193.32.248.72",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Berlin",
-                "city_code": "ber",
-                "latitude": 52.520008,
-                "longitude": 13.404954
-              }
-            },
-            {
               "hostname": "de-ber-wg-001",
               "ipv4_addr_in": "193.32.248.66",
               "ipv6_addr_in": "2a03:1b20:b:f011::a01f",
@@ -3816,34 +3144,34 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.171.15",
                       "151.241.171.17",
-                      "151.241.171.19",
-                      "151.241.171.14",
-                      "151.241.171.18",
-                      "151.241.171.10",
                       "193.32.248.87",
-                      "151.241.171.11",
+                      "151.241.171.10",
+                      "151.241.171.14",
                       "151.241.171.12",
+                      "151.241.171.11",
+                      "151.241.171.15",
                       "151.241.171.16",
-                      "151.241.171.13"
+                      "151.241.171.13",
+                      "151.241.171.19",
+                      "151.241.171.18"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-001.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.28",
-                    "151.241.171.29",
-                    "151.241.171.21",
-                    "151.241.171.27",
-                    "151.241.171.20",
-                    "151.241.171.23",
-                    "151.241.171.24",
-                    "193.32.248.86",
                     "151.241.171.22",
+                    "151.241.171.20",
                     "151.241.171.25",
-                    "151.241.171.26"
+                    "151.241.171.24",
+                    "151.241.171.28",
+                    "151.241.171.23",
+                    "193.32.248.86",
+                    "151.241.171.26",
+                    "151.241.171.29",
+                    "151.241.171.27",
+                    "151.241.171.21"
                   ]
                 }
               },
@@ -3873,34 +3201,34 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "193.32.248.89",
-                      "151.241.171.42",
-                      "151.241.171.47",
-                      "151.241.171.40",
-                      "151.241.171.41",
-                      "151.241.171.43",
                       "151.241.171.44",
-                      "151.241.171.45",
+                      "151.241.171.41",
                       "151.241.171.48",
                       "151.241.171.49",
-                      "151.241.171.46"
+                      "151.241.171.46",
+                      "151.241.171.47",
+                      "151.241.171.40",
+                      "151.241.171.45",
+                      "193.32.248.89",
+                      "151.241.171.42",
+                      "151.241.171.43"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-002.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.50",
-                    "151.241.171.58",
-                    "151.241.171.51",
-                    "151.241.171.54",
                     "151.241.171.56",
-                    "151.241.171.57",
                     "151.241.171.55",
-                    "151.241.171.59",
-                    "151.241.171.52",
+                    "151.241.171.57",
+                    "151.241.171.51",
                     "193.32.248.88",
-                    "151.241.171.53"
+                    "151.241.171.52",
+                    "151.241.171.58",
+                    "151.241.171.59",
+                    "151.241.171.54",
+                    "151.241.171.53",
+                    "151.241.171.50"
                   ]
                 }
               },
@@ -3930,34 +3258,34 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.171.77",
-                      "151.241.171.79",
-                      "151.241.171.72",
-                      "151.241.171.73",
+                      "151.241.171.78",
                       "193.32.248.91",
-                      "151.241.171.70",
-                      "151.241.171.74",
-                      "151.241.171.71",
                       "151.241.171.75",
+                      "151.241.171.72",
+                      "151.241.171.70",
+                      "151.241.171.73",
                       "151.241.171.76",
-                      "151.241.171.78"
+                      "151.241.171.71",
+                      "151.241.171.74",
+                      "151.241.171.77",
+                      "151.241.171.79"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-003.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.84",
+                    "151.241.171.85",
+                    "151.241.171.80",
                     "151.241.171.87",
                     "151.241.171.88",
-                    "151.241.171.81",
-                    "193.32.248.90",
                     "151.241.171.89",
+                    "151.241.171.81",
+                    "151.241.171.84",
+                    "193.32.248.90",
                     "151.241.171.86",
                     "151.241.171.82",
-                    "151.241.171.85",
-                    "151.241.171.83",
-                    "151.241.171.80"
+                    "151.241.171.83"
                   ]
                 }
               },
@@ -3987,34 +3315,34 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.171.103",
                       "151.241.171.104",
-                      "151.241.171.102",
+                      "193.32.248.93",
+                      "151.241.171.103",
+                      "151.241.171.107",
                       "151.241.171.100",
                       "151.241.171.101",
-                      "151.241.171.105",
-                      "151.241.171.107",
                       "151.241.171.106",
-                      "193.32.248.93",
+                      "151.241.171.102",
+                      "151.241.171.108",
                       "151.241.171.109",
-                      "151.241.171.108"
+                      "151.241.171.105"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-004.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.119",
-                    "151.241.171.114",
-                    "193.32.248.92",
-                    "151.241.171.111",
-                    "151.241.171.113",
                     "151.241.171.112",
+                    "151.241.171.119",
+                    "151.241.171.113",
+                    "151.241.171.111",
+                    "151.241.171.114",
+                    "151.241.171.110",
                     "151.241.171.116",
                     "151.241.171.117",
+                    "193.32.248.92",
                     "151.241.171.118",
-                    "151.241.171.115",
-                    "151.241.171.110"
+                    "151.241.171.115"
                   ]
                 }
               },
@@ -4044,34 +3372,34 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.171.132",
-                      "151.241.171.136",
-                      "193.32.248.95",
                       "151.241.171.130",
-                      "151.241.171.137",
-                      "151.241.171.138",
-                      "151.241.171.133",
-                      "151.241.171.139",
-                      "151.241.171.134",
+                      "151.241.171.131",
                       "151.241.171.135",
-                      "151.241.171.131"
+                      "151.241.171.137",
+                      "151.241.171.132",
+                      "151.241.171.134",
+                      "151.241.171.139",
+                      "193.32.248.95",
+                      "151.241.171.133",
+                      "151.241.171.138",
+                      "151.241.171.136"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-005.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.142",
-                    "151.241.171.141",
                     "151.241.171.146",
-                    "151.241.171.140",
-                    "151.241.171.143",
                     "151.241.171.144",
-                    "151.241.171.145",
-                    "151.241.171.147",
-                    "151.241.171.149",
                     "193.32.248.94",
-                    "151.241.171.148"
+                    "151.241.171.141",
+                    "151.241.171.142",
+                    "151.241.171.145",
+                    "151.241.171.149",
+                    "151.241.171.148",
+                    "151.241.171.140",
+                    "151.241.171.147",
+                    "151.241.171.143"
                   ]
                 }
               },
@@ -4102,33 +3430,33 @@
                   "quic": {
                     "addr_in": [
                       "151.241.171.169",
-                      "151.241.171.161",
-                      "151.241.171.162",
-                      "193.32.248.97",
-                      "151.241.171.163",
                       "151.241.171.168",
-                      "151.241.171.165",
+                      "151.241.171.162",
+                      "151.241.171.163",
+                      "151.241.171.164",
+                      "193.32.248.97",
+                      "151.241.171.160",
                       "151.241.171.166",
                       "151.241.171.167",
-                      "151.241.171.160",
-                      "151.241.171.164"
+                      "151.241.171.165",
+                      "151.241.171.161"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-006.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.174",
-                    "151.241.171.172",
-                    "151.241.171.173",
+                    "151.241.171.175",
                     "151.241.171.176",
-                    "151.241.171.177",
                     "151.241.171.178",
-                    "151.241.171.179",
-                    "151.241.171.171",
-                    "193.32.248.96",
                     "151.241.171.170",
-                    "151.241.171.175"
+                    "151.241.171.177",
+                    "151.241.171.174",
+                    "151.241.171.179",
+                    "193.32.248.96",
+                    "151.241.171.171",
+                    "151.241.171.172",
+                    "151.241.171.173"
                   ]
                 }
               },
@@ -4159,33 +3487,33 @@
                   "quic": {
                     "addr_in": [
                       "151.241.171.186",
-                      "151.241.171.183",
                       "151.241.171.184",
-                      "151.241.171.182",
-                      "151.241.171.188",
-                      "151.241.171.181",
+                      "151.241.171.183",
                       "193.32.248.99",
+                      "151.241.171.182",
                       "151.241.171.187",
-                      "151.241.171.185",
                       "151.241.171.180",
-                      "151.241.171.189"
+                      "151.241.171.189",
+                      "151.241.171.185",
+                      "151.241.171.181",
+                      "151.241.171.188"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-007.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.171.195",
-                    "151.241.171.199",
+                    "193.32.248.98",
                     "151.241.171.190",
+                    "151.241.171.199",
+                    "151.241.171.191",
                     "151.241.171.192",
                     "151.241.171.193",
                     "151.241.171.197",
-                    "151.241.171.191",
                     "151.241.171.196",
-                    "151.241.171.198",
-                    "193.32.248.98",
-                    "151.241.171.194"
+                    "151.241.171.195",
+                    "151.241.171.194",
+                    "151.241.171.198"
                   ]
                 }
               },
@@ -4215,35 +3543,35 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.171.216",
-                      "151.241.171.212",
-                      "151.241.171.218",
-                      "151.241.171.219",
-                      "151.241.171.213",
                       "151.241.171.217",
-                      "151.241.171.214",
-                      "151.241.171.215",
                       "193.32.248.232",
                       "2a03:1b20:b:f011::f80a",
-                      "151.241.171.211",
-                      "151.241.171.210"
+                      "151.241.171.216",
+                      "151.241.171.218",
+                      "151.241.171.213",
+                      "151.241.171.214",
+                      "151.241.171.215",
+                      "151.241.171.219",
+                      "151.241.171.212",
+                      "151.241.171.210",
+                      "151.241.171.211"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-ber-wg-008.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
+                    "151.241.171.223",
+                    "151.241.171.222",
                     "151.241.171.225",
+                    "151.241.171.220",
+                    "151.241.171.221",
                     "151.241.171.224",
-                    "151.241.171.226",
-                    "151.241.171.227",
                     "151.241.171.228",
                     "151.241.171.229",
-                    "151.241.171.221",
-                    "151.241.171.222",
-                    "151.241.171.220",
-                    "151.241.171.223",
-                    "193.32.248.233"
+                    "193.32.248.233",
+                    "151.241.171.227",
+                    "151.241.171.226"
                   ]
                 }
               },
@@ -4360,132 +3688,6 @@
           "longitude": 8.682127,
           "relays": [
             {
-              "hostname": "de-fra-ovpn-001",
-              "ipv4_addr_in": "185.213.155.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
-              "hostname": "de-fra-ovpn-002",
-              "ipv4_addr_in": "185.213.155.67",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
-              "hostname": "de-fra-ovpn-003",
-              "ipv4_addr_in": "185.213.155.68",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
-              "hostname": "de-fra-ovpn-004",
-              "ipv4_addr_in": "185.213.155.69",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
-              "hostname": "de-fra-ovpn-101",
-              "ipv4_addr_in": "146.70.117.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
-              "hostname": "de-fra-ovpn-102",
-              "ipv4_addr_in": "146.70.117.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Germany",
-                "country_code": "de",
-                "city": "Frankfurt",
-                "city_code": "fra",
-                "latitude": 50.110924,
-                "longitude": 8.682127
-              }
-            },
-            {
               "hostname": "de-fra-wg-001",
               "ipv4_addr_in": "185.213.155.73",
               "ipv6_addr_in": "2a03:1b20:6:f011::f001",
@@ -4538,52 +3740,52 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.163.27",
-                      "151.241.163.24",
-                      "151.241.163.54",
-                      "151.241.163.26",
-                      "151.241.163.52",
-                      "151.241.163.20",
-                      "151.241.163.53",
-                      "151.241.163.23",
-                      "151.241.163.51",
-                      "151.241.163.28",
-                      "151.241.163.58",
-                      "151.241.163.59",
-                      "151.241.163.25",
-                      "151.241.163.22",
                       "151.241.163.57",
-                      "151.241.163.50",
-                      "151.241.163.55",
-                      "151.241.163.21",
+                      "151.241.163.54",
+                      "151.241.163.52",
+                      "151.241.163.51",
+                      "151.241.163.22",
                       "151.241.163.56",
-                      "151.241.163.29"
+                      "151.241.163.50",
+                      "151.241.163.28",
+                      "151.241.163.29",
+                      "151.241.163.21",
+                      "151.241.163.23",
+                      "151.241.163.20",
+                      "151.241.163.25",
+                      "151.241.163.27",
+                      "151.241.163.26",
+                      "151.241.163.53",
+                      "151.241.163.55",
+                      "151.241.163.59",
+                      "151.241.163.24",
+                      "151.241.163.58"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-fra-wg-002.blockerad.eu"
                   },
                   "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.163.40",
                     "151.241.163.42",
-                    "151.241.163.35",
                     "151.241.163.44",
+                    "151.241.163.47",
+                    "151.241.163.32",
+                    "151.241.163.49",
                     "151.241.163.30",
-                    "151.241.163.36",
                     "151.241.163.46",
+                    "151.241.163.48",
+                    "151.241.163.34",
                     "151.241.163.39",
+                    "151.241.163.37",
+                    "151.241.163.35",
+                    "151.241.163.36",
+                    "151.241.163.43",
+                    "151.241.163.45",
+                    "151.241.163.31",
                     "151.241.163.41",
                     "151.241.163.33",
-                    "151.241.163.45",
-                    "151.241.163.48",
-                    "151.241.163.49",
-                    "151.241.163.38",
-                    "151.241.163.32",
-                    "151.241.163.43",
-                    "151.241.163.47",
-                    "151.241.163.34",
-                    "151.241.163.31",
-                    "151.241.163.37"
+                    "151.241.163.40",
+                    "151.241.163.38"
                   ]
                 }
               },
@@ -4613,40 +3815,40 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.163.98",
+                      "2a03:1b20:6:f011:3:c:0:d",
+                      "2a03:1b20:6:f011:3:c:0:e",
+                      "151.241.163.87",
+                      "151.241.163.82",
+                      "151.241.163.84",
+                      "151.241.163.81",
+                      "2a03:1b20:6:f011:3:c:0:1",
                       "2a03:1b20:6:f011:3:c:0:f",
-                      "151.241.163.88",
                       "2a03:1b20:6:f011:3:c:0:a",
+                      "151.241.163.83",
+                      "151.241.163.96",
+                      "2a03:1b20:6:f011:3:c:0:2",
+                      "2a03:1b20:6:f011:3:c:0:4",
+                      "151.241.163.94",
                       "2a03:1b20:6:f011:3:c:0:7",
                       "151.241.163.95",
-                      "151.241.163.97",
-                      "2a03:1b20:6:f011:3:c:0:6",
-                      "151.241.163.87",
-                      "151.241.163.91",
-                      "151.241.163.92",
-                      "151.241.163.81",
-                      "151.241.163.84",
-                      "151.241.163.85",
-                      "2a03:1b20:6:f011:3:c:0:c",
-                      "2a03:1b20:6:f011:3:c:0:d",
-                      "151.241.163.83",
-                      "151.241.163.80",
-                      "2a03:1b20:6:f011:3:c:0:4",
-                      "2a03:1b20:6:f011:3:c:0:9",
-                      "2a03:1b20:6:f011:3:c:0:1",
-                      "2a03:1b20:6:f011:3:c:0:5",
                       "151.241.163.86",
-                      "151.241.163.94",
-                      "151.241.163.99",
-                      "151.241.163.89",
-                      "2a03:1b20:6:f011:3:c:0:2",
-                      "151.241.163.96",
+                      "2a03:1b20:6:f011:3:c:0:c",
+                      "2a03:1b20:6:f011:3:c:0:b",
+                      "2a03:1b20:6:f011:3:c:0:9",
+                      "151.241.163.97",
+                      "151.241.163.80",
+                      "151.241.163.85",
+                      "2a03:1b20:6:f011:3:c:0:3",
                       "151.241.163.90",
                       "151.241.163.93",
-                      "2a03:1b20:6:f011:3:c:0:b",
-                      "151.241.163.82",
-                      "2a03:1b20:6:f011:3:c:0:3",
-                      "2a03:1b20:6:f011:3:c:0:e",
+                      "151.241.163.88",
+                      "151.241.163.98",
+                      "151.241.163.99",
+                      "151.241.163.91",
+                      "151.241.163.89",
+                      "2a03:1b20:6:f011:3:c:0:5",
+                      "2a03:1b20:6:f011:3:c:0:6",
+                      "151.241.163.92",
                       "2a03:1b20:6:f011:3:c:0:8"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
@@ -4654,41 +3856,41 @@
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.163.100",
-                    "151.241.163.104",
-                    "2a03:1b20:6:f011:3:b:0:1",
-                    "2a03:1b20:6:f011:3:b:0:5",
+                    "151.241.163.109",
+                    "151.241.163.110",
                     "2a03:1b20:6:f011:3:b:0:d",
+                    "2a03:1b20:6:f011:3:b:0:3",
+                    "151.241.163.107",
+                    "151.241.163.113",
+                    "151.241.163.114",
+                    "151.241.163.117",
+                    "151.241.163.103",
+                    "2a03:1b20:6:f011:3:b:0:2",
+                    "2a03:1b20:6:f011:3:b:0:1",
+                    "151.241.163.105",
                     "2a03:1b20:6:f011:3:b:0:4",
+                    "2a03:1b20:6:f011:3:b:0:c",
+                    "2a03:1b20:6:f011:3:b:0:e",
+                    "2a03:1b20:6:f011:3:b:0:5",
                     "2a03:1b20:6:f011:3:b:0:9",
                     "2a03:1b20:6:f011:3:b:0:b",
-                    "151.241.163.105",
-                    "151.241.163.107",
-                    "2a03:1b20:6:f011:3:b:0:a",
-                    "151.241.163.115",
-                    "151.241.163.117",
                     "151.241.163.118",
-                    "2a03:1b20:6:f011:3:b:0:e",
-                    "151.241.163.106",
-                    "2a03:1b20:6:f011:3:b:0:8",
-                    "151.241.163.103",
-                    "151.241.163.109",
-                    "2a03:1b20:6:f011:3:b:0:2",
-                    "2a03:1b20:6:f011:3:b:0:6",
-                    "151.241.163.114",
-                    "2a03:1b20:6:f011:3:b:0:f",
-                    "151.241.163.101",
-                    "2a03:1b20:6:f011:3:b:0:7",
-                    "2a03:1b20:6:f011:3:b:0:c",
-                    "2a03:1b20:6:f011:3:b:0:3",
-                    "151.241.163.112",
-                    "151.241.163.113",
                     "151.241.163.116",
+                    "151.241.163.106",
                     "151.241.163.119",
-                    "151.241.163.110",
-                    "151.241.163.102",
+                    "151.241.163.112",
+                    "2a03:1b20:6:f011:3:b:0:7",
+                    "2a03:1b20:6:f011:3:b:0:f",
+                    "151.241.163.111",
+                    "151.241.163.115",
+                    "151.241.163.104",
+                    "2a03:1b20:6:f011:3:b:0:8",
+                    "151.241.163.101",
                     "151.241.163.108",
-                    "151.241.163.111"
+                    "151.241.163.102",
+                    "151.241.163.100",
+                    "2a03:1b20:6:f011:3:b:0:6",
+                    "2a03:1b20:6:f011:3:b:0:a"
                   ]
                 }
               },
@@ -4718,52 +3920,52 @@
                   "daita": true,
                   "quic": {
                     "addr_in": [
-                      "151.241.163.151",
-                      "151.241.163.154",
-                      "151.241.163.143",
-                      "151.241.163.149",
-                      "151.241.163.155",
-                      "151.241.163.157",
-                      "151.241.163.142",
-                      "151.241.163.158",
-                      "151.241.163.156",
-                      "151.241.163.159",
-                      "151.241.163.148",
-                      "151.241.163.145",
-                      "151.241.163.153",
-                      "151.241.163.147",
-                      "151.241.163.144",
                       "151.241.163.140",
+                      "151.241.163.143",
+                      "151.241.163.151",
+                      "151.241.163.141",
+                      "151.241.163.145",
+                      "151.241.163.144",
                       "151.241.163.146",
+                      "151.241.163.147",
+                      "151.241.163.148",
+                      "151.241.163.142",
+                      "151.241.163.155",
+                      "151.241.163.156",
+                      "151.241.163.157",
+                      "151.241.163.158",
                       "151.241.163.150",
                       "151.241.163.152",
-                      "151.241.163.141"
+                      "151.241.163.153",
+                      "151.241.163.154",
+                      "151.241.163.159",
+                      "151.241.163.149"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-fra-wg-004.blockerad.eu"
                   },
                   "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.163.179",
-                    "151.241.163.165",
                     "151.241.163.166",
-                    "151.241.163.177",
+                    "151.241.163.179",
+                    "151.241.163.162",
                     "151.241.163.178",
-                    "151.241.163.170",
-                    "151.241.163.167",
-                    "151.241.163.174",
-                    "151.241.163.172",
-                    "151.241.163.168",
-                    "151.241.163.173",
-                    "151.241.163.169",
-                    "151.241.163.171",
-                    "151.241.163.163",
-                    "151.241.163.161",
                     "151.241.163.164",
-                    "151.241.163.175",
-                    "151.241.163.176",
+                    "151.241.163.169",
+                    "151.241.163.173",
                     "151.241.163.160",
-                    "151.241.163.162"
+                    "151.241.163.172",
+                    "151.241.163.165",
+                    "151.241.163.167",
+                    "151.241.163.163",
+                    "151.241.163.174",
+                    "151.241.163.168",
+                    "151.241.163.176",
+                    "151.241.163.161",
+                    "151.241.163.175",
+                    "151.241.163.171",
+                    "151.241.163.170",
+                    "151.241.163.177"
                   ]
                 }
               },
@@ -4793,62 +3995,62 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "151.241.163.210",
+                      "151.241.163.207",
+                      "151.241.163.218",
+                      "151.241.163.203",
+                      "151.241.163.204",
                       "151.241.163.217",
                       "151.241.163.219",
-                      "151.241.163.218",
-                      "151.241.163.214",
-                      "151.241.163.209",
-                      "151.241.163.204",
-                      "151.241.163.201",
-                      "151.241.163.211",
-                      "151.241.163.207",
-                      "151.241.163.205",
                       "151.241.163.212",
-                      "151.241.163.203",
-                      "151.241.163.208",
-                      "151.241.163.213",
+                      "151.241.163.214",
+                      "151.241.163.206",
                       "151.241.163.200",
-                      "151.241.163.215",
+                      "151.241.163.210",
+                      "151.241.163.211",
                       "151.241.163.216",
+                      "151.241.163.209",
                       "151.241.163.202",
-                      "151.241.163.206"
+                      "151.241.163.208",
+                      "151.241.163.201",
+                      "151.241.163.205",
+                      "151.241.163.213",
+                      "151.241.163.215"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "de-fra-wg-005.blockerad.eu"
                   },
                   "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "151.241.163.230",
-                    "151.241.163.232",
-                    "151.241.163.231",
-                    "151.241.163.227",
-                    "151.241.163.247",
-                    "151.241.163.240",
-                    "151.241.163.223",
-                    "151.241.163.233",
-                    "151.241.163.236",
                     "151.241.163.235",
-                    "151.241.163.237",
-                    "151.241.163.242",
-                    "151.241.163.226",
-                    "151.241.163.220",
-                    "151.241.163.225",
+                    "151.241.163.221",
+                    "151.241.163.231",
+                    "151.241.163.239",
                     "151.241.163.245",
-                    "151.241.163.229",
+                    "151.241.163.220",
+                    "151.241.163.223",
                     "151.241.163.243",
                     "151.241.163.244",
+                    "151.241.163.234",
+                    "151.241.163.246",
+                    "151.241.163.236",
+                    "151.241.163.247",
+                    "151.241.163.232",
+                    "151.241.163.230",
+                    "151.241.163.238",
+                    "151.241.163.224",
+                    "151.241.163.225",
                     "151.241.163.241",
+                    "151.241.163.233",
+                    "151.241.163.248",
+                    "151.241.163.229",
+                    "151.241.163.227",
+                    "151.241.163.242",
+                    "151.241.163.237",
                     "151.241.163.249",
                     "151.241.163.228",
+                    "151.241.163.240",
                     "151.241.163.222",
-                    "151.241.163.224",
-                    "151.241.163.221",
-                    "151.241.163.238",
-                    "151.241.163.248",
-                    "151.241.163.246",
-                    "151.241.163.239",
-                    "151.241.163.234"
+                    "151.241.163.226"
                   ]
                 }
               },
@@ -5396,90 +4598,6 @@
           "longitude": 12.583333,
           "relays": [
             {
-              "hostname": "dk-cph-ovpn-001",
-              "ipv4_addr_in": "141.98.254.71",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Denmark",
-                "country_code": "dk",
-                "city": "Copenhagen",
-                "city_code": "cph",
-                "latitude": 55.666667,
-                "longitude": 12.583333
-              }
-            },
-            {
-              "hostname": "dk-cph-ovpn-002",
-              "ipv4_addr_in": "45.129.56.81",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Denmark",
-                "country_code": "dk",
-                "city": "Copenhagen",
-                "city_code": "cph",
-                "latitude": 55.666667,
-                "longitude": 12.583333
-              }
-            },
-            {
-              "hostname": "dk-cph-ovpn-401",
-              "ipv4_addr_in": "146.70.197.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Denmark",
-                "country_code": "dk",
-                "city": "Copenhagen",
-                "city_code": "cph",
-                "latitude": 55.666667,
-                "longitude": 12.583333
-              }
-            },
-            {
-              "hostname": "dk-cph-ovpn-402",
-              "ipv4_addr_in": "146.70.197.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Denmark",
-                "country_code": "dk",
-                "city": "Copenhagen",
-                "city_code": "cph",
-                "latitude": 55.666667,
-                "longitude": 12.583333
-              }
-            },
-            {
               "hostname": "dk-cph-wg-001",
               "ipv4_addr_in": "45.129.56.67",
               "ipv6_addr_in": "2a03:1b20:8:f011::f001",
@@ -5496,8 +4614,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "141.98.254.99",
-                      "2a03:1b20:8:f011::f00a"
+                      "2a03:1b20:8:f011::f00a",
+                      "141.98.254.99"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "dk-cph-wg-001.blockerad.eu"
@@ -5531,7 +4649,7 @@
                   "public_key": "R5LUBgM/1UjeAR4lt+L/yA30Gee6/VqVZ9eAB3ZTajs=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -5856,55 +4974,13 @@
           "longitude": -3.69222,
           "relays": [
             {
-              "hostname": "es-mad-ovpn-201",
-              "ipv4_addr_in": "146.70.128.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Spain",
-                "country_code": "es",
-                "city": "Madrid",
-                "city_code": "mad",
-                "latitude": 40.408566,
-                "longitude": -3.69222
-              }
-            },
-            {
-              "hostname": "es-mad-ovpn-202",
-              "ipv4_addr_in": "146.70.74.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Spain",
-                "country_code": "es",
-                "city": "Madrid",
-                "city_code": "mad",
-                "latitude": 40.408566,
-                "longitude": -3.69222
-              }
-            },
-            {
               "hostname": "es-mad-wg-101",
               "ipv4_addr_in": "45.134.213.194",
               "ipv6_addr_in": "2a02:6ea0:c318:1::a06f",
               "overridden_ipv4": false,
               "overridden_ipv6": false,
               "include_in_country": true,
-              "active": true,
+              "active": false,
               "owned": false,
               "provider": "DataPacket",
               "weight": 100,
@@ -5933,7 +5009,7 @@
               "overridden_ipv4": false,
               "overridden_ipv6": false,
               "include_in_country": true,
-              "active": true,
+              "active": false,
               "owned": false,
               "provider": "DataPacket",
               "weight": 100,
@@ -6094,174 +5170,6 @@
           "longitude": 24.945831,
           "relays": [
             {
-              "hostname": "fi-hel-ovpn-002",
-              "ipv4_addr_in": "185.204.1.172",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-003",
-              "ipv4_addr_in": "185.204.1.173",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-004",
-              "ipv4_addr_in": "185.204.1.174",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-005",
-              "ipv4_addr_in": "185.204.1.175",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-006",
-              "ipv4_addr_in": "185.204.1.176",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-007",
-              "ipv4_addr_in": "185.212.149.201",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": true,
-              "provider": "Creanova",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-101",
-              "ipv4_addr_in": "193.138.7.217",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 101,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
-              "hostname": "fi-hel-ovpn-102",
-              "ipv4_addr_in": "193.138.7.237",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Finland",
-                "country_code": "fi",
-                "city": "Helsinki",
-                "city_code": "hel",
-                "latitude": 60.192059,
-                "longitude": 24.945831
-              }
-            },
-            {
               "hostname": "fi-hel-wg-001",
               "ipv4_addr_in": "185.204.1.203",
               "ipv6_addr_in": "2a0c:f040:0:2790::a01f",
@@ -6314,43 +5222,43 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a0c:f040:0:2790::c204",
-                      "2a0c:f040:0:2790::c209",
                       "2a0c:f040:0:2790::c20e",
-                      "2a0c:f040:0:2790::c20a",
-                      "2a0c:f040:0:2790::c206",
-                      "2a0c:f040:0:2790::c205",
-                      "2a0c:f040:0:2790::c20b",
-                      "2a0c:f040:0:2790::c202",
-                      "2a0c:f040:0:2790::c207",
-                      "2a0c:f040:0:2790::c201",
-                      "2a0c:f040:0:2790::c203",
                       "185.77.218.84",
-                      "2a0c:f040:0:2790::c20c",
-                      "2a0c:f040:0:2790::c20f",
+                      "2a0c:f040:0:2790::c20d",
+                      "2a0c:f040:0:2790::c209",
+                      "2a0c:f040:0:2790::c20a",
+                      "2a0c:f040:0:2790::c20b",
+                      "2a0c:f040:0:2790::c204",
+                      "2a0c:f040:0:2790::c207",
                       "2a0c:f040:0:2790::c208",
-                      "2a0c:f040:0:2790::c20d"
+                      "2a0c:f040:0:2790::c201",
+                      "2a0c:f040:0:2790::c206",
+                      "2a0c:f040:0:2790::c20c",
+                      "2a0c:f040:0:2790::c202",
+                      "2a0c:f040:0:2790::c205",
+                      "2a0c:f040:0:2790::c203",
+                      "2a0c:f040:0:2790::c20f"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "fi-hel-wg-002.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "2a0c:f040:0:2790::b209",
-                    "2a0c:f040:0:2790::b201",
-                    "2a0c:f040:0:2790::b20f",
-                    "2a0c:f040:0:2790::b20d",
-                    "2a0c:f040:0:2790::b204",
-                    "2a0c:f040:0:2790::b208",
+                    "2a0c:f040:0:2790::b202",
                     "2a0c:f040:0:2790::b20a",
-                    "2a0c:f040:0:2790::b205",
-                    "2a0c:f040:0:2790::b207",
                     "2a0c:f040:0:2790::b20c",
                     "2a0c:f040:0:2790::b20b",
-                    "2a0c:f040:0:2790::b203",
-                    "2a0c:f040:0:2790::b202",
+                    "2a0c:f040:0:2790::b20d",
                     "2a0c:f040:0:2790::b20e",
-                    "2a0c:f040:0:2790::b206"
+                    "2a0c:f040:0:2790::b204",
+                    "2a0c:f040:0:2790::b203",
+                    "2a0c:f040:0:2790::b205",
+                    "2a0c:f040:0:2790::b201",
+                    "2a0c:f040:0:2790::b206",
+                    "2a0c:f040:0:2790::b207",
+                    "2a0c:f040:0:2790::b208",
+                    "2a0c:f040:0:2790::b20f",
+                    "2a0c:f040:0:2790::b209"
                   ]
                 }
               },
@@ -6380,31 +5288,31 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a0c:f040:0:2790::c32",
-                      "2a0c:f040:0:2790::c35",
-                      "2a0c:f040:0:2790::c37",
-                      "2a0c:f040:0:2790::c398",
-                      "185.77.218.125",
-                      "2a0c:f040:0:2790::c31",
-                      "2a0c:f040:0:2790::c34",
                       "2a0c:f040:0:2790::c36",
+                      "2a0c:f040:0:2790::c34",
+                      "2a0c:f040:0:2790::c31",
+                      "2a0c:f040:0:2790::c398",
+                      "2a0c:f040:0:2790::c33",
                       "2a0c:f040:0:2790::c38",
+                      "185.77.218.125",
+                      "2a0c:f040:0:2790::c32",
+                      "2a0c:f040:0:2790::c37",
                       "2a0c:f040:0:2790::c39",
-                      "2a0c:f040:0:2790::c33"
+                      "2a0c:f040:0:2790::c35"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "fi-hel-wg-003.blockerad.eu"
                   },
                   "lwo": false,
                   "shadowsocks_extra_addr_in": [
-                    "2a0c:f040:0:2790::b39",
+                    "2a0c:f040:0:2790::b31",
+                    "2a0c:f040:0:2790::b37",
+                    "2a0c:f040:0:2790::b34",
                     "2a0c:f040:0:2790::b33",
                     "2a0c:f040:0:2790::b35",
-                    "2a0c:f040:0:2790::b31",
                     "2a0c:f040:0:2790::b32",
-                    "2a0c:f040:0:2790::b34",
                     "2a0c:f040:0:2790::b36",
-                    "2a0c:f040:0:2790::b37",
+                    "2a0c:f040:0:2790::b39",
                     "2a0c:f040:0:2790::b38"
                   ]
                 }
@@ -6707,90 +5615,6 @@
           "latitude": 48.866667,
           "longitude": 2.333333,
           "relays": [
-            {
-              "hostname": "fr-par-ovpn-001",
-              "ipv4_addr_in": "193.32.126.81",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "France",
-                "country_code": "fr",
-                "city": "Paris",
-                "city_code": "par",
-                "latitude": 48.866667,
-                "longitude": 2.333333
-              }
-            },
-            {
-              "hostname": "fr-par-ovpn-002",
-              "ipv4_addr_in": "193.32.126.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "France",
-                "country_code": "fr",
-                "city": "Paris",
-                "city_code": "par",
-                "latitude": 48.866667,
-                "longitude": 2.333333
-              }
-            },
-            {
-              "hostname": "fr-par-ovpn-101",
-              "ipv4_addr_in": "146.70.184.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "France",
-                "country_code": "fr",
-                "city": "Paris",
-                "city_code": "par",
-                "latitude": 48.866667,
-                "longitude": 2.333333
-              }
-            },
-            {
-              "hostname": "fr-par-ovpn-102",
-              "ipv4_addr_in": "146.70.184.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 1,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "France",
-                "country_code": "fr",
-                "city": "Paris",
-                "city_code": "par",
-                "latitude": 48.866667,
-                "longitude": 2.333333
-              }
-            },
             {
               "hostname": "fr-par-wg-001",
               "ipv4_addr_in": "193.32.126.66",
@@ -7144,7 +5968,7 @@
                   "public_key": "xCPSxGj0QVKC637D8HpRsUUCaSfgAF4ephG/CjhQ2kU=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -7195,111 +6019,6 @@
           "longitude": -0.093689,
           "relays": [
             {
-              "hostname": "gb-lon-ovpn-001",
-              "ipv4_addr_in": "141.98.252.131",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "London",
-                "city_code": "lon",
-                "latitude": 51.514125,
-                "longitude": -0.093689
-              }
-            },
-            {
-              "hostname": "gb-lon-ovpn-002",
-              "ipv4_addr_in": "141.98.252.132",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "London",
-                "city_code": "lon",
-                "latitude": 51.514125,
-                "longitude": -0.093689
-              }
-            },
-            {
-              "hostname": "gb-lon-ovpn-003",
-              "ipv4_addr_in": "141.98.252.133",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "London",
-                "city_code": "lon",
-                "latitude": 51.514125,
-                "longitude": -0.093689
-              }
-            },
-            {
-              "hostname": "gb-lon-ovpn-301",
-              "ipv4_addr_in": "146.70.119.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "London",
-                "city_code": "lon",
-                "latitude": 51.514125,
-                "longitude": -0.093689
-              }
-            },
-            {
-              "hostname": "gb-lon-ovpn-302",
-              "ipv4_addr_in": "146.70.119.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "London",
-                "city_code": "lon",
-                "latitude": 51.514125,
-                "longitude": -0.093689
-              }
-            },
-            {
               "hostname": "gb-lon-wg-001",
               "ipv4_addr_in": "141.98.252.130",
               "ipv6_addr_in": "2a03:1b20:7:f011::a01f",
@@ -7316,17 +6035,17 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a03:1b20:7:f011::f00a",
-                      "2a03:1b20:7:f011::f009",
-                      "2a03:1b20:7:f011::f00d",
-                      "185.195.232.96",
-                      "185.195.232.97",
-                      "2a03:1b20:7:f011::f00f",
-                      "2a03:1b20:7:f011::f00e",
-                      "2a03:1b20:7:f011::f00b",
-                      "185.195.232.95",
                       "2a03:1b20:7:f011::f00c",
-                      "185.195.232.99"
+                      "2a03:1b20:7:f011::f00b",
+                      "2a03:1b20:7:f011::f00e",
+                      "185.195.232.96",
+                      "2a03:1b20:7:f011::f00d",
+                      "2a03:1b20:7:f011::f009",
+                      "2a03:1b20:7:f011::f00a",
+                      "185.195.232.99",
+                      "185.195.232.95",
+                      "2a03:1b20:7:f011::f00f",
+                      "185.195.232.97"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "gb-lon-wg-001.blockerad.eu"
@@ -7711,7 +6430,7 @@
                   "public_key": "w1EhKvpp4ZktxiXbuvhb09j4DblrYz3b/SheVywFakI=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -7782,69 +6501,6 @@
           "latitude": 53.5,
           "longitude": -2.216667,
           "relays": [
-            {
-              "hostname": "gb-mnc-ovpn-001",
-              "ipv4_addr_in": "146.70.132.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "Manchester",
-                "city_code": "mnc",
-                "latitude": 53.5,
-                "longitude": -2.216667
-              }
-            },
-            {
-              "hostname": "gb-mnc-ovpn-002",
-              "ipv4_addr_in": "146.70.132.34",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "Manchester",
-                "city_code": "mnc",
-                "latitude": 53.5,
-                "longitude": -2.216667
-              }
-            },
-            {
-              "hostname": "gb-mnc-ovpn-003",
-              "ipv4_addr_in": "146.70.132.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "UK",
-                "country_code": "gb",
-                "city": "Manchester",
-                "city_code": "mnc",
-                "latitude": 53.5,
-                "longitude": -2.216667
-              }
-            },
             {
               "hostname": "gb-mnc-wg-001",
               "ipv4_addr_in": "146.70.133.98",
@@ -8204,48 +6860,6 @@
           "longitude": 23.727539,
           "relays": [
             {
-              "hostname": "gr-ath-ovpn-101",
-              "ipv4_addr_in": "149.102.246.28",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Greece",
-                "country_code": "gr",
-                "city": "Athens",
-                "city_code": "ath",
-                "latitude": 37.98381,
-                "longitude": 23.727539
-              }
-            },
-            {
-              "hostname": "gr-ath-ovpn-102",
-              "ipv4_addr_in": "149.102.246.41",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Greece",
-                "country_code": "gr",
-                "city": "Athens",
-                "city_code": "ath",
-                "latitude": 37.98381,
-                "longitude": 23.727539
-              }
-            },
-            {
               "hostname": "gr-ath-wg-101",
               "ipv4_addr_in": "149.102.246.2",
               "ipv6_addr_in": "2a02:6ea0:f501:2::f001",
@@ -8317,69 +6931,6 @@
           "latitude": 22.283333,
           "longitude": 114.15,
           "relays": [
-            {
-              "hostname": "hk-hkg-ovpn-201",
-              "ipv4_addr_in": "103.125.233.33",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "xtom",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Hong Kong",
-                "country_code": "hk",
-                "city": "Hong Kong",
-                "city_code": "hkg",
-                "latitude": 22.283333,
-                "longitude": 114.15
-              }
-            },
-            {
-              "hostname": "hk-hkg-ovpn-202",
-              "ipv4_addr_in": "103.125.233.48",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "xtom",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Hong Kong",
-                "country_code": "hk",
-                "city": "Hong Kong",
-                "city_code": "hkg",
-                "latitude": 22.283333,
-                "longitude": 114.15
-              }
-            },
-            {
-              "hostname": "hk-hkg-ovpn-301",
-              "ipv4_addr_in": "146.70.224.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Hong Kong",
-                "country_code": "hk",
-                "city": "Hong Kong",
-                "city_code": "hkg",
-                "latitude": 22.283333,
-                "longitude": 114.15
-              }
-            },
             {
               "hostname": "hk-hkg-wg-201",
               "ipv4_addr_in": "103.125.233.18",
@@ -8639,48 +7190,6 @@
           "longitude": 19.083333,
           "relays": [
             {
-              "hostname": "hu-bud-ovpn-101",
-              "ipv4_addr_in": "146.70.196.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Hungary",
-                "country_code": "hu",
-                "city": "Budapest",
-                "city_code": "bud",
-                "latitude": 47.5,
-                "longitude": 19.083333
-              }
-            },
-            {
-              "hostname": "hu-bud-ovpn-102",
-              "ipv4_addr_in": "146.70.196.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Hungary",
-                "country_code": "hu",
-                "city": "Budapest",
-                "city_code": "bud",
-                "latitude": 47.5,
-                "longitude": 19.083333
-              }
-            },
-            {
               "hostname": "hu-bud-wg-101",
               "ipv4_addr_in": "146.70.196.194",
               "ipv6_addr_in": "2001:ac8:26:55::f001",
@@ -8887,48 +7396,6 @@
           "longitude": -6.266155,
           "relays": [
             {
-              "hostname": "ie-dub-ovpn-101",
-              "ipv4_addr_in": "146.70.189.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Ireland",
-                "country_code": "ie",
-                "city": "Dublin",
-                "city_code": "dub",
-                "latitude": 53.35014,
-                "longitude": -6.266155
-              }
-            },
-            {
-              "hostname": "ie-dub-ovpn-102",
-              "ipv4_addr_in": "146.70.189.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Ireland",
-                "country_code": "ie",
-                "city": "Dublin",
-                "city_code": "dub",
-                "latitude": 53.35014,
-                "longitude": -6.266155
-              }
-            },
-            {
               "hostname": "ie-dub-wg-101",
               "ipv4_addr_in": "146.70.189.2",
               "ipv6_addr_in": "2001:ac8:88:84::a01f",
@@ -9102,48 +7569,6 @@
           "longitude": 9.2,
           "relays": [
             {
-              "hostname": "it-mil-ovpn-201",
-              "ipv4_addr_in": "146.70.225.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Italy",
-                "country_code": "it",
-                "city": "Milan",
-                "city_code": "mil",
-                "latitude": 45.466667,
-                "longitude": 9.2
-              }
-            },
-            {
-              "hostname": "it-mil-ovpn-202",
-              "ipv4_addr_in": "146.70.225.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Italy",
-                "country_code": "it",
-                "city": "Milan",
-                "city_code": "mil",
-                "latitude": 45.466667,
-                "longitude": 9.2
-              }
-            },
-            {
               "hostname": "it-mil-wg-001",
               "ipv4_addr_in": "178.249.211.66",
               "ipv6_addr_in": "2a02:6ea0:d509:1::a09f",
@@ -9159,7 +7584,7 @@
                   "public_key": "Sa9fFFthvihGMO4cPExJ7ZaWSHNYoXmOqZMvJsaxOVk=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -9188,7 +7613,7 @@
                   "public_key": "RJ7e37UEP6hfyLQM/lJ2K5wcZOJQFhm2VhFaBniH1kg=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -9499,48 +7924,6 @@
           "longitude": 139.751389,
           "relays": [
             {
-              "hostname": "jp-tyo-ovpn-201",
-              "ipv4_addr_in": "146.70.201.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Japan",
-                "country_code": "jp",
-                "city": "Tokyo",
-                "city_code": "tyo",
-                "latitude": 35.685,
-                "longitude": 139.751389
-              }
-            },
-            {
-              "hostname": "jp-tyo-ovpn-202",
-              "ipv4_addr_in": "146.70.201.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Japan",
-                "country_code": "jp",
-                "city": "Tokyo",
-                "city_code": "tyo",
-                "latitude": 35.685,
-                "longitude": 139.751389
-              }
-            },
-            {
               "hostname": "jp-tyo-wg-001",
               "ipv4_addr_in": "138.199.21.239",
               "ipv6_addr_in": "2a02:6ea0:d31c::a15f",
@@ -9634,7 +8017,7 @@
               "overridden_ipv4": false,
               "overridden_ipv6": false,
               "include_in_country": true,
-              "active": false,
+              "active": true,
               "owned": false,
               "provider": "M247",
               "weight": 100,
@@ -10008,111 +8391,6 @@
           "latitude": 52.35,
           "longitude": 4.916667,
           "relays": [
-            {
-              "hostname": "nl-ams-ovpn-001",
-              "ipv4_addr_in": "185.65.134.71",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Netherlands",
-                "country_code": "nl",
-                "city": "Amsterdam",
-                "city_code": "ams",
-                "latitude": 52.35,
-                "longitude": 4.916667
-              }
-            },
-            {
-              "hostname": "nl-ams-ovpn-002",
-              "ipv4_addr_in": "185.65.134.72",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Netherlands",
-                "country_code": "nl",
-                "city": "Amsterdam",
-                "city_code": "ams",
-                "latitude": 52.35,
-                "longitude": 4.916667
-              }
-            },
-            {
-              "hostname": "nl-ams-ovpn-003",
-              "ipv4_addr_in": "185.65.134.73",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Netherlands",
-                "country_code": "nl",
-                "city": "Amsterdam",
-                "city_code": "ams",
-                "latitude": 52.35,
-                "longitude": 4.916667
-              }
-            },
-            {
-              "hostname": "nl-ams-ovpn-004",
-              "ipv4_addr_in": "185.65.134.74",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Netherlands",
-                "country_code": "nl",
-                "city": "Amsterdam",
-                "city_code": "ams",
-                "latitude": 52.35,
-                "longitude": 4.916667
-              }
-            },
-            {
-              "hostname": "nl-ams-ovpn-005",
-              "ipv4_addr_in": "185.65.134.75",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Netherlands",
-                "country_code": "nl",
-                "city": "Amsterdam",
-                "city_code": "ams",
-                "latitude": 52.35,
-                "longitude": 4.916667
-              }
-            },
             {
               "hostname": "nl-ams-wg-001",
               "ipv4_addr_in": "193.32.249.66",
@@ -10569,69 +8847,6 @@
           "longitude": 10.75,
           "relays": [
             {
-              "hostname": "no-osl-ovpn-001",
-              "ipv4_addr_in": "91.90.44.11",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Oslo",
-                "city_code": "osl",
-                "latitude": 59.916667,
-                "longitude": 10.75
-              }
-            },
-            {
-              "hostname": "no-osl-ovpn-002",
-              "ipv4_addr_in": "91.90.44.12",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Oslo",
-                "city_code": "osl",
-                "latitude": 59.916667,
-                "longitude": 10.75
-              }
-            },
-            {
-              "hostname": "no-osl-ovpn-003",
-              "ipv4_addr_in": "91.90.44.13",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Oslo",
-                "city_code": "osl",
-                "latitude": 59.916667,
-                "longitude": 10.75
-              }
-            },
-            {
               "hostname": "no-osl-wg-001",
               "ipv4_addr_in": "176.125.235.71",
               "ipv6_addr_in": "2a02:20c8:4124::a01f",
@@ -10648,10 +8863,10 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
+                      "178.255.149.132",
                       "178.255.149.133",
-                      "178.255.149.139",
                       "178.255.149.134",
-                      "178.255.149.132"
+                      "178.255.149.139"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "no-osl-wg-001.blockerad.eu"
@@ -10688,10 +8903,10 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "176.125.235.99",
-                      "176.125.235.98",
                       "176.125.235.96",
-                      "176.125.235.97"
+                      "176.125.235.99",
+                      "176.125.235.97",
+                      "176.125.235.98"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "no-osl-wg-002.blockerad.eu"
@@ -10728,10 +8943,10 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "176.125.235.109",
                       "176.125.235.107",
+                      "176.125.235.106",
                       "176.125.235.108",
-                      "176.125.235.106"
+                      "176.125.235.109"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "no-osl-wg-003.blockerad.eu"
@@ -10768,10 +8983,10 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "176.125.235.119",
-                      "176.125.235.117",
                       "176.125.235.118",
-                      "176.125.235.116"
+                      "176.125.235.119",
+                      "176.125.235.116",
+                      "176.125.235.117"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "no-osl-wg-004.blockerad.eu"
@@ -10848,64 +9063,6 @@
                 "latitude": 59.916667,
                 "longitude": 10.75
               }
-            },
-            {
-              "hostname": "no-osl-wg-007",
-              "ipv4_addr_in": "91.90.44.15",
-              "ipv6_addr_in": "2a02:20c8:4124::f701",
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": {
-                "wireguard": {
-                  "public_key": "A0gisFM9hOZB0ezDcSIg2WwnyeprHV/dmb5JnzST0EE=",
-                  "daita": false,
-                  "quic": null,
-                  "lwo": false,
-                  "shadowsocks_extra_addr_in": []
-                }
-              },
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Oslo",
-                "city_code": "osl",
-                "latitude": 59.916667,
-                "longitude": 10.75
-              }
-            },
-            {
-              "hostname": "no-osl-wg-008",
-              "ipv4_addr_in": "91.90.44.18",
-              "ipv6_addr_in": "2a02:20c8:4124::f801",
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": {
-                "wireguard": {
-                  "public_key": "/4+nwTRYLjT2UK0g3+S4sjE4oaIQiS6L2b/lpO2bfwI=",
-                  "daita": false,
-                  "quic": null,
-                  "lwo": false,
-                  "shadowsocks_extra_addr_in": []
-                }
-              },
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Oslo",
-                "city_code": "osl",
-                "latitude": 59.916667,
-                "longitude": 10.75
-              }
             }
           ]
         },
@@ -10915,48 +9072,6 @@
           "latitude": 58.964432,
           "longitude": 5.72625,
           "relays": [
-            {
-              "hostname": "no-svg-ovpn-001",
-              "ipv4_addr_in": "194.127.199.114",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Stavanger",
-                "city_code": "svg",
-                "latitude": 58.964432,
-                "longitude": 5.72625
-              }
-            },
-            {
-              "hostname": "no-svg-ovpn-002",
-              "ipv4_addr_in": "194.127.199.145",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "Blix",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Norway",
-                "country_code": "no",
-                "city": "Stavanger",
-                "city_code": "svg",
-                "latitude": 58.964432,
-                "longitude": 5.72625
-              }
-            },
             {
               "hostname": "no-svg-wg-001",
               "ipv4_addr_in": "194.127.199.2",
@@ -11108,48 +9223,6 @@
           "latitude": -36.848461,
           "longitude": 174.763336,
           "relays": [
-            {
-              "hostname": "nz-akl-ovpn-301",
-              "ipv4_addr_in": "103.75.11.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "New Zealand",
-                "country_code": "nz",
-                "city": "Auckland",
-                "city_code": "akl",
-                "latitude": -36.848461,
-                "longitude": 174.763336
-              }
-            },
-            {
-              "hostname": "nz-akl-ovpn-302",
-              "ipv4_addr_in": "103.75.11.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "hostuniversal",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "New Zealand",
-                "country_code": "nz",
-                "city": "Auckland",
-                "city_code": "akl",
-                "latitude": -36.848461,
-                "longitude": 174.763336
-              }
-            },
             {
               "hostname": "nz-akl-wg-301",
               "ipv4_addr_in": "103.75.11.50",
@@ -11374,48 +9447,6 @@
           "latitude": 52.25,
           "longitude": 21.0,
           "relays": [
-            {
-              "hostname": "pl-waw-ovpn-201",
-              "ipv4_addr_in": "146.70.144.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Poland",
-                "country_code": "pl",
-                "city": "Warsaw",
-                "city_code": "waw",
-                "latitude": 52.25,
-                "longitude": 21.0
-              }
-            },
-            {
-              "hostname": "pl-waw-ovpn-202",
-              "ipv4_addr_in": "146.70.144.98",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Poland",
-                "country_code": "pl",
-                "city": "Warsaw",
-                "city_code": "waw",
-                "latitude": 52.25,
-                "longitude": 21.0
-              }
-            },
             {
               "hostname": "pl-waw-wg-101",
               "ipv4_addr_in": "45.134.212.66",
@@ -11706,48 +9737,6 @@
           "longitude": 26.1,
           "relays": [
             {
-              "hostname": "ro-buh-ovpn-001",
-              "ipv4_addr_in": "146.70.124.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Romania",
-                "country_code": "ro",
-                "city": "Bucharest",
-                "city_code": "buh",
-                "latitude": 44.433333,
-                "longitude": 26.1
-              }
-            },
-            {
-              "hostname": "ro-buh-ovpn-002",
-              "ipv4_addr_in": "37.120.246.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Romania",
-                "country_code": "ro",
-                "city": "Bucharest",
-                "city_code": "buh",
-                "latitude": 44.433333,
-                "longitude": 26.1
-              }
-            },
-            {
               "hostname": "ro-buh-wg-001",
               "ipv4_addr_in": "146.70.124.130",
               "ipv6_addr_in": "2a04:9dc0:0:133::a01f",
@@ -11819,48 +9808,6 @@
           "latitude": 44.787197,
           "longitude": 20.457273,
           "relays": [
-            {
-              "hostname": "rs-beg-ovpn-101",
-              "ipv4_addr_in": "146.70.193.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Serbia",
-                "country_code": "rs",
-                "city": "Belgrade",
-                "city_code": "beg",
-                "latitude": 44.787197,
-                "longitude": 20.457273
-              }
-            },
-            {
-              "hostname": "rs-beg-ovpn-102",
-              "ipv4_addr_in": "146.70.193.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Serbia",
-                "country_code": "rs",
-                "city": "Belgrade",
-                "city_code": "beg",
-                "latitude": 44.787197,
-                "longitude": 20.457273
-              }
-            },
             {
               "hostname": "rs-beg-wg-101",
               "ipv4_addr_in": "146.70.193.2",
@@ -11949,7 +9896,7 @@
                   "public_key": "5JMPeO7gXIbR5CnUa/NPNK4L5GqUnreF0/Bozai4pl4=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
                     "185.213.154.238"
                   ]
@@ -11980,7 +9927,7 @@
                   "public_key": "AtvE5KdPeQtOcE2QyXaPt9eQoBV3GBxzimQ2FIuGQ2U=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -12010,136 +9957,136 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a03:1b20:5:f011:3:c:0:31",
-                      "2a03:1b20:5:f011:3:c:0:24",
-                      "2a03:1b20:5:f011:3:c:0:33",
-                      "2a03:1b20:5:f011:3:c:0:39",
-                      "2a03:1b20:5:f011:3:c:0:13",
-                      "2a03:1b20:5:f011:3:c:0:19",
-                      "2a03:1b20:5:f011:3:c:0:15",
-                      "2a03:1b20:5:f011:3:c:0:b",
-                      "2a03:1b20:5:f011:3:c:0:1b",
-                      "2a03:1b20:5:f011:3:c:0:1c",
-                      "2a03:1b20:5:f011:3:c:0:38",
-                      "2a03:1b20:5:f011:3:c:0:3d",
-                      "2a03:1b20:5:f011:3:c:0:30",
-                      "2a03:1b20:5:f011:3:c:0:35",
-                      "2a03:1b20:5:f011:3:c:0:3c",
-                      "2a03:1b20:5:f011:3:c:0:10",
-                      "2a03:1b20:5:f011:3:c:0:27",
-                      "2a03:1b20:5:f011:3:c:0:1a",
-                      "2a03:1b20:5:f011:3:c:0:18",
-                      "2a03:1b20:5:f011:3:c:0:2e",
-                      "2a03:1b20:5:f011:3:c:0:3a",
-                      "2a03:1b20:5:f011:3:c:0:3",
-                      "2a03:1b20:5:f011:3:c:0:3f",
-                      "2a03:1b20:5:f011:3:c:0:4",
-                      "2a03:1b20:5:f011:3:c:0:22",
-                      "2a03:1b20:5:f011:3:c:0:6",
-                      "2a03:1b20:5:f011:3:c:0:2b",
-                      "2a03:1b20:5:f011:3:c:0:32",
-                      "2a03:1b20:5:f011:3:c:0:e",
-                      "2a03:1b20:5:f011:3:c:0:21",
-                      "2a03:1b20:5:f011:3:c:0:1",
-                      "2a03:1b20:5:f011:3:c:0:28",
-                      "2a03:1b20:5:f011:3:c:0:37",
-                      "2a03:1b20:5:f011:3:c:0:36",
-                      "2a03:1b20:5:f011:3:c:0:2f",
-                      "2a03:1b20:5:f011:3:c:0:2",
-                      "2a03:1b20:5:f011:3:c:0:d",
-                      "2a03:1b20:5:f011:3:c:0:7",
-                      "2a03:1b20:5:f011:3:c:0:20",
-                      "2a03:1b20:5:f011:3:c:0:2c",
-                      "2a03:1b20:5:f011:3:c:0:16",
-                      "2a03:1b20:5:f011:3:c:0:23",
-                      "2a03:1b20:5:f011:3:c:0:9",
-                      "2a03:1b20:5:f011:3:c:0:5",
-                      "2a03:1b20:5:f011:3:c:0:a",
-                      "2a03:1b20:5:f011:3:c:0:8",
-                      "2a03:1b20:5:f011:3:c:0:1d",
-                      "2a03:1b20:5:f011:3:c:0:1f",
-                      "2a03:1b20:5:f011:3:c:0:14",
-                      "2a03:1b20:5:f011:3:c:0:12",
-                      "2a03:1b20:5:f011:3:c:0:2a",
-                      "2a03:1b20:5:f011:3:c:0:2d",
-                      "2a03:1b20:5:f011:3:c:0:25",
                       "2a03:1b20:5:f011:3:c:0:26",
-                      "2a03:1b20:5:f011:3:c:0:3b",
-                      "2a03:1b20:5:f011:3:c:0:f",
+                      "2a03:1b20:5:f011:3:c:0:14",
+                      "2a03:1b20:5:f011:3:c:0:31",
+                      "2a03:1b20:5:f011:3:c:0:9",
+                      "2a03:1b20:5:f011:3:c:0:6",
+                      "2a03:1b20:5:f011:3:c:0:1d",
                       "2a03:1b20:5:f011:3:c:0:3e",
+                      "2a03:1b20:5:f011:3:c:0:10",
+                      "2a03:1b20:5:f011:3:c:0:1",
+                      "2a03:1b20:5:f011:3:c:0:21",
+                      "2a03:1b20:5:f011:3:c:0:1b",
+                      "2a03:1b20:5:f011:3:c:0:11",
                       "2a03:1b20:5:f011:3:c:0:34",
-                      "2a03:1b20:5:f011:3:c:0:17",
-                      "2a03:1b20:5:f011:3:c:0:1e",
+                      "2a03:1b20:5:f011:3:c:0:3a",
+                      "2a03:1b20:5:f011:3:c:0:a",
+                      "2a03:1b20:5:f011:3:c:0:15",
+                      "2a03:1b20:5:f011:3:c:0:f",
+                      "2a03:1b20:5:f011:3:c:0:2b",
+                      "2a03:1b20:5:f011:3:c:0:27",
+                      "2a03:1b20:5:f011:3:c:0:3c",
+                      "2a03:1b20:5:f011:3:c:0:1a",
+                      "2a03:1b20:5:f011:3:c:0:28",
+                      "2a03:1b20:5:f011:3:c:0:16",
+                      "2a03:1b20:5:f011:3:c:0:18",
+                      "2a03:1b20:5:f011:3:c:0:2",
+                      "2a03:1b20:5:f011:3:c:0:3f",
+                      "2a03:1b20:5:f011:3:c:0:2e",
+                      "2a03:1b20:5:f011:3:c:0:33",
+                      "2a03:1b20:5:f011:3:c:0:1f",
+                      "2a03:1b20:5:f011:3:c:0:39",
+                      "2a03:1b20:5:f011:3:c:0:2f",
+                      "2a03:1b20:5:f011:3:c:0:38",
+                      "2a03:1b20:5:f011:3:c:0:e",
+                      "2a03:1b20:5:f011:3:c:0:37",
+                      "2a03:1b20:5:f011:3:c:0:1c",
+                      "2a03:1b20:5:f011:3:c:0:19",
+                      "2a03:1b20:5:f011:3:c:0:13",
+                      "2a03:1b20:5:f011:3:c:0:3",
+                      "2a03:1b20:5:f011:3:c:0:25",
+                      "2a03:1b20:5:f011:3:c:0:2a",
+                      "2a03:1b20:5:f011:3:c:0:30",
+                      "2a03:1b20:5:f011:3:c:0:3d",
+                      "2a03:1b20:5:f011:3:c:0:4",
+                      "2a03:1b20:5:f011:3:c:0:24",
+                      "2a03:1b20:5:f011:3:c:0:2d",
+                      "2a03:1b20:5:f011:3:c:0:b",
                       "2a03:1b20:5:f011:3:c:0:29",
-                      "2a03:1b20:5:f011:3:c:0:11"
+                      "2a03:1b20:5:f011:3:c:0:3b",
+                      "2a03:1b20:5:f011:3:c:0:23",
+                      "2a03:1b20:5:f011:3:c:0:8",
+                      "2a03:1b20:5:f011:3:c:0:5",
+                      "2a03:1b20:5:f011:3:c:0:35",
+                      "2a03:1b20:5:f011:3:c:0:7",
+                      "2a03:1b20:5:f011:3:c:0:2c",
+                      "2a03:1b20:5:f011:3:c:0:d",
+                      "2a03:1b20:5:f011:3:c:0:36",
+                      "2a03:1b20:5:f011:3:c:0:20",
+                      "2a03:1b20:5:f011:3:c:0:22",
+                      "2a03:1b20:5:f011:3:c:0:32",
+                      "2a03:1b20:5:f011:3:c:0:1e",
+                      "2a03:1b20:5:f011:3:c:0:12",
+                      "2a03:1b20:5:f011:3:c:0:17"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "se-got-wg-003.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
-                    "2a03:1b20:5:f011:3:b:0:1e",
-                    "2a03:1b20:5:f011:3:b:0:26",
-                    "2a03:1b20:5:f011:3:b:0:4",
-                    "2a03:1b20:5:f011:3:b:0:8",
-                    "2a03:1b20:5:f011:3:b:0:a",
-                    "2a03:1b20:5:f011:3:b:0:1b",
-                    "2a03:1b20:5:f011:3:b:0:2f",
-                    "2a03:1b20:5:f011:3:b:0:36",
-                    "2a03:1b20:5:f011:3:b:0:3e",
-                    "2a03:1b20:5:f011:3:b:0:f",
-                    "2a03:1b20:5:f011:3:b:0:1d",
-                    "2a03:1b20:5:f011:3:b:0:27",
-                    "2a03:1b20:5:f011:3:b:0:3b",
-                    "2a03:1b20:5:f011:3:b:0:19",
-                    "2a03:1b20:5:f011:3:b:0:38",
-                    "2a03:1b20:5:f011:3:b:0:7",
-                    "2a03:1b20:5:f011:3:b:0:b",
-                    "2a03:1b20:5:f011:3:b:0:21",
-                    "2a03:1b20:5:f011:3:b:0:1",
-                    "2a03:1b20:5:f011:3:b:0:25",
-                    "2a03:1b20:5:f011:3:b:0:15",
-                    "2a03:1b20:5:f011:3:b:0:2d",
-                    "2a03:1b20:5:f011:3:b:0:1c",
-                    "2a03:1b20:5:f011:3:b:0:5",
-                    "2a03:1b20:5:f011:3:b:0:24",
-                    "2a03:1b20:5:f011:3:b:0:16",
-                    "2a03:1b20:5:f011:3:b:0:32",
-                    "2a03:1b20:5:f011:3:b:0:20",
+                    "2a03:1b20:5:f011:3:b:0:29",
+                    "2a03:1b20:5:f011:3:b:0:10",
                     "2a03:1b20:5:f011:3:b:0:12",
-                    "2a03:1b20:5:f011:3:b:0:3c",
-                    "2a03:1b20:5:f011:3:b:0:14",
-                    "2a03:1b20:5:f011:3:b:0:1a",
-                    "2a03:1b20:5:f011:3:b:0:18",
-                    "2a03:1b20:5:f011:3:b:0:1f",
-                    "2a03:1b20:5:f011:3:b:0:9",
-                    "2a03:1b20:5:f011:3:b:0:28",
-                    "2a03:1b20:5:f011:3:b:0:2b",
-                    "2a03:1b20:5:f011:3:b:0:3a",
+                    "2a03:1b20:5:f011:3:b:0:25",
                     "2a03:1b20:5:f011:3:b:0:3f",
-                    "2a03:1b20:5:f011:3:b:0:e",
-                    "2a03:1b20:5:f011:3:b:0:3",
-                    "2a03:1b20:5:f011:3:b:0:6",
-                    "2a03:1b20:5:f011:3:b:0:2e",
-                    "2a03:1b20:5:f011:3:b:0:39",
-                    "2a03:1b20:5:f011:3:b:0:35",
-                    "2a03:1b20:5:f011:3:b:0:23",
-                    "2a03:1b20:5:f011:3:b:0:2",
+                    "2a03:1b20:5:f011:3:b:0:a",
+                    "2a03:1b20:5:f011:3:b:0:13",
+                    "2a03:1b20:5:f011:3:b:0:1c",
+                    "2a03:1b20:5:f011:3:b:0:1e",
+                    "2a03:1b20:5:f011:3:b:0:1",
+                    "2a03:1b20:5:f011:3:b:0:11",
                     "2a03:1b20:5:f011:3:b:0:37",
                     "2a03:1b20:5:f011:3:b:0:34",
-                    "2a03:1b20:5:f011:3:b:0:11",
-                    "2a03:1b20:5:f011:3:b:0:2a",
-                    "2a03:1b20:5:f011:3:b:0:22",
-                    "2a03:1b20:5:f011:3:b:0:2c",
+                    "2a03:1b20:5:f011:3:b:0:7",
+                    "2a03:1b20:5:f011:3:b:0:1a",
+                    "2a03:1b20:5:f011:3:b:0:6",
+                    "2a03:1b20:5:f011:3:b:0:5",
+                    "2a03:1b20:5:f011:3:b:0:3a",
                     "2a03:1b20:5:f011:3:b:0:3d",
-                    "2a03:1b20:5:f011:3:b:0:13",
-                    "2a03:1b20:5:f011:3:b:0:10",
-                    "2a03:1b20:5:f011:3:b:0:29",
-                    "2a03:1b20:5:f011:3:b:0:31",
-                    "2a03:1b20:5:f011:3:b:0:d",
+                    "2a03:1b20:5:f011:3:b:0:3e",
+                    "2a03:1b20:5:f011:3:b:0:16",
+                    "2a03:1b20:5:f011:3:b:0:20",
+                    "2a03:1b20:5:f011:3:b:0:9",
+                    "2a03:1b20:5:f011:3:b:0:b",
+                    "2a03:1b20:5:f011:3:b:0:e",
                     "2a03:1b20:5:f011:3:b:0:17",
+                    "2a03:1b20:5:f011:3:b:0:24",
+                    "2a03:1b20:5:f011:3:b:0:33",
+                    "2a03:1b20:5:f011:3:b:0:1d",
+                    "2a03:1b20:5:f011:3:b:0:36",
+                    "2a03:1b20:5:f011:3:b:0:1b",
+                    "2a03:1b20:5:f011:3:b:0:21",
+                    "2a03:1b20:5:f011:3:b:0:23",
+                    "2a03:1b20:5:f011:3:b:0:2b",
+                    "2a03:1b20:5:f011:3:b:0:26",
+                    "2a03:1b20:5:f011:3:b:0:19",
+                    "2a03:1b20:5:f011:3:b:0:32",
+                    "2a03:1b20:5:f011:3:b:0:39",
+                    "2a03:1b20:5:f011:3:b:0:31",
+                    "2a03:1b20:5:f011:3:b:0:38",
+                    "2a03:1b20:5:f011:3:b:0:3c",
+                    "2a03:1b20:5:f011:3:b:0:2a",
+                    "2a03:1b20:5:f011:3:b:0:3",
+                    "2a03:1b20:5:f011:3:b:0:35",
+                    "2a03:1b20:5:f011:3:b:0:2c",
+                    "2a03:1b20:5:f011:3:b:0:27",
+                    "2a03:1b20:5:f011:3:b:0:18",
+                    "2a03:1b20:5:f011:3:b:0:15",
+                    "2a03:1b20:5:f011:3:b:0:2f",
+                    "2a03:1b20:5:f011:3:b:0:28",
+                    "2a03:1b20:5:f011:3:b:0:4",
+                    "2a03:1b20:5:f011:3:b:0:d",
                     "2a03:1b20:5:f011:3:b:0:30",
-                    "2a03:1b20:5:f011:3:b:0:33"
+                    "2a03:1b20:5:f011:3:b:0:8",
+                    "2a03:1b20:5:f011:3:b:0:2",
+                    "2a03:1b20:5:f011:3:b:0:2e",
+                    "2a03:1b20:5:f011:3:b:0:f",
+                    "2a03:1b20:5:f011:3:b:0:14",
+                    "2a03:1b20:5:f011:3:b:0:1f",
+                    "2a03:1b20:5:f011:3:b:0:22",
+                    "2a03:1b20:5:f011:3:b:0:2d",
+                    "2a03:1b20:5:f011:3:b:0:3b"
                   ]
                 }
               },
@@ -12168,7 +10115,7 @@
                   "public_key": "veGD6/aEY6sMfN3Ls7YWPmNgu3AheO7nQqsFT47YSws=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -12198,13 +10145,13 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "185.209.199.6",
-                      "2a03:1b20:5:f011:5::f00a"
+                      "2a03:1b20:5:f011:5::f00a",
+                      "185.209.199.6"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "se-got-wg-005.blockerad.eu"
                   },
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -12306,8 +10253,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "185.209.199.21",
-                      "2a03:1b20:5:f011:8::f00a"
+                      "2a03:1b20:5:f011:8::f00a",
+                      "185.209.199.21"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "se-got-wg-008.blockerad.eu"
@@ -12362,279 +10309,6 @@
           "latitude": 55.607075,
           "longitude": 13.002716,
           "relays": [
-            {
-              "hostname": "se-mma-ovpn-001",
-              "ipv4_addr_in": "193.138.218.131",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-002",
-              "ipv4_addr_in": "193.138.218.132",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-013",
-              "ipv4_addr_in": "141.98.255.83",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-014",
-              "ipv4_addr_in": "141.98.255.84",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-015",
-              "ipv4_addr_in": "141.98.255.85",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-016",
-              "ipv4_addr_in": "141.98.255.86",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-017",
-              "ipv4_addr_in": "141.98.255.87",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-018",
-              "ipv4_addr_in": "141.98.255.88",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-019",
-              "ipv4_addr_in": "141.98.255.89",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-020",
-              "ipv4_addr_in": "141.98.255.90",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-021",
-              "ipv4_addr_in": "141.98.255.91",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-022",
-              "ipv4_addr_in": "141.98.255.92",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
-            {
-              "hostname": "se-mma-ovpn-102",
-              "ipv4_addr_in": "45.83.220.92",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Malmö",
-                "city_code": "mma",
-                "latitude": 55.607075,
-                "longitude": 13.002716
-              }
-            },
             {
               "hostname": "se-mma-wg-001",
               "ipv4_addr_in": "193.138.218.220",
@@ -12796,7 +10470,7 @@
                   "public_key": "vclzw8ytARhkEqw4cLUJPC3REvMZqWsO+7TYD/U2UVk=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
                     "141.98.255.96"
                   ]
@@ -12827,7 +10501,7 @@
                   "public_key": "aPcHJj3I1oISU8cwLz2Uyq4ctUOXdTpuS96aW89snUs=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": [
                     "141.98.255.99"
                   ]
@@ -12852,7 +10526,7 @@
               "active": true,
               "owned": true,
               "provider": "31173",
-              "weight": 100,
+              "weight": 200,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "7ncbaCb+9za3jnXlR95I6dJBkwL1ABB5i4ndFUesYxE=",
@@ -12881,7 +10555,7 @@
               "active": true,
               "owned": true,
               "provider": "31173",
-              "weight": 100,
+              "weight": 200,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "cwglRdgLQ4gMG36TIYlc5OIemLNrYs4UM1KTc8mnzxk=",
@@ -12946,8 +10620,8 @@
                   "daita": true,
                   "quic": {
                     "addr_in": [
-                      "2a03:1b20:1:e011::f70a",
-                      "45.129.59.25"
+                      "45.129.59.25",
+                      "2a03:1b20:1:e011::f70a"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "se-mma-wg-111.blockerad.eu"
@@ -13035,90 +10709,6 @@
           "longitude": 18.0649,
           "relays": [
             {
-              "hostname": "se-sto-ovpn-001",
-              "ipv4_addr_in": "185.65.135.80",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Stockholm",
-                "city_code": "sto",
-                "latitude": 59.3289,
-                "longitude": 18.0649
-              }
-            },
-            {
-              "hostname": "se-sto-ovpn-002",
-              "ipv4_addr_in": "185.65.135.81",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Stockholm",
-                "city_code": "sto",
-                "latitude": 59.3289,
-                "longitude": 18.0649
-              }
-            },
-            {
-              "hostname": "se-sto-ovpn-003",
-              "ipv4_addr_in": "185.65.135.82",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Stockholm",
-                "city_code": "sto",
-                "latitude": 59.3289,
-                "longitude": 18.0649
-              }
-            },
-            {
-              "hostname": "se-sto-ovpn-004",
-              "ipv4_addr_in": "185.65.135.83",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": false,
-              "owned": true,
-              "provider": "31173",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Sweden",
-                "country_code": "se",
-                "city": "Stockholm",
-                "city_code": "sto",
-                "latitude": 59.3289,
-                "longitude": 18.0649
-              }
-            },
-            {
               "hostname": "se-sto-wg-001",
               "ipv4_addr_in": "185.195.233.76",
               "ipv6_addr_in": "2a03:1b20:4:f011::999f",
@@ -13163,7 +10753,7 @@
                   "public_key": "q2ZZPfumPaRVl4DJfzNdQF/GHfe6BYAzQ2GZZHb6rmI=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -13250,7 +10840,7 @@
                   "public_key": "5rVa0M13oMNobMY7ToAMU1L/Mox7AYACvV+nfsE7zF0=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -13279,7 +10869,7 @@
                   "public_key": "5WNG/KKCtgF4+49e/4iqvHVY/i+6dzUmVKXcJj7zi3I=",
                   "daita": false,
                   "quic": null,
-                  "lwo": false,
+                  "lwo": true,
                   "shadowsocks_extra_addr_in": []
                 }
               },
@@ -13556,8 +11146,8 @@
                   "daita": false,
                   "quic": {
                     "addr_in": [
-                      "2a02:6ea0:1508:2::f009",
-                      "89.37.63.71"
+                      "89.37.63.71",
+                      "2a02:6ea0:1508:2::f009"
                     ],
                     "token": "d18a23fc-7d5e-4fd2-8372-5e0e73de741a",
                     "domain": "se-sto-wg-202.blockerad.eu"
@@ -13873,48 +11463,6 @@
           "latitude": 1.293056,
           "longitude": 103.855833,
           "relays": [
-            {
-              "hostname": "sg-sin-ovpn-101",
-              "ipv4_addr_in": "146.70.199.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Singapore",
-                "country_code": "sg",
-                "city": "Singapore",
-                "city_code": "sin",
-                "latitude": 1.293056,
-                "longitude": 103.855833
-              }
-            },
-            {
-              "hostname": "sg-sin-ovpn-102",
-              "ipv4_addr_in": "146.70.199.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "Singapore",
-                "country_code": "sg",
-                "city": "Singapore",
-                "city_code": "sin",
-                "latitude": 1.293056,
-                "longitude": 103.855833
-              }
-            },
             {
               "hostname": "sg-sin-wg-001",
               "ipv4_addr_in": "138.199.60.2",
@@ -14459,48 +12007,6 @@
           "latitude": 33.753746,
           "longitude": -84.38633,
           "relays": [
-            {
-              "hostname": "us-atl-ovpn-001",
-              "ipv4_addr_in": "45.134.140.156",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Atlanta, GA",
-                "city_code": "atl",
-                "latitude": 33.753746,
-                "longitude": -84.38633
-              }
-            },
-            {
-              "hostname": "us-atl-ovpn-002",
-              "ipv4_addr_in": "45.134.140.169",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Atlanta, GA",
-                "city_code": "atl",
-                "latitude": 33.753746,
-                "longitude": -84.38633
-              }
-            },
             {
               "hostname": "us-atl-wg-001",
               "ipv4_addr_in": "45.134.140.130",
@@ -15474,48 +12980,6 @@
           "latitude": 32.89748,
           "longitude": -97.040443,
           "relays": [
-            {
-              "hostname": "us-dal-ovpn-001",
-              "ipv4_addr_in": "146.70.211.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Dallas, TX",
-                "city_code": "dal",
-                "latitude": 32.89748,
-                "longitude": -97.040443
-              }
-            },
-            {
-              "hostname": "us-dal-ovpn-002",
-              "ipv4_addr_in": "146.70.177.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Dallas, TX",
-                "city_code": "dal",
-                "latitude": 32.89748,
-                "longitude": -97.040443
-              }
-            },
             {
               "hostname": "us-dal-wg-001",
               "ipv4_addr_in": "146.70.211.66",
@@ -16536,90 +14000,6 @@
           "longitude": -118.243683,
           "relays": [
             {
-              "hostname": "us-lax-ovpn-101",
-              "ipv4_addr_in": "198.44.129.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Los Angeles, CA",
-                "city_code": "lax",
-                "latitude": 34.052235,
-                "longitude": -118.243683
-              }
-            },
-            {
-              "hostname": "us-lax-ovpn-102",
-              "ipv4_addr_in": "198.44.129.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Los Angeles, CA",
-                "city_code": "lax",
-                "latitude": 34.052235,
-                "longitude": -118.243683
-              }
-            },
-            {
-              "hostname": "us-lax-ovpn-201",
-              "ipv4_addr_in": "169.150.203.41",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Los Angeles, CA",
-                "city_code": "lax",
-                "latitude": 34.052235,
-                "longitude": -118.243683
-              }
-            },
-            {
-              "hostname": "us-lax-ovpn-202",
-              "ipv4_addr_in": "169.150.203.54",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Los Angeles, CA",
-                "city_code": "lax",
-                "latitude": 34.052235,
-                "longitude": -118.243683
-              }
-            },
-            {
               "hostname": "us-lax-wg-101",
               "ipv4_addr_in": "198.44.129.98",
               "ipv6_addr_in": "2607:9000:3000:15::a49f",
@@ -17433,48 +14813,6 @@
           "longitude": -80.191788,
           "relays": [
             {
-              "hostname": "us-mia-ovpn-101",
-              "ipv4_addr_in": "146.70.187.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Miami, FL",
-                "city_code": "mia",
-                "latitude": 25.761681,
-                "longitude": -80.191788
-              }
-            },
-            {
-              "hostname": "us-mia-ovpn-102",
-              "ipv4_addr_in": "146.70.183.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Miami, FL",
-                "city_code": "mia",
-                "latitude": 25.761681,
-                "longitude": -80.191788
-              }
-            },
-            {
               "hostname": "us-mia-wg-001",
               "ipv4_addr_in": "45.134.142.219",
               "ipv6_addr_in": "2a02:6ea0:cc1f:2::b62f",
@@ -18088,132 +15426,6 @@
           "latitude": 40.73061,
           "longitude": -73.935242,
           "relays": [
-            {
-              "hostname": "us-nyc-ovpn-501",
-              "ipv4_addr_in": "146.70.168.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
-            {
-              "hostname": "us-nyc-ovpn-502",
-              "ipv4_addr_in": "146.70.166.2",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
-            {
-              "hostname": "us-nyc-ovpn-503",
-              "ipv4_addr_in": "146.70.166.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
-            {
-              "hostname": "us-nyc-ovpn-601",
-              "ipv4_addr_in": "146.70.171.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
-            {
-              "hostname": "us-nyc-ovpn-602",
-              "ipv4_addr_in": "146.70.185.130",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
-            {
-              "hostname": "us-nyc-ovpn-603",
-              "ipv4_addr_in": "146.70.185.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "M247",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "New York, NY",
-                "city_code": "nyc",
-                "latitude": 40.73061,
-                "longitude": -73.935242
-              }
-            },
             {
               "hostname": "us-nyc-wg-301",
               "ipv4_addr_in": "143.244.47.65",
@@ -19357,90 +16569,6 @@
           "longitude": -77.487442,
           "relays": [
             {
-              "hostname": "us-qas-ovpn-001",
-              "ipv4_addr_in": "198.54.135.162",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Ashburn, VA",
-                "city_code": "qas",
-                "latitude": 39.043757,
-                "longitude": -77.487442
-              }
-            },
-            {
-              "hostname": "us-qas-ovpn-002",
-              "ipv4_addr_in": "198.54.135.194",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 50,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Ashburn, VA",
-                "city_code": "qas",
-                "latitude": 39.043757,
-                "longitude": -77.487442
-              }
-            },
-            {
-              "hostname": "us-qas-ovpn-101",
-              "ipv4_addr_in": "185.156.46.169",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Ashburn, VA",
-                "city_code": "qas",
-                "latitude": 39.043757,
-                "longitude": -77.487442
-              }
-            },
-            {
-              "hostname": "us-qas-ovpn-102",
-              "ipv4_addr_in": "185.156.46.182",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": true,
-              "active": true,
-              "owned": false,
-              "provider": "DataPacket",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Ashburn, VA",
-                "city_code": "qas",
-                "latitude": 39.043757,
-                "longitude": -77.487442
-              }
-            },
-            {
               "hostname": "us-qas-wg-001",
               "ipv4_addr_in": "198.54.135.34",
               "ipv6_addr_in": "2607:9000:9000:12::b46f",
@@ -19450,7 +16578,7 @@
               "active": true,
               "owned": false,
               "provider": "Tzulo",
-              "weight": 10,
+              "weight": 1,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "UKNLCimke54RqRdj6UFyIuBO6nv2VVpDT3vM9N25VyI=",
@@ -19479,7 +16607,7 @@
               "active": true,
               "owned": false,
               "provider": "Tzulo",
-              "weight": 50,
+              "weight": 1,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "UUCBSYnGq+zEDqA6Wyse3JXv8fZuqKEgavRZTnCXlBg=",
@@ -19508,7 +16636,7 @@
               "active": true,
               "owned": false,
               "provider": "Tzulo",
-              "weight": 50,
+              "weight": 1,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "0s0NdIzo+pq0OiHstZHqapYsdevGQGopQ5NM54g/9jo=",
@@ -19537,7 +16665,7 @@
               "active": true,
               "owned": false,
               "provider": "Tzulo",
-              "weight": 50,
+              "weight": 1,
               "endpoint_data": {
                 "wireguard": {
                   "public_key": "TvqnL6VkJbz0KrjtHnUYWvA7zRt9ysI64LjTOx2vmm4=",
@@ -20032,48 +17160,6 @@
           "longitude": -122.335167,
           "relays": [
             {
-              "hostname": "us-sea-ovpn-101",
-              "ipv4_addr_in": "198.54.131.34",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 0,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Seattle, WA",
-                "city_code": "sea",
-                "latitude": 47.608013,
-                "longitude": -122.335167
-              }
-            },
-            {
-              "hostname": "us-sea-ovpn-102",
-              "ipv4_addr_in": "198.54.131.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 0,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Seattle, WA",
-                "city_code": "sea",
-                "latitude": 47.608013,
-                "longitude": -122.335167
-              }
-            },
-            {
               "hostname": "us-sea-wg-001",
               "ipv4_addr_in": "138.199.43.91",
               "ipv6_addr_in": "2a02:6ea0:d80b:3::b75f",
@@ -20465,48 +17551,6 @@
           "longitude": -121.886329,
           "relays": [
             {
-              "hostname": "us-sjc-ovpn-001",
-              "ipv4_addr_in": "198.54.134.34",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "San Jose, CA",
-                "city_code": "sjc",
-                "latitude": 37.338208,
-                "longitude": -121.886329
-              }
-            },
-            {
-              "hostname": "us-sjc-ovpn-002",
-              "ipv4_addr_in": "198.54.134.66",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "Tzulo",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "San Jose, CA",
-                "city_code": "sjc",
-                "latitude": 37.338208,
-                "longitude": -121.886329
-              }
-            },
-            {
               "hostname": "us-sjc-wg-302",
               "ipv4_addr_in": "142.147.89.210",
               "ipv6_addr_in": "2604:e8c0:7::f001",
@@ -20878,48 +17922,6 @@
           "latitude": 40.758701,
           "longitude": -111.876183,
           "relays": [
-            {
-              "hostname": "us-slc-ovpn-201",
-              "ipv4_addr_in": "69.4.234.150",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "100TB",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Salt Lake City, UT",
-                "city_code": "slc",
-                "latitude": 40.758701,
-                "longitude": -111.876183
-              }
-            },
-            {
-              "hostname": "us-slc-ovpn-202",
-              "ipv4_addr_in": "69.4.234.151",
-              "ipv6_addr_in": null,
-              "overridden_ipv4": false,
-              "overridden_ipv6": false,
-              "include_in_country": false,
-              "active": true,
-              "owned": false,
-              "provider": "100TB",
-              "weight": 100,
-              "endpoint_data": "openvpn",
-              "location": {
-                "country": "USA",
-                "country_code": "us",
-                "city": "Salt Lake City, UT",
-                "city_code": "slc",
-                "latitude": 40.758701,
-                "longitude": -111.876183
-              }
-            },
             {
               "hostname": "us-slc-wg-201",
               "ipv4_addr_in": "69.4.234.9",
@@ -21588,46 +18590,6 @@
       ]
     }
   ],
-  "openvpn": {
-    "ports": [
-      {
-        "port": 1194,
-        "protocol": "udp"
-      },
-      {
-        "port": 1195,
-        "protocol": "udp"
-      },
-      {
-        "port": 1196,
-        "protocol": "udp"
-      },
-      {
-        "port": 1197,
-        "protocol": "udp"
-      },
-      {
-        "port": 1300,
-        "protocol": "udp"
-      },
-      {
-        "port": 1301,
-        "protocol": "udp"
-      },
-      {
-        "port": 1302,
-        "protocol": "udp"
-      },
-      {
-        "port": 443,
-        "protocol": "tcp"
-      },
-      {
-        "port": 80,
-        "protocol": "tcp"
-      }
-    ]
-  },
   "bridge": {
     "shadowsocks": [
       {

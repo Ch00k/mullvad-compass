@@ -13,12 +13,6 @@ func TestDetermineRelayType(t *testing.T) {
 		shouldError  bool
 	}{
 		{
-			name:         "String openvpn",
-			endpointData: `"openvpn"`,
-			expected:     OpenVPN,
-			shouldError:  false,
-		},
-		{
 			name:         "String bridge",
 			endpointData: `"bridge"`,
 			expected:     Bridge,
@@ -97,8 +91,8 @@ func TestGetLocations(t *testing.T) {
 		t.Fatalf("Failed to parse relays.json: %v", err)
 	}
 
-	t.Run("All locations", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, WGObfNone, false, IPv4)
+	t.Run("Returns only WireGuard servers", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, WGObfNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -107,42 +101,16 @@ func TestGetLocations(t *testing.T) {
 			t.Error("Expected some locations, got none")
 		}
 
-		// Verify no bridge servers are included
-		for _, loc := range locations {
-			if loc.Type == "bridge" {
-				t.Errorf("Found bridge server which should be filtered out: %s", loc.Hostname)
-			}
-		}
-	})
-
-	t.Run("Filter by wireguard", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, WireGuard, WGObfNone, false, IPv4)
-		if err != nil {
-			t.Fatalf("GetLocations failed: %v", err)
-		}
-
+		// All servers should be WireGuard (bridge servers are filtered out)
 		for _, loc := range locations {
 			if loc.Type != "wireguard" {
-				t.Errorf("Found non-wireguard server: %s (type: %s)", loc.Hostname, loc.Type)
-			}
-		}
-	})
-
-	t.Run("Filter by openvpn", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, OpenVPN, WGObfNone, false, IPv4)
-		if err != nil {
-			t.Fatalf("GetLocations failed: %v", err)
-		}
-
-		for _, loc := range locations {
-			if loc.Type != "openvpn" {
-				t.Errorf("Found non-openvpn server: %s (type: %s)", loc.Hostname, loc.Type)
+				t.Errorf("Expected only wireguard servers, found: %s (type: %s)", loc.Hostname, loc.Type)
 			}
 		}
 	})
 
 	t.Run("Verify location fields", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(relays, WGObfNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -190,7 +158,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: true,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test123"}}`),
 									Location: RelayLocation{
 										Country:   "Test Country",
 										City:      "Test City",
@@ -205,7 +173,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: false,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test456"}}`),
 									Location: RelayLocation{
 										Country:   "Test Country",
 										City:      "Test City",
@@ -220,7 +188,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, ServerTypeNone, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -243,7 +211,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by DAITA", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, WGObfNone, true, IPv4)
+		locations, _, err := GetLocations(relays, WGObfNone, true, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -261,7 +229,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by LWO obfuscation", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, LWO, false, IPv4)
+		locations, _, err := GetLocations(relays, LWO, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -279,7 +247,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by QUIC obfuscation", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, QUIC, false, IPv4)
+		locations, _, err := GetLocations(relays, QUIC, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -297,7 +265,7 @@ func TestGetLocations(t *testing.T) {
 	})
 
 	t.Run("Filter by Shadowsocks obfuscation", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, ServerTypeNone, Shadowsocks, false, IPv4)
+		locations, _, err := GetLocations(relays, Shadowsocks, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -311,33 +279,6 @@ func TestGetLocations(t *testing.T) {
 			if loc.Type != "wireguard" {
 				t.Errorf("Found non-wireguard server with Shadowsocks filter: %s", loc.Hostname)
 			}
-		}
-	})
-
-	t.Run("Obfuscation filter with wireguard type", func(t *testing.T) {
-		locations, _, err := GetLocations(relays, WireGuard, LWO, false, IPv4)
-		if err != nil {
-			t.Fatalf("GetLocations failed: %v", err)
-		}
-
-		// All should be wireguard
-		for _, loc := range locations {
-			if loc.Type != "wireguard" {
-				t.Errorf("Found non-wireguard server: %s", loc.Hostname)
-			}
-		}
-	})
-
-	t.Run("Obfuscation filter with openvpn type returns empty", func(t *testing.T) {
-		locationsWithObf, _, err := GetLocations(relays, OpenVPN, LWO, false, IPv4)
-		if err != nil {
-			t.Fatalf("GetLocations failed: %v", err)
-		}
-
-		// Should return 0 results (obfuscation forces wireguard, but serverType wants openvpn)
-		if len(locationsWithObf) != 0 {
-			t.Errorf("Expected 0 locations when filtering openvpn with wireguard obfuscation, got %d",
-				len(locationsWithObf))
 		}
 	})
 
@@ -362,7 +303,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: true,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test123"}}`),
 									Location: RelayLocation{
 										Country:   "Test",
 										City:      "Test City",
@@ -378,7 +319,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: true,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test123"}}`),
 									Location: RelayLocation{
 										Country:   "Test",
 										City:      "Test City",
@@ -393,7 +334,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, ServerTypeNone, WGObfNone, false, IPv6)
+		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv6)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}
@@ -436,7 +377,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: true,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test123"}}`),
 									Location: RelayLocation{
 										Country:   "Test",
 										City:      "Test City",
@@ -452,7 +393,7 @@ func TestGetLocations(t *testing.T) {
 									Owned:            true,
 									Provider:         "test",
 									IncludeInCountry: true,
-									EndpointData:     json.RawMessage(`"openvpn"`),
+									EndpointData:     json.RawMessage(`{"wireguard":{"public_key":"test123"}}`),
 									Location: RelayLocation{
 										Country:   "Test",
 										City:      "Test City",
@@ -467,7 +408,7 @@ func TestGetLocations(t *testing.T) {
 			},
 		}
 
-		locations, _, err := GetLocations(testRelays, ServerTypeNone, WGObfNone, false, IPv4)
+		locations, _, err := GetLocations(testRelays, WGObfNone, false, IPv4)
 		if err != nil {
 			t.Fatalf("GetLocations failed: %v", err)
 		}

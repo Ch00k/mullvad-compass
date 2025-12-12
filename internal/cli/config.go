@@ -13,7 +13,6 @@ import (
 
 // Config holds all command-line configuration options for the application.
 type Config struct {
-	ServerType           relays.ServerType
 	WireGuardObfuscation relays.WireGuardObfuscation
 	Daita                bool
 	IPVersion            relays.IPVersion
@@ -48,18 +47,6 @@ func ParseFlags(args []string, version string) (*Config, error) {
 		case arg == "-v" || arg == "--version":
 			cfg.ShowVersion = true
 			return cfg, nil
-
-		case arg == "-s" || arg == "--server-type":
-			cfg.BestServerMode = false
-			if i+1 >= len(args) {
-				return nil, fmt.Errorf("%s requires an argument", arg)
-			}
-			i++
-			serverType, err := relays.ParseServerType(args[i])
-			if err != nil {
-				return nil, err
-			}
-			cfg.ServerType = serverType
 
 		case arg == "-o" || arg == "--wireguard-obfuscation":
 			cfg.BestServerMode = false
@@ -169,11 +156,10 @@ MODES:
                                   Activated when running without filter options.
 
     Table Mode:                   Shows all matching servers in a table, sorted by latency.
-                                  Activated by using any filter option (-m, -s, -o, -d, -6).
+                                  Activated by using any filter option (-m, -o, -d, -6).
 
 FILTER OPTIONS (Table Mode):
     -m, --max-distance KM              Maximum distance in km from your location (default: 500, range: 1-20000)
-    -s, --server-type TYPE             Filter by server type (wireguard, openvpn)
     -o, --wireguard-obfuscation TYPE   Filter WireGuard servers by obfuscation (lwo, quic, shadowsocks)
     -d, --daita                        Filter WireGuard servers with DAITA enabled
     -6, --ipv6                         Use IPv6 addresses for pinging

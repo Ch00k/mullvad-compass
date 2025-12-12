@@ -22,9 +22,6 @@ func TestParseFlagsDefaults(t *testing.T) {
 		if cfg.Workers != 25 {
 			t.Errorf("Expected workers to be 25, got %d", cfg.Workers)
 		}
-		if cfg.ServerType != relays.ServerTypeNone {
-			t.Errorf("Expected serverType to be relays.ServerTypeNone, got %v", cfg.ServerType)
-		}
 		if cfg.WireGuardObfuscation != relays.WGObfNone {
 			t.Errorf("Expected wireGuardObfuscation to be relays.WGObfNone, got %v", cfg.WireGuardObfuscation)
 		}
@@ -83,42 +80,6 @@ func TestParseFlagsVersion(t *testing.T) {
 		}
 		if !cfg.ShowVersion {
 			t.Error("Expected showVersion to be true, got false")
-		}
-	})
-}
-
-func TestParseFlagsServerType(t *testing.T) {
-	t.Run("ServerType short flag with wireguard", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-s", "wireguard"}, "dev")
-		if err != nil {
-			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if cfg.ServerType != relays.WireGuard {
-			t.Errorf("Expected serverType to be relays.WireGuard, got %v", cfg.ServerType)
-		}
-	})
-
-	t.Run("ServerType long flag with openvpn", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"--server-type", "openvpn"}, "dev")
-		if err != nil {
-			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if cfg.ServerType != relays.OpenVPN {
-			t.Errorf("Expected serverType to be relays.OpenVPN, got %v", cfg.ServerType)
-		}
-	})
-
-	t.Run("ServerType with invalid value", func(t *testing.T) {
-		_, err := ParseFlags([]string{"-s", "invalid"}, "dev")
-		if err == nil {
-			t.Error("Expected error for invalid server type, got nil")
-		}
-	})
-
-	t.Run("ServerType without value", func(t *testing.T) {
-		_, err := ParseFlags([]string{"-s"}, "dev")
-		if err == nil {
-			t.Error("Expected error for missing server type value, got nil")
 		}
 	})
 }
@@ -223,15 +184,12 @@ func TestParseFlagsIPv6(t *testing.T) {
 	})
 
 	t.Run("IPv6 with other flags", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-6", "-s", "wireguard", "-m", "1000"}, "dev")
+		cfg, err := ParseFlags([]string{"-6", "-m", "1000"}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
 		}
 		if cfg.IPVersion != relays.IPv6 {
 			t.Errorf("Expected ipVersion to be relays.IPv6, got %v", cfg.IPVersion)
-		}
-		if cfg.ServerType != relays.WireGuard {
-			t.Errorf("Expected serverType to be relays.WireGuard, got %v", cfg.ServerType)
 		}
 		if cfg.MaxDistance != 1000 {
 			t.Errorf("Expected maxDistance to be 1000, got %f", cfg.MaxDistance)
@@ -478,7 +436,6 @@ func TestParseFlagsUnexpectedArgument(t *testing.T) {
 func TestParseFlagesMultipleFlags(t *testing.T) {
 	t.Run("Multiple flags combined", func(t *testing.T) {
 		cfg, err := ParseFlags([]string{
-			"-s", "wireguard",
 			"-o", "lwo",
 			"-d",
 			"-6",
@@ -488,9 +445,6 @@ func TestParseFlagesMultipleFlags(t *testing.T) {
 		}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if cfg.ServerType != relays.WireGuard {
-			t.Errorf("Expected serverType to be relays.WireGuard, got %v", cfg.ServerType)
 		}
 		if cfg.WireGuardObfuscation != relays.LWO {
 			t.Errorf("Expected wireGuardObfuscation to be relays.LWO, got %v", cfg.WireGuardObfuscation)
@@ -514,16 +468,12 @@ func TestParseFlagesMultipleFlags(t *testing.T) {
 
 	t.Run("Mix of short and long flags", func(t *testing.T) {
 		cfg, err := ParseFlags([]string{
-			"--server-type", "openvpn",
 			"-m", "200",
 			"--timeout", "1000",
 			"-w", "10",
 		}, "dev")
 		if err != nil {
 			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if cfg.ServerType != relays.OpenVPN {
-			t.Errorf("Expected serverType to be relays.OpenVPN, got %v", cfg.ServerType)
 		}
 		if cfg.MaxDistance != 200 {
 			t.Errorf("Expected maxDistance to be 200, got %f", cfg.MaxDistance)
@@ -575,16 +525,6 @@ func TestParseFlagsBestServerMode(t *testing.T) {
 		}
 		if cfg.BestServerMode {
 			t.Error("Expected BestServerMode to be false with max-distance flag")
-		}
-	})
-
-	t.Run("Server type disables best server mode", func(t *testing.T) {
-		cfg, err := ParseFlags([]string{"-s", "wireguard"}, "dev")
-		if err != nil {
-			t.Fatalf("Failed to parse flags: %v", err)
-		}
-		if cfg.BestServerMode {
-			t.Error("Expected BestServerMode to be false with server-type flag")
 		}
 	})
 
