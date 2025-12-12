@@ -48,19 +48,19 @@ Find multiple servers within 200 km, sorted by latency (lowest first):
 <!-- multiple-servers:start -->
 ```
 $ mullvad-compass --max-distance 250
-Country          City     IP                Hostname        Distance (km)   Latency (ms)
---------------   ------   ---------------   -------------   -------------   ------------
-Czech Republic   Prague   178.249.209.162   cz-prg-wg-201   156             9.78
-Czech Republic   Prague   178.249.209.175   cz-prg-wg-202   156             13.01
-Czech Republic   Prague   146.70.129.130    cz-prg-wg-102   156             13.94
-Germany          Berlin   193.32.248.75     de-ber-wg-007   238             15.86
-Germany          Berlin   193.32.248.66     de-ber-wg-001   238             15.88
-Germany          Berlin   193.32.248.70     de-ber-wg-005   238             15.89
-Germany          Berlin   193.32.248.74     de-ber-wg-008   238             15.91
-Germany          Berlin   193.32.248.68     de-ber-wg-003   238             15.93
-Germany          Berlin   193.32.248.69     de-ber-wg-004   238             15.95
-Germany          Berlin   193.32.248.71     de-ber-wg-006   238             15.95
-Germany          Berlin   193.32.248.67     de-ber-wg-002   238             15.99
+Country          City     Distance (km)   Hostname        IP                Latency (ms)
+--------------   ------   -------------   -------------   ---------------   ------------
+Czech Republic   Prague   156             cz-prg-wg-201   178.249.209.162   9.78
+Czech Republic   Prague   156             cz-prg-wg-202   178.249.209.175   13.01
+Czech Republic   Prague   156             cz-prg-wg-102   146.70.129.130    13.94
+Germany          Berlin   238             de-ber-wg-007   193.32.248.75     15.86
+Germany          Berlin   238             de-ber-wg-001   193.32.248.66     15.88
+Germany          Berlin   238             de-ber-wg-005   193.32.248.70     15.89
+Germany          Berlin   238             de-ber-wg-008   193.32.248.74     15.91
+Germany          Berlin   238             de-ber-wg-003   193.32.248.68     15.93
+Germany          Berlin   238             de-ber-wg-004   193.32.248.69     15.95
+Germany          Berlin   238             de-ber-wg-006   193.32.248.71     15.95
+Germany          Berlin   238             de-ber-wg-002   193.32.248.67     15.99
 ```
 <!-- multiple-servers:end -->
 
