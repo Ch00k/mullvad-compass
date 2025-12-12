@@ -93,9 +93,9 @@ func TestFormatTable(t *testing.T) {
 			{
 				Country:                "France",
 				City:                   "Paris",
-				Type:                   "openvpn",
+				Type:                   "wireguard",
 				IPv4Address:            "3.3.3.3",
-				Hostname:               "fr-par-ovpn-001",
+				Hostname:               "fr-par-wg-001",
 				DistanceFromMyLocation: &distance,
 				Latency:                &latency3, // 30ms - should be second
 			},
@@ -210,12 +210,12 @@ func TestFormatTable(t *testing.T) {
 		headerParts := strings.Fields(lines[0])
 		dataParts := strings.Fields(lines[2])
 
-		// Should have 9 header fields (7 columns, but "Distance (km)" and "Latency (ms)" are 2 fields each)
-		if len(headerParts) != 9 {
-			t.Errorf("Expected 9 header fields, got %d", len(headerParts))
+		// Should have 8 header fields (6 columns, but "Distance (km)" and "Latency (ms)" are 2 fields each)
+		if len(headerParts) != 8 {
+			t.Errorf("Expected 8 header fields, got %d", len(headerParts))
 		}
-		if len(dataParts) != 7 {
-			t.Errorf("Expected 7 data columns, got %d", len(dataParts))
+		if len(dataParts) != 6 {
+			t.Errorf("Expected 6 data columns, got %d", len(dataParts))
 		}
 	})
 }

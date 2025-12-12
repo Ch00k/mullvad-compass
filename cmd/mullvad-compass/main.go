@@ -189,14 +189,13 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 		return err
 	}
 
-	// Get locations from relays file, optionally filtered by type, obfuscation, DAITA, and IPv6
+	// Get locations from relays file, optionally filtered by obfuscation, DAITA, and IPv6
 	if config.LogLevel <= logging.LogLevelDebug {
 		log.Println("Fetching and filtering relay locations...")
 	}
 	locations, err := getLocations(
 		config.LogLevel,
 		relaysData,
-		config.ServerType,
 		config.WireGuardObfuscation,
 		config.Daita,
 		config.IPVersion,

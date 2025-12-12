@@ -145,7 +145,6 @@ func TestGetLocations(t *testing.T) {
 		_, _ = getLocations(
 			logging.LogLevelDebug,
 			relaysData,
-			relays.ServerTypeNone,
 			relays.WGObfNone,
 			false,
 			relays.IPv4,
@@ -167,7 +166,6 @@ func TestGetLocations(t *testing.T) {
 		_, _ = getLocations(
 			logging.LogLevelError,
 			relaysData,
-			relays.ServerTypeNone,
 			relays.WGObfNone,
 			false,
 			relays.IPv4,

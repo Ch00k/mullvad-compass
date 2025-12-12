@@ -75,15 +75,12 @@ type ServerType int
 // Server type constants
 const (
 	ServerTypeNone ServerType = iota // No specific server type
-	OpenVPN                          // OpenVPN server
 	WireGuard                        // WireGuard server
 	Bridge                           // Bridge server
 )
 
 func (s ServerType) String() string {
 	switch s {
-	case OpenVPN:
-		return "openvpn"
 	case WireGuard:
 		return "wireguard"
 	case Bridge:
@@ -98,8 +95,6 @@ func (s ServerType) String() string {
 // ParseServerType parses a server type string into its type.
 func ParseServerType(s string) (ServerType, error) {
 	switch s {
-	case "openvpn":
-		return OpenVPN, nil
 	case "wireguard":
 		return WireGuard, nil
 	case "bridge":
@@ -107,7 +102,7 @@ func ParseServerType(s string) (ServerType, error) {
 	case "":
 		return ServerTypeNone, nil
 	default:
-		return ServerTypeNone, fmt.Errorf("invalid server type: %s (must be 'openvpn' or 'wireguard')", s)
+		return ServerTypeNone, fmt.Errorf("unknown server type: %s", s)
 	}
 }
 
@@ -119,7 +114,7 @@ type Location struct {
 	Latitude               float64
 	Longitude              float64
 	Hostname               string
-	Type                   string // "openvpn" or "wireguard"
+	Type                   string // "wireguard"
 	City                   string
 	IsActive               bool
 	IsMullvadOwned         bool
