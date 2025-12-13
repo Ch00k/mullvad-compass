@@ -69,7 +69,7 @@ All options can be viewed with `--help`:
 <!-- help:start -->
 ```
 $ mullvad-compass --help
-mullvad-compass 0.0.2
+mullvad-compass 0.0.3
 
 Find Mullvad VPN servers with the lowest latency at your current location.
 
