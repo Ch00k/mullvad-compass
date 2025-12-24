@@ -2,17 +2,27 @@
 
 Find Mullvad VPN servers with the lowest latency at your current geographic location.
 
-A rewrite of [mullvad-closest](https://github.com/Ch00k/mullvad-closest), offering more features, faster performance, and a single binary distribution with no runtime dependencies.
+> [!NOTE]
+> This is a rewrite of [mullvad-closest](https://github.com/Ch00k/mullvad-closest), offering more features, better
+> performance, and a single binary distribution with no runtime dependencies.
+
+## Motivation
+
+Mullvad VPN has a large number of servers worldwide. If you are in a country where Mullvad VPN servers are present, you
+are in luck - simply select the country and Mullvad VPN app will usually pick the best server for you. However, it is
+not as straightforward if you are in a country without Mullvad servers. When in Bosnia and Herzegovina, do you connect
+to servers in Croatia, Serbia, or Hungary? When in Iceland, do you connect to servers in Norway, UK, or Canada?
+**mullvad-compass** helps you answer these questions by finding the best Mullvad VPN servers at your current location.
 
 ## Features
 
 - Finds the single best or multiple closest Mullvad VPN servers
 - Filters by distance threshold and anti-censorship protocol
 - Measures actual latency via ICMP ping
-- Supports IPv4 and IPv6 addresses
-- Executes concurrent pings
+- Supports IPv4 and IPv6
+- Achieves subsecond performance thanks to concurrent pings
 - Shows your current location based on Mullvad's API
-- Platform support: Linux, macOS, and Windows
+- Supports Linux, macOS, and Windows
 
 ## Installation
 
@@ -26,7 +36,7 @@ The tool reads Mullvad's `relays.json` file from the platform-specific location:
 - **macOS**: `/Library/Caches/mullvad-vpn/relays.json`
 - **Windows**: `C:/ProgramData/Mullvad VPN/cache/relays.json`
 
-This file is created when you install the Mullvad VPN client.
+This file is created when you install the Mullvad VPN app.
 
 ## Usage
 
@@ -99,12 +109,3 @@ OTHER OPTIONS:
     -v, --version                 Show version information
 ```
 <!-- help:end -->
-
-## How It Works
-
-1. Fetches your current location from Mullvad's API (`https://am.i.mullvad.net/json`)
-2. Reads the Mullvad server list from `relays.json`
-3. Calculates geodesic distances using the Haversine formula
-4. Filters servers within the specified distance threshold, and based filters specified
-5. Pings servers concurrently
-6. Displays results sorted by latency (lowest first)
