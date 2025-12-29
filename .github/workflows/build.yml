@@ -155,7 +155,7 @@ jobs:
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
-          MULLVAD_COMPASS_EXECUTABLE_FILENAME: mullvad-compass-${{ matrix.goos }}-${{ matrix.goarch }}
+          MULLVAD_COMPASS_EXECUTABLE_FILENAME: mullvad-compass-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
           MULLVAD_COMPASS_VERSION: ${{ steps.version.outputs.version }}
         run: make build
 
