@@ -14,55 +14,62 @@ import (
 
 // File represents the structure of the relays.json file
 type File struct {
-	Countries []Country `json:"countries"`
+	Locations map[string]LocationEntry `json:"locations"`
+	WireGuard WireGuardSection         `json:"wireguard"`
+	Bridge    BridgeSection            `json:"bridge"`
 }
 
-// Country represents a country in the relays file
-type Country struct {
-	Name   string `json:"name"`
-	Code   string `json:"code"`
-	Cities []City `json:"cities"`
-}
-
-// City represents a city within a country
-type City struct {
-	Name      string  `json:"name"`
-	Code      string  `json:"code"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Relays    []Relay `json:"relays"`
-}
-
-// Relay represents a single VPN server
-type Relay struct {
-	Hostname         string          `json:"hostname"`
-	IPv4AddrIn       string          `json:"ipv4_addr_in"`
-	IPv6AddrIn       string          `json:"ipv6_addr_in"`
-	Active           bool            `json:"active"`
-	Owned            bool            `json:"owned"`
-	Provider         string          `json:"provider"`
-	IncludeInCountry bool            `json:"include_in_country"`
-	EndpointData     json.RawMessage `json:"endpoint_data"`
-	Location         RelayLocation   `json:"location"`
-}
-
-// RelayLocation contains the geographic information for a relay
-type RelayLocation struct {
-	Country   string  `json:"country"`
+// LocationEntry represents a location in the locations map
+type LocationEntry struct {
 	City      string  `json:"city"`
+	Country   string  `json:"country"`
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
 }
 
-// WireGuardEndpoint represents the wireguard endpoint data structure
-type WireGuardEndpoint struct {
-	Wireguard struct {
-		PublicKey              string    `json:"public_key"`
-		Daita                  bool      `json:"daita"`
-		Lwo                    bool      `json:"lwo"`
-		Quic                   *struct{} `json:"quic"`
-		ShadowsocksExtraAddrIn []string  `json:"shadowsocks_extra_addr_in"`
-	} `json:"wireguard"`
+// WireGuardSection represents the wireguard section of the relays file
+type WireGuardSection struct {
+	Relays []WireGuardRelay `json:"relays"`
+}
+
+// WireGuardRelay represents a single WireGuard relay
+type WireGuardRelay struct {
+	Hostname               string        `json:"hostname"`
+	Active                 bool          `json:"active"`
+	Owned                  bool          `json:"owned"`
+	Location               string        `json:"location"` // key into File.Locations
+	Provider               string        `json:"provider"`
+	IPv4AddrIn             string        `json:"ipv4_addr_in"`
+	IPv6AddrIn             string        `json:"ipv6_addr_in"`
+	IncludeInCountry       bool          `json:"include_in_country"`
+	PublicKey              string        `json:"public_key"`
+	Daita                  bool          `json:"daita"`
+	ShadowsocksExtraAddrIn []string      `json:"shadowsocks_extra_addr_in"`
+	Features               RelayFeatures `json:"features"`
+}
+
+// RelayFeatures represents anti-censorship capabilities on a WireGuard relay.
+// Each field is null when absent or a JSON object when present.
+type RelayFeatures struct {
+	Daita *json.RawMessage `json:"daita"`
+	QUIC  *json.RawMessage `json:"quic"`
+	LWO   *json.RawMessage `json:"lwo"`
+}
+
+// BridgeSection represents the bridge section of the relays file
+type BridgeSection struct {
+	Relays []BridgeRelay `json:"relays"`
+}
+
+// BridgeRelay represents a single bridge relay
+type BridgeRelay struct {
+	Hostname         string `json:"hostname"`
+	Active           bool   `json:"active"`
+	Owned            bool   `json:"owned"`
+	Location         string `json:"location"`
+	Provider         string `json:"provider"`
+	IPv4AddrIn       string `json:"ipv4_addr_in"`
+	IncludeInCountry bool   `json:"include_in_country"`
 }
 
 // GetRelaysFilePath returns the platform-specific path to relays.json
@@ -141,184 +148,99 @@ func ParseRelaysFileWithLogLevel(path string, logLevel logging.LogLevel) (*File,
 		return nil, fmt.Errorf("failed to parse relays file: %w", err)
 	}
 
-	countryCount := len(relays.Countries)
-	var cityCount, relayCount int
-	for _, country := range relays.Countries {
-		cityCount += len(country.Cities)
-		for _, city := range country.Cities {
-			relayCount += len(city.Relays)
-		}
-	}
+	locationCount := len(relays.Locations)
+	wgRelayCount := len(relays.WireGuard.Relays)
+	bridgeRelayCount := len(relays.Bridge.Relays)
 
 	if logLevel <= logging.LogLevelInfo {
-		log.Printf("Parsed relays file: %d countries, %d cities, %d relays", countryCount, cityCount, relayCount)
+		log.Printf("Parsed relays file: %d locations, %d WireGuard relays, %d bridge relays",
+			locationCount, wgRelayCount, bridgeRelayCount)
 	}
 
 	return &relays, nil
 }
 
-// shouldIncludeRelay determines if a relay should be included based on filter criteria
-func shouldIncludeRelay(
-	relay Relay,
-	relayType ServerType,
+// shouldIncludeWireGuardRelay determines if a WireGuard relay should be included based on filter criteria
+func shouldIncludeWireGuardRelay(
+	relay WireGuardRelay,
 	antiCensorship AntiCensorship,
 	daita bool,
 	ipVersion IPVersion,
 ) bool {
-	// Skip inactive relays
 	if !relay.Active {
 		return false
 	}
-
-	// Skip relays excluded from country
 	if !relay.IncludeInCountry {
 		return false
 	}
-
-	// Skip bridge servers
-	if relayType == Bridge {
+	if daita && !relay.Daita {
 		return false
 	}
-
-	// Only include WireGuard servers
-	if relayType != WireGuard {
+	if antiCensorship != ACNone && !matchesAntiCensorshipFeatures(relay, antiCensorship) {
 		return false
 	}
-
-	// Filter by DAITA if specified
-	if daita && !hasDaita(relay.EndpointData) {
+	if ipVersion.IsIPv6() && relay.IPv6AddrIn == "" {
 		return false
 	}
-
-	// Filter by anti-censorship if specified
-	if antiCensorship != ACNone &&
-		!matchesAntiCensorship(relay.EndpointData, antiCensorship) {
+	if !ipVersion.IsIPv6() && relay.IPv4AddrIn == "" {
 		return false
 	}
-
-	// Filter by IP version
-	if !matchesIPVersion(relay, ipVersion) {
-		return false
-	}
-
 	return true
 }
 
-// matchesIPVersion checks if a relay has the required IP version
-func matchesIPVersion(relay Relay, ipVersion IPVersion) bool {
-	if ipVersion.IsIPv6() {
-		return relay.IPv6AddrIn != ""
-	}
-	return relay.IPv4AddrIn != ""
-}
-
-// GetLocations extracts Location objects from the relays file, optionally filtered by anti-censorship, DAITA, and IPv6
-// Returns the locations and the count of relays skipped due to unknown endpoint_data format
+// GetLocations extracts Location objects from the relays file, optionally filtered by anti-censorship, DAITA, and IPv6.
+// Returns the locations and the count of relays skipped due to unresolvable location keys.
 func GetLocations(
-	relays *File,
+	file *File,
 	antiCensorship AntiCensorship,
 	daita bool,
 	ipVersion IPVersion,
 ) ([]Location, int, error) {
 	var locations []Location
-	var skippedUnknownFormat int
+	var skipped int
 
-	for _, country := range relays.Countries {
-		for _, city := range country.Cities {
-			for _, relay := range city.Relays {
-				relayType, err := determineRelayType(relay.EndpointData)
-				if err != nil {
-					skippedUnknownFormat++
-					continue
-				}
-
-				if !shouldIncludeRelay(relay, relayType, antiCensorship, daita, ipVersion) {
-					continue
-				}
-
-				loc := Location{
-					IPv4Address:    relay.IPv4AddrIn,
-					IPv6Address:    relay.IPv6AddrIn,
-					Country:        relay.Location.Country,
-					Latitude:       relay.Location.Latitude,
-					Longitude:      relay.Location.Longitude,
-					Hostname:       relay.Hostname,
-					Type:           relayType.String(),
-					City:           relay.Location.City,
-					IsActive:       relay.Active,
-					IsMullvadOwned: relay.Owned,
-					Provider:       relay.Provider,
-				}
-
-				locations = append(locations, loc)
-			}
+	for _, relay := range file.WireGuard.Relays {
+		locEntry, ok := file.Locations[relay.Location]
+		if !ok {
+			skipped++
+			continue
 		}
+
+		if !shouldIncludeWireGuardRelay(relay, antiCensorship, daita, ipVersion) {
+			continue
+		}
+
+		loc := Location{
+			IPv4Address:    relay.IPv4AddrIn,
+			IPv6Address:    relay.IPv6AddrIn,
+			Country:        locEntry.Country,
+			Latitude:       locEntry.Latitude,
+			Longitude:      locEntry.Longitude,
+			Hostname:       relay.Hostname,
+			Type:           WireGuard.String(),
+			City:           locEntry.City,
+			IsActive:       relay.Active,
+			IsMullvadOwned: relay.Owned,
+			Provider:       relay.Provider,
+		}
+
+		locations = append(locations, loc)
 	}
 
-	return locations, skippedUnknownFormat, nil
+	return locations, skipped, nil
 }
 
-// determineRelayType parses the endpoint_data field to determine the relay type
-func determineRelayType(endpointData json.RawMessage) (ServerType, error) {
-	if len(endpointData) == 0 {
-		return ServerTypeNone, fmt.Errorf("empty endpoint_data")
-	}
-
-	// Check first non-whitespace byte to determine JSON type
-	firstByte := endpointData[0]
-	for i := 0; i < len(endpointData); i++ {
-		if endpointData[i] != ' ' && endpointData[i] != '\t' && endpointData[i] != '\n' && endpointData[i] != '\r' {
-			firstByte = endpointData[i]
-			break
-		}
-	}
-
-	switch firstByte {
-	case '"':
-		// String type (bridge)
-		var stringType string
-		if err := json.Unmarshal(endpointData, &stringType); err != nil {
-			return ServerTypeNone, fmt.Errorf("failed to unmarshal string endpoint_data: %w", err)
-		}
-		return ParseServerType(stringType)
-	case '{':
-		// Object type (wireguard)
-		var objType WireGuardEndpoint
-		if err := json.Unmarshal(endpointData, &objType); err != nil {
-			return ServerTypeNone, fmt.Errorf("failed to unmarshal object endpoint_data: %w", err)
-		}
-		if objType.Wireguard.PublicKey != "" {
-			return WireGuard, nil
-		}
-		return ServerTypeNone, fmt.Errorf("wireguard endpoint missing public key")
-	}
-
-	return ServerTypeNone, fmt.Errorf("unknown endpoint_data format")
-}
-
-// hasDaita checks if a wireguard endpoint has DAITA enabled
-func hasDaita(endpointData json.RawMessage) bool {
-	var endpoint WireGuardEndpoint
-	if err := json.Unmarshal(endpointData, &endpoint); err != nil {
-		return false
-	}
-	return endpoint.Wireguard.Daita
-}
-
-// matchesAntiCensorship checks if a wireguard endpoint matches the specified anti-censorship protocol
-func matchesAntiCensorship(endpointData json.RawMessage, antiCensorshipType AntiCensorship) bool {
-	var endpoint WireGuardEndpoint
-	if err := json.Unmarshal(endpointData, &endpoint); err != nil {
-		return false
-	}
-
-	switch antiCensorshipType {
+// matchesAntiCensorshipFeatures checks if a relay matches the specified anti-censorship protocol
+func matchesAntiCensorshipFeatures(relay WireGuardRelay, ac AntiCensorship) bool {
+	switch ac {
 	case LWO:
-		return endpoint.Wireguard.Lwo
+		return relay.Features.LWO != nil
 	case QUIC:
-		return endpoint.Wireguard.Quic != nil
+		return relay.Features.QUIC != nil
 	case Shadowsocks:
-		return len(endpoint.Wireguard.ShadowsocksExtraAddrIn) > 0
+		// features.shadowsocks is not yet populated by Mullvad;
+		// fall back to checking shadowsocks_extra_addr_in
+		return len(relay.ShadowsocksExtraAddrIn) > 0
 	default:
 		return false
 	}

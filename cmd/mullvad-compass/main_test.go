@@ -586,46 +586,34 @@ func TestE2E_BestServerMode(t *testing.T) {
 
 		farRelays := `{
 			"etag": "test",
-			"countries": [
-				{
-					"name": "Antarctica",
-					"code": "aq",
-					"cities": [
-						{
-							"name": "South Pole",
-							"code": "spo",
-							"latitude": -90.0,
-							"longitude": 0.0,
-							"relays": [
-								{
-									"hostname": "aq-spo-wg-001",
-									"ipv4_addr_in": "192.0.2.1",
-									"ipv6_addr_in": "2001:db8::1",
-									"include_in_country": true,
-									"active": true,
-									"owned": true,
-									"provider": "test",
-									"weight": 1,
-									"endpoint_data": {
-										"wireguard": {
-											"public_key": "test",
-											"daita": false
-										}
-									},
-									"location": {
-										"country": "Antarctica",
-										"country_code": "aq",
-										"city": "South Pole",
-										"city_code": "spo",
-										"latitude": -90.0,
-										"longitude": 0.0
-									}
-								}
-							]
-						}
-					]
+			"locations": {
+				"aq-spo": {
+					"city": "South Pole",
+					"country": "Antarctica",
+					"latitude": -90.0,
+					"longitude": 0.0
 				}
-			]
+			},
+			"wireguard": {
+				"relays": [
+					{
+						"hostname": "aq-spo-wg-001",
+						"active": true,
+						"owned": true,
+						"location": "aq-spo",
+						"provider": "test",
+						"ipv4_addr_in": "192.0.2.1",
+						"ipv6_addr_in": "2001:db8::1",
+						"weight": 1,
+						"include_in_country": true,
+						"public_key": "test",
+						"daita": false,
+						"shadowsocks_extra_addr_in": [],
+						"features": {"daita": null, "quic": null, "lwo": null}
+					}
+				]
+			},
+			"bridge": {"relays": []}
 		}`
 		if _, err := tempFile.Write([]byte(farRelays)); err != nil {
 			t.Fatal(err)
