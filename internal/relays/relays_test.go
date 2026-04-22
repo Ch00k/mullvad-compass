@@ -419,3 +419,160 @@ func TestGetLocations(t *testing.T) {
 		}
 	})
 }
+
+func TestParseFlatRelaysFile(t *testing.T) {
+	relays, err := ParseRelaysFile("../../testdata/relays_flat.json")
+	if err != nil {
+		t.Fatalf("Failed to parse flat relays.json: %v", err)
+	}
+
+	if len(relays.Countries) == 0 {
+		t.Fatal("No countries found in flat relays.json")
+	}
+
+	var totalRelays int
+	for _, country := range relays.Countries {
+		for _, city := range country.Cities {
+			totalRelays += len(city.Relays)
+		}
+	}
+
+	if totalRelays != 5 {
+		t.Errorf("Expected 5 relays, got %d", totalRelays)
+	}
+}
+
+func TestFlatGetLocations(t *testing.T) {
+	relays, err := ParseRelaysFile("../../testdata/relays_flat.json")
+	if err != nil {
+		t.Fatalf("Failed to parse flat relays.json: %v", err)
+	}
+
+	t.Run("Active WireGuard with include_in_country only", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, ACNone, false, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 3 {
+			t.Errorf("Expected 3 locations, got %d", len(locations))
+		}
+
+		for _, loc := range locations {
+			if loc.Type != "wireguard" {
+				t.Errorf("Expected wireguard, got %s for %s", loc.Type, loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Filter by DAITA", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, ACNone, true, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 1 {
+			t.Errorf("Expected 1 DAITA location, got %d", len(locations))
+		}
+
+		if len(locations) > 0 && locations[0].Hostname != "us-nyc-wg-001" {
+			t.Errorf("Expected us-nyc-wg-001, got %s", locations[0].Hostname)
+		}
+	})
+
+	t.Run("Filter by LWO", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, LWO, false, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 1 {
+			t.Errorf("Expected 1 LWO location, got %d", len(locations))
+		}
+
+		if len(locations) > 0 && locations[0].Hostname != "us-lax-wg-001" {
+			t.Errorf("Expected us-lax-wg-001, got %s", locations[0].Hostname)
+		}
+	})
+
+	t.Run("Filter by QUIC", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, QUIC, false, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 1 {
+			t.Errorf("Expected 1 QUIC location, got %d", len(locations))
+		}
+
+		if len(locations) > 0 && locations[0].Hostname != "us-lax-wg-001" {
+			t.Errorf("Expected us-lax-wg-001, got %s", locations[0].Hostname)
+		}
+	})
+
+	t.Run("Filter by Shadowsocks", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, Shadowsocks, false, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 1 {
+			t.Errorf("Expected 1 Shadowsocks location, got %d", len(locations))
+		}
+
+		if len(locations) > 0 && locations[0].Hostname != "us-nyc-wg-001" {
+			t.Errorf("Expected us-nyc-wg-001, got %s", locations[0].Hostname)
+		}
+	})
+
+	t.Run("Filter by IPv6", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, ACNone, false, IPv6)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) != 2 {
+			t.Errorf("Expected 2 IPv6 locations, got %d", len(locations))
+		}
+
+		for _, loc := range locations {
+			if loc.IPv6Address == "" {
+				t.Errorf("Expected IPv6 address for %s", loc.Hostname)
+			}
+		}
+	})
+
+	t.Run("Location fields populated correctly", func(t *testing.T) {
+		locations, _, err := GetLocations(relays, ACNone, true, IPv4)
+		if err != nil {
+			t.Fatalf("GetLocations failed: %v", err)
+		}
+
+		if len(locations) == 0 {
+			t.Fatal("No locations to verify")
+		}
+
+		loc := locations[0]
+		if loc.Country != "USA" {
+			t.Errorf("Expected country USA, got %s", loc.Country)
+		}
+		if loc.City != "New York" {
+			t.Errorf("Expected city New York, got %s", loc.City)
+		}
+		if loc.Latitude != 40.7128 {
+			t.Errorf("Expected latitude 40.7128, got %f", loc.Latitude)
+		}
+		if loc.Longitude != -74.0060 {
+			t.Errorf("Expected longitude -74.0060, got %f", loc.Longitude)
+		}
+		if loc.IPv4Address != "1.2.3.4" {
+			t.Errorf("Expected IPv4 1.2.3.4, got %s", loc.IPv4Address)
+		}
+		if loc.Provider != "TestProvider" {
+			t.Errorf("Expected provider TestProvider, got %s", loc.Provider)
+		}
+		if !loc.IsMullvadOwned {
+			t.Error("Expected IsMullvadOwned to be true")
+		}
+	})
+}

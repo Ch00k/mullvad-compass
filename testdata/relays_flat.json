@@ -1,0 +1,148 @@
+{
+  "etag": "test",
+  "locations": {
+    "us-nyc": {
+      "city": "New York",
+      "country": "USA",
+      "latitude": 40.7128,
+      "longitude": -74.006
+    },
+    "us-lax": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "latitude": 34.0522,
+      "longitude": -118.2437
+    },
+    "de-ber": {
+      "city": "Berlin",
+      "country": "Germany",
+      "latitude": 52.52,
+      "longitude": 13.405
+    },
+    "se-sto": {
+      "city": "Stockholm",
+      "country": "Sweden",
+      "latitude": 59.3293,
+      "longitude": 18.0686
+    }
+  },
+  "wireguard": {
+    "port_ranges": [
+      [
+        51820,
+        51820
+      ]
+    ],
+    "ipv4_gateway": "10.64.0.1",
+    "ipv6_gateway": "fc00:bbbb:bbbb:bb01::1",
+    "relays": [
+      {
+        "hostname": "us-nyc-wg-001",
+        "active": true,
+        "owned": true,
+        "location": "us-nyc",
+        "provider": "TestProvider",
+        "ipv4_addr_in": "1.2.3.4",
+        "ipv6_addr_in": "2001:db8::1",
+        "weight": 100,
+        "include_in_country": true,
+        "public_key": "dGVzdC1wdWJsaWMta2V5LTE=",
+        "daita": true,
+        "shadowsocks_extra_addr_in": [
+          "5.6.7.8"
+        ],
+        "features": {
+          "daita": {},
+          "quic": null,
+          "lwo": null
+        }
+      },
+      {
+        "hostname": "us-lax-wg-001",
+        "active": true,
+        "owned": false,
+        "location": "us-lax",
+        "provider": "TestProvider2",
+        "ipv4_addr_in": "10.20.30.40",
+        "ipv6_addr_in": "",
+        "weight": 100,
+        "include_in_country": true,
+        "public_key": "dGVzdC1wdWJsaWMta2V5LTI=",
+        "daita": false,
+        "shadowsocks_extra_addr_in": [],
+        "features": {
+          "daita": null,
+          "quic": {
+            "addr_in": [
+              "10.20.30.50"
+            ],
+            "token": "abc",
+            "domain": "test.eu"
+          },
+          "lwo": {}
+        }
+      },
+      {
+        "hostname": "de-ber-wg-001",
+        "active": true,
+        "owned": true,
+        "location": "de-ber",
+        "provider": "TestProvider3",
+        "ipv4_addr_in": "100.200.100.200",
+        "ipv6_addr_in": "2001:db8::3",
+        "weight": 100,
+        "include_in_country": true,
+        "public_key": "dGVzdC1wdWJsaWMta2V5LTM=",
+        "daita": false,
+        "shadowsocks_extra_addr_in": [],
+        "features": {
+          "daita": null,
+          "quic": null,
+          "lwo": null
+        }
+      },
+      {
+        "hostname": "se-sto-wg-001",
+        "active": false,
+        "owned": true,
+        "location": "se-sto",
+        "provider": "TestProvider4",
+        "ipv4_addr_in": "200.200.200.200",
+        "ipv6_addr_in": "",
+        "weight": 100,
+        "include_in_country": true,
+        "public_key": "dGVzdC1wdWJsaWMta2V5LTQ=",
+        "daita": false,
+        "shadowsocks_extra_addr_in": [],
+        "features": {
+          "daita": null,
+          "quic": null,
+          "lwo": null
+        }
+      },
+      {
+        "hostname": "us-nyc-wg-002",
+        "active": true,
+        "owned": false,
+        "location": "us-nyc",
+        "provider": "TestProvider5",
+        "ipv4_addr_in": "1.2.3.5",
+        "ipv6_addr_in": "",
+        "weight": 100,
+        "include_in_country": false,
+        "public_key": "dGVzdC1wdWJsaWMta2V5LTU=",
+        "daita": false,
+        "shadowsocks_extra_addr_in": [],
+        "features": {
+          "daita": null,
+          "quic": null,
+          "lwo": null
+        }
+      }
+    ]
+  },
+  "bridge": {
+    "shadowsocks": [],
+    "relays": []
+  }
+}

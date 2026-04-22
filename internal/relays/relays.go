@@ -65,6 +65,43 @@ type WireGuardEndpoint struct {
 	} `json:"wireguard"`
 }
 
+type flatFile struct {
+	Locations map[string]flatLocation `json:"locations"`
+	WireGuard flatProtocol            `json:"wireguard"`
+}
+
+type flatLocation struct {
+	City      string  `json:"city"`
+	Country   string  `json:"country"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+}
+
+type flatProtocol struct {
+	Relays []flatRelay `json:"relays"`
+}
+
+type flatRelay struct {
+	Hostname               string          `json:"hostname"`
+	Active                 bool            `json:"active"`
+	Owned                  bool            `json:"owned"`
+	Location               string          `json:"location"`
+	Provider               string          `json:"provider"`
+	IPv4AddrIn             string          `json:"ipv4_addr_in"`
+	IPv6AddrIn             string          `json:"ipv6_addr_in"`
+	IncludeInCountry       bool            `json:"include_in_country"`
+	PublicKey              string          `json:"public_key"`
+	Daita                  bool            `json:"daita"`
+	ShadowsocksExtraAddrIn []string        `json:"shadowsocks_extra_addr_in"`
+	Features               json.RawMessage `json:"features"`
+}
+
+type flatFeatures struct {
+	Daita json.RawMessage `json:"daita"`
+	Quic  json.RawMessage `json:"quic"`
+	Lwo   json.RawMessage `json:"lwo"`
+}
+
 // GetRelaysFilePath returns the platform-specific path to relays.json
 func GetRelaysFilePath() (string, error) {
 	return GetRelaysFilePathWithLogLevel(logging.LogLevelError)
@@ -139,6 +176,17 @@ func ParseRelaysFileWithLogLevel(path string, logLevel logging.LogLevel) (*File,
 			log.Printf("Failed to parse JSON from relays file: %v", err)
 		}
 		return nil, fmt.Errorf("failed to parse relays file: %w", err)
+	}
+
+	if len(relays.Countries) == 0 {
+		var flat flatFile
+		if err := json.Unmarshal(data, &flat); err == nil && len(flat.Locations) > 0 {
+			if logLevel <= logging.LogLevelDebug {
+				log.Printf("Detected new flat relays format, converting...")
+			}
+			converted := convertFlatFile(&flat)
+			relays = *converted
+		}
 	}
 
 	countryCount := len(relays.Countries)
@@ -322,4 +370,96 @@ func matchesAntiCensorship(endpointData json.RawMessage, antiCensorshipType Anti
 	default:
 		return false
 	}
+}
+
+func convertFlatFile(flat *flatFile) *File {
+	cityRelays := make(map[string][]Relay)
+
+	for _, fr := range flat.WireGuard.Relays {
+		loc, ok := flat.Locations[fr.Location]
+		if !ok {
+			continue
+		}
+
+		relay := Relay{
+			Hostname:         fr.Hostname,
+			IPv4AddrIn:       fr.IPv4AddrIn,
+			IPv6AddrIn:       fr.IPv6AddrIn,
+			Active:           fr.Active,
+			Owned:            fr.Owned,
+			Provider:         fr.Provider,
+			IncludeInCountry: fr.IncludeInCountry,
+			EndpointData:     buildWireGuardEndpointData(fr),
+			Location: RelayLocation{
+				Country:   loc.Country,
+				City:      loc.City,
+				Latitude:  loc.Latitude,
+				Longitude: loc.Longitude,
+			},
+		}
+		cityRelays[fr.Location] = append(cityRelays[fr.Location], relay)
+	}
+
+	countryCities := make(map[string][]City)
+	for locKey, relays := range cityRelays {
+		loc, ok := flat.Locations[locKey]
+		if !ok {
+			continue
+		}
+		city := City{
+			Name:      loc.City,
+			Code:      locKey,
+			Latitude:  loc.Latitude,
+			Longitude: loc.Longitude,
+			Relays:    relays,
+		}
+		countryCities[loc.Country] = append(countryCities[loc.Country], city)
+	}
+
+	countries := make([]Country, 0, len(countryCities))
+	for name, cities := range countryCities {
+		countries = append(countries, Country{
+			Name:   name,
+			Cities: cities,
+		})
+	}
+
+	return &File{Countries: countries}
+}
+
+func buildWireGuardEndpointData(fr flatRelay) json.RawMessage {
+	lwo := false
+	var quic *struct{}
+
+	if len(fr.Features) > 0 {
+		var feat flatFeatures
+		if json.Unmarshal(fr.Features, &feat) == nil {
+			lwo = isFeatureEnabled(feat.Lwo)
+			if isFeatureEnabled(feat.Quic) {
+				quic = &struct{}{}
+			}
+		}
+	}
+
+	ssAddrs := fr.ShadowsocksExtraAddrIn
+	if ssAddrs == nil {
+		ssAddrs = []string{}
+	}
+
+	ep := map[string]interface{}{
+		"wireguard": map[string]interface{}{
+			"public_key":                fr.PublicKey,
+			"daita":                     fr.Daita,
+			"lwo":                       lwo,
+			"quic":                      quic,
+			"shadowsocks_extra_addr_in": ssAddrs,
+		},
+	}
+
+	data, _ := json.Marshal(ep)
+	return data
+}
+
+func isFeatureEnabled(raw json.RawMessage) bool {
+	return len(raw) > 0 && string(raw) != "null"
 }
