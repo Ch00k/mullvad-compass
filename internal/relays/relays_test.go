@@ -1,7 +1,12 @@
 package relays
 
 import (
+	"bytes"
 	"encoding/json"
+	"log"
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -18,6 +23,73 @@ func TestParseRelaysFile(t *testing.T) {
 	if len(relays.WireGuard.Relays) == 0 {
 		t.Error("No WireGuard relays found in relays.json")
 	}
+}
+
+func TestGetRelaysFilePathHonorsEnvOverride(t *testing.T) {
+	t.Setenv("MULLVAD_COMPASS_RELAYS_FILE", "../../testdata/relays.json")
+
+	path, err := GetRelaysFilePath()
+	if err != nil {
+		t.Fatalf("GetRelaysFilePath failed: %v", err)
+	}
+
+	if path != "../../testdata/relays.json" {
+		t.Errorf("Expected env override path, got %s", path)
+	}
+}
+
+func TestGetRelaysFilePathReportsMissingFile(t *testing.T) {
+	t.Setenv("MULLVAD_COMPASS_RELAYS_FILE", filepath.Join(t.TempDir(), "absent.json"))
+
+	var logBuf bytes.Buffer
+	log.SetOutput(&logBuf)
+	defer log.SetOutput(nil)
+
+	_, err := GetRelaysFilePath()
+	if err == nil {
+		t.Fatal("Expected error for missing relays file, got nil")
+	}
+
+	if !strings.Contains(logBuf.String(), "relays.json not found") {
+		t.Errorf("Expected not-found log, got: %q", logBuf.String())
+	}
+}
+
+func TestParseRelaysFileErrors(t *testing.T) {
+	t.Run("Missing file", func(t *testing.T) {
+		var logBuf bytes.Buffer
+		log.SetOutput(&logBuf)
+		defer log.SetOutput(nil)
+
+		_, err := ParseRelaysFile(filepath.Join(t.TempDir(), "absent.json"))
+		if err == nil {
+			t.Fatal("Expected error for missing file, got nil")
+		}
+
+		if !strings.Contains(logBuf.String(), "Failed to read relays file") {
+			t.Errorf("Expected read-failure log, got: %q", logBuf.String())
+		}
+	})
+
+	t.Run("Invalid JSON", func(t *testing.T) {
+		path := filepath.Join(t.TempDir(), "bad.json")
+		if err := os.WriteFile(path, []byte("{not json"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+
+		var logBuf bytes.Buffer
+		log.SetOutput(&logBuf)
+		defer log.SetOutput(nil)
+
+		_, err := ParseRelaysFile(path)
+		if err == nil {
+			t.Fatal("Expected error for invalid JSON, got nil")
+		}
+
+		if !strings.Contains(logBuf.String(), "Failed to parse JSON") {
+			t.Errorf("Expected parse-failure log, got: %q", logBuf.String())
+		}
+	})
 }
 
 func TestGetLocations(t *testing.T) {
@@ -414,6 +486,47 @@ func TestGetLocations(t *testing.T) {
 			t.Errorf("Shadowsocks filter: expected [ss-server], got %v", hostnames(ssLocs))
 		}
 	})
+
+	t.Run("Filter by DAITA with inline data", func(t *testing.T) {
+		testRelays := &File{
+			Locations: map[string]LocationEntry{
+				"tc-tst": {City: "Test", Country: "Test", Latitude: 50.0, Longitude: 10.0},
+			},
+			WireGuard: WireGuardSection{
+				Relays: []WireGuardRelay{
+					{
+						Hostname:         "daita-server",
+						IPv4AddrIn:       "1.1.1.1",
+						Active:           true,
+						IncludeInCountry: true,
+						Location:         "tc-tst",
+						PublicKey:        "k1",
+						Daita:            true,
+					},
+					{
+						Hostname:         "plain-server",
+						IPv4AddrIn:       "2.2.2.2",
+						Active:           true,
+						IncludeInCountry: true,
+						Location:         "tc-tst",
+						PublicKey:        "k2",
+						Daita:            false,
+					},
+				},
+			},
+		}
+
+		daitaLocs, _, _ := GetLocations(testRelays, ACNone, true, IPv4)
+		if len(daitaLocs) != 1 || daitaLocs[0].Hostname != "daita-server" {
+			t.Errorf("DAITA filter: expected [daita-server], got %v", hostnames(daitaLocs))
+		}
+	})
+}
+
+func TestMatchesAntiCensorshipFeaturesRejectsUnknown(t *testing.T) {
+	if matchesAntiCensorshipFeatures(WireGuardRelay{}, ACNone) {
+		t.Error("Expected ACNone to never match a relay's features")
+	}
 }
 
 func hostnames(locs []Location) []string {

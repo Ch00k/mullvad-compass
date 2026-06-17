@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 # Read version from .version file
 if [ -f ".version" ]; then
@@ -14,6 +14,9 @@ fi
 echo "Building project..."
 make build
 
+# Generate output from the committed fixture so docs do not depend on a live Mullvad cache
+export MULLVAD_COMPASS_RELAYS_FILE="testdata/relays.json"
+
 # Capture outputs and remove trailing whitespace
 echo "Generating best-server output..."
 BEST_SERVER_OUTPUT=$(./dist/mullvad-compass --deterministic-output | sed 's/[[:space:]]*$//')
@@ -23,6 +26,14 @@ MULTIPLE_SERVERS_OUTPUT=$(./dist/mullvad-compass --deterministic-output --max-di
 
 echo "Generating help output..."
 HELP_OUTPUT=$(./dist/mullvad-compass --help | sed "s/ dev$/ $VERSION/" | sed 's/[[:space:]]*$//')
+
+# Refuse to overwrite the README with empty output (e.g. when no servers are found)
+for output in "$BEST_SERVER_OUTPUT" "$MULTIPLE_SERVERS_OUTPUT" "$HELP_OUTPUT"; do
+    if [ -z "$output" ]; then
+        echo "Error: mullvad-compass produced no output; refusing to rewrite README.md" >&2
+        exit 1
+    fi
+done
 
 # Update README.md in-place
 echo "Updating README.md..."

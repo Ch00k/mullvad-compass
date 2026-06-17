@@ -69,43 +69,6 @@ func (v IPVersion) IsIPv6() bool {
 	return v == IPv6
 }
 
-// ServerType represents the type of VPN server.
-type ServerType int
-
-// Server type constants
-const (
-	ServerTypeNone ServerType = iota // No specific server type
-	WireGuard                        // WireGuard server
-	Bridge                           // Bridge server
-)
-
-func (s ServerType) String() string {
-	switch s {
-	case WireGuard:
-		return "wireguard"
-	case Bridge:
-		return "bridge"
-	case ServerTypeNone:
-		return ""
-	default:
-		return ""
-	}
-}
-
-// ParseServerType parses a server type string into its type.
-func ParseServerType(s string) (ServerType, error) {
-	switch s {
-	case "wireguard":
-		return WireGuard, nil
-	case "bridge":
-		return Bridge, nil
-	case "":
-		return ServerTypeNone, nil
-	default:
-		return ServerTypeNone, fmt.Errorf("unknown server type: %s", s)
-	}
-}
-
 // Location represents a Mullvad VPN server location with its properties and measured metrics
 type Location struct {
 	IPv4Address            string

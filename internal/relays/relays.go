@@ -81,12 +81,14 @@ func GetRelaysFilePath() (string, error) {
 func GetRelaysFilePathWithLogLevel(logLevel logging.LogLevel) (string, error) {
 	var basePath string
 
-	switch runtime.GOOS {
-	case "linux":
+	switch {
+	case os.Getenv("MULLVAD_COMPASS_RELAYS_FILE") != "":
+		basePath = os.Getenv("MULLVAD_COMPASS_RELAYS_FILE")
+	case runtime.GOOS == "linux":
 		basePath = filepath.Join("/var/cache/mullvad-vpn", "relays.json")
-	case "darwin":
+	case runtime.GOOS == "darwin":
 		basePath = filepath.Join("/Library/Caches/mullvad-vpn", "relays.json")
-	case "windows":
+	case runtime.GOOS == "windows":
 		programData := os.Getenv("ProgramData")
 		if programData == "" {
 			programData = "C:\\ProgramData"
@@ -196,7 +198,7 @@ func GetLocations(
 	daita bool,
 	ipVersion IPVersion,
 ) ([]Location, int, error) {
-	var locations []Location
+	locations := make([]Location, 0, len(file.WireGuard.Relays))
 	var skipped int
 
 	for _, relay := range file.WireGuard.Relays {
@@ -217,7 +219,7 @@ func GetLocations(
 			Latitude:       locEntry.Latitude,
 			Longitude:      locEntry.Longitude,
 			Hostname:       relay.Hostname,
-			Type:           WireGuard.String(),
+			Type:           "wireguard",
 			City:           locEntry.City,
 			IsActive:       relay.Active,
 			IsMullvadOwned: relay.Owned,
