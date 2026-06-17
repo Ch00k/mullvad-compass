@@ -78,7 +78,7 @@ func getLocations(
 	}
 
 	if skipped > 0 && logLevel <= logging.LogLevelWarning {
-		log.Printf("Warning: %d relay(s) skipped due to unknown endpoint_data format", skipped)
+		log.Printf("Warning: %d relay(s) skipped due to unresolvable location key", skipped)
 	}
 
 	return locations, nil
