@@ -144,8 +144,8 @@ func formatUserLocationLines(loc api.UserLocation) string {
 	const indent = "                 " // Length of "Your location: "
 
 	var output strings.Builder
-	output.WriteString(fmt.Sprintf("Your location:   %s, %s\n", loc.City, loc.Country))
-	output.WriteString(fmt.Sprintf("%s%s", indent, loc.IP))
+	fmt.Fprintf(&output, "Your location:   %s, %s\n", loc.City, loc.Country)
+	fmt.Fprintf(&output, "%s%s", indent, loc.IP)
 
 	return output.String()
 }
@@ -166,16 +166,12 @@ func FormatBestServer(userLoc api.UserLocation, serverLoc relays.Location, useIP
 	output.WriteString("\n")
 
 	// Best server
-	output.WriteString(fmt.Sprintf("Best server:     %s, %s\n", serverLoc.City, serverLoc.Country))
-	output.WriteString(fmt.Sprintf("%s%s (%s)\n", indent, serverLoc.Hostname, serverIP))
-	output.WriteString(
-		fmt.Sprintf(
-			"%s%s ms, %s km away\n",
-			indent,
-			formatLatency(serverLoc.Latency),
-			formatDistance(serverLoc.DistanceFromMyLocation),
-		),
-	)
+	fmt.Fprintf(&output, "Best server:     %s, %s\n", serverLoc.City, serverLoc.Country)
+	fmt.Fprintf(&output, "%s%s (%s)\n", indent, serverLoc.Hostname, serverIP)
+	fmt.Fprintf(&output, "%s%s ms, %s km away\n",
+		indent,
+		formatLatency(serverLoc.Latency),
+		formatDistance(serverLoc.DistanceFromMyLocation))
 
 	return output.String()
 }

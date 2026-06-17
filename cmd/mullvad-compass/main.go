@@ -90,7 +90,6 @@ func runBestServerMode(
 	ipVersion relays.IPVersion,
 	stdout io.Writer,
 	pingFn func(context.Context, []relays.Location, int, int, relays.IPVersion, logging.LogLevel) ([]relays.Location, error),
-	deterministicOutput bool,
 ) error {
 	currentRange := 500.0
 	maxRange := 20000.0
@@ -130,19 +129,8 @@ func runBestServerMode(
 	if len(filteredLocations) > 0 {
 		sortLocationsByLatency(logLevel, filteredLocations)
 
-		// Replace with deterministic data if flag is set
 		bestServer := filteredLocations[0]
-		deterministicUserLoc := userLoc
-		if deterministicOutput {
-			deterministicLocations := getDeterministicLocations()
-			if len(deterministicLocations) > 0 {
-				bestServer = deterministicLocations[0]
-			}
-			detUserLoc := getDeterministicUserLocation()
-			deterministicUserLoc = &detUserLoc
-		}
-
-		output := formatter.FormatBestServer(*deterministicUserLoc, bestServer, ipVersion.IsIPv6())
+		output := formatter.FormatBestServer(*userLoc, bestServer, ipVersion.IsIPv6())
 		_, _ = fmt.Fprint(stdout, output)
 	}
 
@@ -212,6 +200,12 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 		return fmt.Errorf("no servers found")
 	}
 
+	// Deterministic output is self-contained; skip live geolocation, distance filtering, and pinging
+	if config.DeterministicOutput {
+		writeDeterministicOutput(config, deps.Stdout)
+		return nil
+	}
+
 	// Get user location
 	if config.LogLevel <= logging.LogLevelDebug {
 		log.Println("Fetching user location...")
@@ -233,7 +227,6 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 			config.IPVersion,
 			deps.Stdout,
 			deps.PingLocations,
-			config.DeterministicOutput,
 		)
 		if err == nil && userLoc.MullvadExitIP {
 			_, _ = fmt.Fprint(
@@ -286,11 +279,6 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 	}
 	sortLocationsByLatency(config.LogLevel, locations)
 
-	// Replace with deterministic data if flag is set
-	if config.DeterministicOutput {
-		locations = getDeterministicLocations()
-	}
-
 	table := formatter.FormatTable(locations, config.IPVersion.IsIPv6())
 	_, _ = fmt.Fprint(deps.Stdout, table)
 
@@ -302,4 +290,21 @@ func run(ctx context.Context, args []string, deps Dependencies) error {
 	}
 
 	return nil
+}
+
+// writeDeterministicOutput renders fixed sample data, independent of geolocation, distance, and latency
+func writeDeterministicOutput(config *cli.Config, stdout io.Writer) {
+	locations := getDeterministicLocations()
+
+	if config.BestServerMode {
+		if len(locations) > 0 {
+			userLoc := getDeterministicUserLocation()
+			output := formatter.FormatBestServer(userLoc, locations[0], config.IPVersion.IsIPv6())
+			_, _ = fmt.Fprint(stdout, output)
+		}
+		return
+	}
+
+	table := formatter.FormatTable(locations, config.IPVersion.IsIPv6())
+	_, _ = fmt.Fprint(stdout, table)
 }

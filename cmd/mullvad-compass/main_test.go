@@ -745,3 +745,55 @@ func TestE2E_Integration(t *testing.T) {
 		}
 	})
 }
+
+func TestE2E_DeterministicOutput(t *testing.T) {
+	// Live geolocation and pinging must never run in deterministic mode; the dependency
+	// callbacks fail the test if invoked.
+	makeDeps := func(out *bytes.Buffer) Dependencies {
+		return Dependencies{
+			GetUserLocation: func(context.Context, logging.LogLevel) (*api.UserLocation, error) {
+				t.Error("GetUserLocation should not be called in deterministic mode")
+				return nil, fmt.Errorf("unexpected geolocation lookup")
+			},
+			PingLocations: func(_ context.Context, locs []relays.Location, _, _ int, _ relays.IPVersion, _ logging.LogLevel) ([]relays.Location, error) {
+				t.Error("PingLocations should not be called in deterministic mode")
+				return locs, nil
+			},
+			ParseRelaysFile: func(_ logging.LogLevel, _ string, _ func() (string, error)) (*relays.File, error) {
+				return relays.ParseRelaysFile("../../testdata/relays.json")
+			},
+			Stdout: out,
+		}
+	}
+
+	t.Run("Table mode ignores geolocation and never emits the no-servers sentinel", func(t *testing.T) {
+		var output bytes.Buffer
+
+		args := []string{"--deterministic-output", "--max-distance", "250"}
+		if err := run(context.Background(), args, makeDeps(&output)); err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+		if strings.Contains(result, "No servers found within") {
+			t.Errorf("Deterministic output must not contain the live no-servers sentinel, got:\n%s", result)
+		}
+		if !strings.Contains(result, "cz-prg-wg-201") {
+			t.Errorf("Expected deterministic table rows, got:\n%s", result)
+		}
+	})
+
+	t.Run("Best server mode renders fixed sample without live lookups", func(t *testing.T) {
+		var output bytes.Buffer
+
+		args := []string{"--deterministic-output"}
+		if err := run(context.Background(), args, makeDeps(&output)); err != nil {
+			t.Fatalf("Expected no error, got: %v", err)
+		}
+
+		result := output.String()
+		if !strings.Contains(result, "Your location:") || !strings.Contains(result, "Dresden") {
+			t.Errorf("Expected deterministic best-server output, got:\n%s", result)
+		}
+	})
+}
